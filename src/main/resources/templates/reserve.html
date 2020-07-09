@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>welcome</title>
+
+<style>
+h1 {
+	font-size: 16pt;
+	background-color: CCCCFF;
+	padding: 3px;
+}
+
+p {
+	color: #000066;
+}
+</style>
+</head>
+<body>
+	<p class="msg" th:text="${message}"></p>
+	<form action="confirm" method="get" th:object="${reserveModel}" >
+		チェックイン日：<input type="date" th:field="*{checkInDay}"></input><br>
+		チェックアウト日：<input type="date" th:field="*{checkOutDay}"></input><br>
+		<input type="submit" value="予約" />
+	</form>
+</body>
+</html>
