@@ -20,9 +20,10 @@ p {
 
 	<h1>メニュー画面</h1>
 	<p class="msg" th:text="ようこそ + ${username} + 様"></p>
-	<li><a href="reserve">予約</a></li>
-	<li><a href="refer">予約照会</a></li>
-	<li><a href="referVacancy">空き状況確認</a></li>
+	<li><a th:href="@{/reserve/}">予約</a></li>
+	<li><a th:href="@{/refer/}">予約照会</a></li>
+	<li><a th:href="@{/referVacancy/}">空き状況確認</a></li>
+	
 
 </body>
 </html>

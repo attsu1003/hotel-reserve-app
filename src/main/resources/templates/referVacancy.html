@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
 	<title>Insert title here</title>
 
 
@@ -49,22 +50,48 @@
 	</style>
 </head>
 
-<body>
-	<body th:with="var=${@helper.publicMethod()}">
-	<form action="#" th:action="@{/referVacancyDate}"  method="post">
-		<input id="prev" type="submit" value="戻る" />
-	</form>
-	<div th:text="${@helper.publicMethod()}"></div>
 
+
+<body>
+	<p class="msg" th:text="${message}"></p>
 	
-	
-	<button id="next" type="button">次の月</button>
+	<form method="post">
+		<input type="hidden" id="hiddenYear" name="year" value="">
+		<input type="hidden" id="hiddenMonth" name="month" value="">
+		<input type="submit" id="prev" class="btn btn-primary btn-back" value=前の月 data-action="referVacancyNextDate">
+		<input type="submit" id="next" class="btn btn-primary btn-back" value=次の月 data-action="/referVacancyNextDate">
+	</form>
 	<div id="calendar"></div>
+	
+	<a th:href="@{/menu/}" class="btn btn-primary btn-back">戻る</a>
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	
 	<script type="text/javascript" th:inline="javascript">
 	
-	var test = [[${var}]];
-	console.log(test)
+	$("#prev").click(function(){
+		month--
+		if (month < 1) {
+			year--
+			month = 12
+		}
+		$("#hiddenYear").val(year);
+		$("#hiddenMonth").val(month);
+		$(this).parents('form').attr({ "method" : "get",
+			"action" : $(this).data('action') });
+	});
+	
+	$("#next").click(function(){
+		month++
+		if (month > 12) {
+			year++
+			month = 1
+		}
+		$("#hiddenYear").val(year);
+		$("#hiddenMonth").val(month);
+		$(this).parents('form').attr({ "method" : "get",
+			"action" : $(this).data('action') });
+	});
 	
 	function moveCalendar(e) {
 		document.querySelector('#calendar').innerHTML = ''
@@ -92,8 +119,8 @@
 
 		const weeks = ['日', '月', '火', '水', '木', '金', '土']
 		const date = new Date()
-		let year = date.getFullYear()
-		let month = date.getMonth() + 1
+		var year = /*[[${year}]]*/
+		var month = /*[[${month}]]*/ 
 
 		function showCalendar(year, month) {
 			const calendarHtml = createCalendar(year, month)
@@ -115,8 +142,9 @@
 			const lastMonthendDayCount = lastMonthEndDate.getDate() // 前月の末日
 			const startDay = startDate.getDay() // 月の最初の日の曜日を取得
 			let dayCount = 1 // 日にちのカウント
+			let roomStatementCount = 0
 	        let calendarHtml = '' // HTMLを組み立てる変数
-	      
+	        var monthDays = /*[[${monthDays}]]*/
 	        var roomStatements = /*[[${roomStatements}]]*/
 	        
 			calendarHtml += '<h1>' + year + '/' + month + '</h1>'
@@ -140,10 +168,12 @@
 						let num = dayCount - endDayCount
 						calendarHtml += '<td class="is-disabled">' + num + '</td>'
 						dayCount++
+						roomStatementCount++
 					} else {
 						var todayYMFlag = date.getFullYear() === year && date.getMonth() + 1 === month ? true : false; // 本日の年と月が表示されるカレンダーと同じか判定
 						var addClass = todayYMFlag && dayCount === date.getDate() ? 'is-today' : '';
-						calendarHtml += `<td class=${addClass}><font size="-1">${dayCount}<br></font><div>${test}<div></td>`
+						calendarHtml += `<td class=${addClass}><font size="-1">${dayCount}<br></font><div>${roomStatements[roomStatementCount]}<div></td>`
+						roomStatementCount++
 						dayCount++
 					}
 				}
@@ -154,17 +184,8 @@
 			return calendarHtml
 		}
 
-		
-
-
-		document.getElementById('prev').addEventListener('click', moveCalendar)
-		document.getElementById('next').addEventListener('click', moveCalendar)
-
 		showCalendar(year, month)
 	</script>
-	
-	
-	
 </body>
 
 </html>
