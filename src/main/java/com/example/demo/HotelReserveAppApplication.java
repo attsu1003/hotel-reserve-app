@@ -6,10 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.model.MemberModel;
-import com.example.demo.domain.model.RoomModel;
-import com.example.demo.domain.room.RoomRepository;
 import com.example.demo.port.MemberMapper;
-import com.example.demo.port.ReserveMapper;
 
 @SpringBootApplication
 public class HotelReserveAppApplication implements CommandLineRunner {
@@ -19,23 +16,23 @@ public class HotelReserveAppApplication implements CommandLineRunner {
 	}
 
 	private final MemberMapper memberMapper;
-	private final RoomRepository roomRepository;
+//	private final RoomRepository roomRepository;
 
-	public HotelReserveAppApplication(MemberMapper memberMapper, RoomRepository roomRepository) {
+	public HotelReserveAppApplication(MemberMapper memberMapper) {
 		this.memberMapper = memberMapper;
-		this.roomRepository = roomRepository;
-//		Member member = this.memberMapper.select("1234567");
-//		System.out.println(member.getMemberId());
+//		this.roomRepository = roomRepository;
+		MemberModel member = this.memberMapper.select("1111111");
+		System.out.println(member.getName());
 //		System.out.println(member.getMemberName());
 //		MemberModel memberModel = new MemberModel("1111111", "test", "passwd");
 //		memberMapper.insert(memberModel);
-		MemberModel memberModel = memberMapper.select("1234567");
-		int roomNum = this.roomRepository.countRoom();
-		RoomModel roomModel = this.roomRepository.findRoom("101");
-		System.out.println(roomModel.getId());
-		System.out.println(roomNum);
-		System.out.println(memberModel.getName());
-		System.out.println(memberModel.getPasswd());
+//		MemberModel memberModel = memberMapper.select("1234567");
+//		int roomNum = this.roomRepository.countRoom();
+//		RoomModel roomModel = this.roomRepository.findRoom("101");
+//		System.out.println(roomModel.getId());
+//		System.out.println(roomNum);
+//		System.out.println(memberModel.getName());
+//		System.out.println(memberModel.getPasswd());
 	}
 
 	@Transactional

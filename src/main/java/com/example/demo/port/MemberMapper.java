@@ -13,6 +13,6 @@ public interface MemberMapper {
 	 @Insert("INSERT INTO member (id, name, passwd) VALUES (#{id}, #{name}, #{passwd})")
 	 void insert(MemberModel memberModel);
 	
-	@Select("SELECT id, name, passwd FROM member WHERE id = #{memberId}")
+	@Select("SELECT id, name, password FROM member WHERE id = #{memberId}")
 	MemberModel select(String memberId);
 }
