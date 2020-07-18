@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+<title>welcome</title>
+<style>
+h1 {
+	font-size: 16pt;
+	background-color: CCCCFF;
+	padding: 3px;
+}
+
+p {
+	color: #000066;
+}
+</style>
+</head>
+<body>
+	<p class="msg" th:text="${message}"></p>
+	予約内容をご確認ください。
+	<form th:action="@{/confirm}" th:object="${reserveModel}" method="post">
+		<table width="310" border="0">
+			<tr>
+				<td>会員名</td>
+				<td><span th:text="${name} + 様"></span></td>
+			</tr>
+			<tr>
+				<td>チェックイン日</td>
+				<td><span th:text="${#dates.format(reserveModel.checkInDay, 'yyyy-MM-dd')}"></span></td>
+			</tr>
+			<tr>
+				<td>チェックアウト日</td>
+				<td><span th:text="${#dates.format(reserveModel.checkOutDay, 'yyyy-MM-dd')}"></span></span></td>
+			</tr>
+			<tr>
+				<td><input type="submit" name="submit" value="予約" /></td>
+				<td><button type="submit" name="back" class="btn btn-primary">戻る</button></td>
+				
+			</tr>
+		</table>
+		<a th:href="@{/menu/}" class="btn btn-primary btn-back">メニューへ</a>
+	</form>
+
+</body>
+</html>
