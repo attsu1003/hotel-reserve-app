@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
 <title>welcome</title>
 <style>
 h1 {
@@ -18,7 +19,7 @@ p {
 <body>
 	<p class="msg" th:text="${message}"></p>
 	予約内容をご確認ください。
-	<form action="#" th:action="@{/confirm}" th:object="${reserveModel}" method="post">
+	<form th:action="@{/confirm}" th:object="${reserveModel}" method="post">
 		<table width="310" border="0">
 			<tr>
 				<td>会員名</td>
@@ -34,13 +35,12 @@ p {
 			</tr>
 			<tr>
 				<td><input type="submit" name="submit" value="予約" /></td>
-				<td><input type="submit" name="back" value="戻る" /></td>
+				<td><button type="submit" name="back" class="btn btn-primary">戻る</button></td>
+				
 			</tr>
 		</table>
+		<a th:href="@{/menu/}" class="btn btn-primary btn-back">メニューへ</a>
 	</form>
-	
-	<form action="#" th:action="@{/menu}" method="get">
-		<input type="submit" value="メニュー" />
-	</form>
+
 </body>
 </html>

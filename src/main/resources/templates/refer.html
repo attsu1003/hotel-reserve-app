@@ -2,12 +2,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
 <title>Insert title here</title>
 </head>
 <body>
 	<p class="msg" th:text="${message}"></p>
 	予約番号を入力してください。
-	<form action="#" th:action="@{/referDetail}" th:object="${reserveModel}" method="post">
+	<form th:action="@{/referDetail}" th:object="${reserveModel}" method="post">
 		<table border="0" align="left">
 		  <tr>
 		    <th align="left">予約番号:</th>
@@ -16,8 +17,9 @@
 		    </td>
 		  </tr>
 		</table>
-		<input type="submit" value="参照" />
+		<input type="submit" class="btn btn-primary" value="参照" />
 	</form>
-
+	
+	<a th:href="@{/menu/}" class="btn btn-primary btn-back">戻る</a>
 </body>
 </html>

@@ -1,27 +1,50 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>welcome</title>
-
-<style>
-h1 {
-	font-size: 16pt;
-	background-color: CCCCFF;
-	padding: 3px;
-}
-
-p {
-	color: #000066;
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Datepicker - Default functionality</title>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/common/css/common.css" th:href="@{/common/css/common.css}" th:maxlength="10"/>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( ".datepicker" ).datepicker({
+    	language: "ja",
+    	dateFormat: "yy/mm/dd",
+        container: 'html',
+        autoclose: true
+    });
+  } );
+  </script>
 </head>
 <body>
 	<p class="msg" th:text="${message}"></p>
-	<form action="confirm" method="get" th:object="${reserveModel}" >
-		チェックイン日：<input type="date" th:field="*{checkInDay}"></input><br>
-		チェックアウト日：<input type="date" th:field="*{checkOutDay}"></input><br>
+ 	<form th:action="@{/confirm}" method="post" th:object="${reserveModel}" >
+	 	<div class="column-border-less">
+				<div class="row">
+					<div class="col-md-2">予約期間<span class="common-required"></span></div>
+					<div class="col-md-9">
+						<div class="col-md-5">
+		 					<input type="text" class="form-control datepicker" th:field="*{checkInDay}" th:maxlength="10">
+		 				</div>
+						<div class="col-md-1 text-center">～</div>
+						<div class="col-md-5">
+				 			<input type="text" class="form-control datepicker" th:field="*{checkOutDay}" th:maxlength="10" >
+				 		</div>
+	 			</div>
+			</div>
+		</div>
 		<input type="submit" value="予約" />
+		<a th:href="@{/menu/}" class="btn btn-primary btn-back">戻る</a>
 	</form>
+	
+	
+	
+	
+ 
+ 
 </body>
 </html>
