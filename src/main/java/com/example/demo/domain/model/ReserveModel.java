@@ -3,14 +3,17 @@ package com.example.demo.domain.model;
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class ReserveModel {
 	private String id;
 	
-	
+	@NotNull
 	private Date checkInDay;
 	
-	
+	@NotNull
 	private Date checkOutDay;
 
 	private String memberid;

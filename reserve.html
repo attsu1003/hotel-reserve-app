@@ -28,10 +28,13 @@
 					<div class="col-md-2">予約期間<span class="common-required"></span></div>
 					<div class="col-md-9">
 						<div class="col-md-5">
-		 					<input type="text" class="form-control datepicker" th:field="*{checkInDay}" th:maxlength="10">
+							<div th:class="${#fields.hasErrors('checkInDay')} ?  'col-md-5 has-error' : 'col-md-5'"  >
+		 					<input type="text" class="form-control datepicker"  th:maxlength="10">
+		 					</div>
 		 				</div>
 						<div class="col-md-1 text-center">～</div>
 						<div class="col-md-5">
+							
 				 			<input type="text" class="form-control datepicker" th:field="*{checkOutDay}" th:maxlength="10" >
 				 		</div>
 	 			</div>

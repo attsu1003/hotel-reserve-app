@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,21 +25,26 @@
  	<form th:action="@{/confirm}" method="post" th:object="${reserveModel}" >
 	 	<div class="search-condition-line">
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<div class="row">
 						<div class="col-md-3">
 							<label for="span" class="common-control-label">予約期間</label><span class="common-required">*</span>
 						</div>
-						<div class="col-md-9">
+						<div class="col-md-8">
 							<div class="row">
-								<div class="col-md-5">
+							
+									<div th:class="${#fields.hasErrors('checkInDay')} ?  'col-md-5 has-error' : 'col-md-5'"  >
 				 					<input type="text" class="form-control datepicker" th:field="*{checkInDay}" th:maxlength="10">
-				 				</div>
+				 					</div>
+				 					
+				 				
 								<div class="col-md-1 text-center">～
 								</div>
-								<div class="col-md-5">
+								
+									<div th:class="${#fields.hasErrors('checkOutDay')} ?  'col-md-5 has-error' : 'col-md-5'"  >
 						 			<input type="text" class="form-control datepicker" th:field="*{checkOutDay}" th:maxlength="10" >
-						 		</div>
+						 			</div>
+						 		
 					 		</div>
 		 				</div>
 	 				</div>
