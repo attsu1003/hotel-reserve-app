@@ -29,7 +29,6 @@ public class ReserveConfirmController {
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();// get logged in username
-		System.out.println(reserveModel);
 		ReserveCondition reserveCondition = new ReserveCondition(name, reserveModel.getCheckInDay(),
 				reserveModel.getCheckOutDay());
 		ReserveCommand reserveCommand = new ReserveCommand(new ReserveId("test11"), reserveCondition);
@@ -49,6 +48,14 @@ public class ReserveConfirmController {
 		model.addAttribute("name", name);
 		model.addAttribute("message", "予約完了画面");
 		return "complete";
+	}
+	
+	@RequestMapping(value = "/back", method = RequestMethod.GET)
+	public String back(Model model) {
+		ReserveModel reserveModel = new ReserveModel();
+		model.addAttribute("reserveModel", reserveModel);
+		model.addAttribute("message", "予約画面");
+		return "reserve";
 	}
 
 }

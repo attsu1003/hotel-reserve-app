@@ -2,11 +2,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
 <title>Insert title here</title>
 </head>
 <body>
 	<p class="msg" th:text="${message}"></p>
 	<p class="msg" th:text="${name} + 様"></p>
- 予約が完了しました
+ 予約が完了しました<br>
+ <a th:href="@{/menu/}" class="btn btn-primary btn-back">メニューへ</a>
 </body>
 </html>

@@ -2,20 +2,24 @@ package com.example.demo.domain.model;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+
 public class ReserveModel {
 	private String id;
-
-	private Date checkindate;
-
-	private Date checkoutdate;
+	
+	
+	private Date checkInDay;
+	
+	
+	private Date checkOutDay;
 
 	private String memberid;
 
 	public ReserveModel(String id, Date checkInDay, Date checkOutDay, String memberid) {
 		super();
 		this.id = id;
-		this.checkindate = checkInDay;
-		this.checkoutdate = checkOutDay;
+		this.checkInDay = checkInDay;
+		this.checkOutDay = checkOutDay;
 		this.memberid = memberid;
 	}
 
@@ -33,19 +37,19 @@ public class ReserveModel {
 	}
 
 	public Date getCheckInDay() {
-		return checkindate;
+		return checkInDay;
 	}
 
 	public void setCheckInDay(Date checkInDay) {
-		this.checkindate = checkInDay;
+		this.checkInDay = checkInDay;
 	}
 
 	public Date getCheckOutDay() {
-		return checkoutdate;
+		return checkOutDay;
 	}
 
 	public void setCheckOutDay(Date checkOutDay) {
-		this.checkoutdate = checkOutDay;
+		this.checkOutDay = checkOutDay;
 	}
 
 	public String getMemberid() {

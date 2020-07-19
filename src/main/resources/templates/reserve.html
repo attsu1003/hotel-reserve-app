@@ -23,22 +23,33 @@
 <body>
 	<p class="msg" th:text="${message}"></p>
  	<form th:action="@{/confirm}" method="post" th:object="${reserveModel}" >
-	 	<div class="column-border-less">
-				<div class="row">
-					<div class="col-md-2">予約期間<span class="common-required"></span></div>
-					<div class="col-md-9">
-						<div class="col-md-5">
-		 					<input type="text" class="form-control datepicker" th:field="*{checkInDay}" th:maxlength="10">
+	 	<div class="search-condition-line">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-3">
+							<label for="span" class="common-control-label">予約期間</label><span class="common-required">*</span>
+						</div>
+						<div class="col-md-9">
+							<div class="row">
+								<div class="col-md-5">
+				 					<input type="text" class="form-control datepicker" th:field="*{checkInDay}" th:maxlength="10">
+				 				</div>
+								<div class="col-md-1 text-center">～
+								</div>
+								<div class="col-md-5">
+						 			<input type="text" class="form-control datepicker" th:field="*{checkOutDay}" th:maxlength="10" >
+						 		</div>
+					 		</div>
 		 				</div>
-						<div class="col-md-1 text-center">～</div>
-						<div class="col-md-5">
-				 			<input type="text" class="form-control datepicker" th:field="*{checkOutDay}" th:maxlength="10" >
-				 		</div>
-	 			</div>
+	 				</div>
+ 				</div>
 			</div>
 		</div>
-		<input type="submit" value="予約" />
+		<div class="common-center common-margin">
+		<input type="submit" class="btn btn-primary" value="予約" />
 		<a th:href="@{/menu/}" class="btn btn-primary btn-back">戻る</a>
+		</div>
 	</form>
 	
 	

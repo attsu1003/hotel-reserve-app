@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
@@ -33,14 +33,31 @@ p {
 				<td>チェックアウト日</td>
 				<td><span th:text="${#dates.format(reserveModel.checkOutDay, 'yyyy-MM-dd')}"></span></span></td>
 			</tr>
-			<tr>
-				<td><input type="submit" name="submit" value="予約" /></td>
-				<td><button type="submit" name="back" class="btn btn-primary">戻る</button></td>
-				
-			</tr>
 		</table>
-		<a th:href="@{/menu/}" class="btn btn-primary btn-back">メニューへ</a>
+		
+		<input type="submit" name="submit" class="btn btn-primary" value="予約"/>
+		
+		
+		<button type="submit" id="back" class="btn btn-primary btn-back" data-action="back">戻る</button>
+		
+		
 	</form>
-
+	
+	<a th:href="@{/menu/}" class="btn btn-primary">メニューへ</a>
+	
+	<form method="post">
+	</form>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script type="text/javascript" th:inline="javascript">
+	
+	$("#back").click(function(){
+		$(this).parents('form').attr({ "method" : "get",
+			"action" : $(this).data('action') });
+	});
+	
+	function setActionPath(element, path){
+		$(this).parents('form').attr("action",path);
+	}
+	</script>
 </body>
 </html>

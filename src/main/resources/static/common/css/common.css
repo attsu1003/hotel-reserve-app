@@ -1,0 +1,36 @@
+@charset "UTF-8";
+/* datepicker */
+.datepicker {
+	font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	line-height:1.6;
+	color:#555;
+}
+
+.common-center{
+	text-align: center;
+}
+
+.common-margin{
+	margin: 1em 0;
+}
+
+.common-control-label{
+	padding-top: 7px;
+	margin-bottom: 0;
+}
+
+.common-required{
+	color: red;
+}
+
+.search-condition-line{
+	margin: 0.8em 0;
+	padding: 0 2em;
+}
+
+.has-error .form-control {
+	border-color: #a944442;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	background-color: yellow;
+}
