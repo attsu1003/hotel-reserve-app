@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>welcome</title><style>
@@ -16,12 +16,18 @@ p {
 
 </head>
 <body>
-	<form method="post" action="/login" th:object="${loginModel}">
+	<form th:action="@{/authenticate}" method="POST">
 		<h1>hello login</h1>
 		<p class="msg" th:text="${message}"></p>
-		会員コード:<input type="text" name="memberId" /><Br>
+		会員コード:<input type="text" name="username" /><Br>
 		パスワード:<input type="text" name="password" /><Br>
 		<button type="submit">送信</button>
+		<a href="/createMember">新規登録</a>
+	</form>
+	
+	 
+	 <form th:action="@{/createMember}" method="post">
+		<input type="submit" value="メニュー" />
 	</form>
 	
 	

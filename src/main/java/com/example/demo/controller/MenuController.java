@@ -11,12 +11,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class MenuController {
 
-	@RequestMapping(value = "/menu", method = RequestMethod.GET)
-	public String reserve(Model model, RedirectAttributes attributes) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String name = auth.getName();// get logged in username
-		model.addAttribute("message", "メニュー画面");
-		model.addAttribute("username", name);
-		return "menu";
-	}
+//	@RequestMapping(value = "/menu", method = RequestMethod.GET)
+//	public String reserve(Model model, RedirectAttributes attributes) {
+//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//		String name = auth.getName();// get logged in username
+//		model.addAttribute("message", "メニュー画面");
+//		model.addAttribute("username", name);
+//		return "menu";
+//	}
 }

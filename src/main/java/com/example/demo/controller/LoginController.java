@@ -4,7 +4,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -22,18 +21,21 @@ public class LoginController {
 		return "login";
 	}
 
-//	@RequestMapping(value = "/login", method = RequestMethod.POST)
-//	public String reserve(RedirectAttributes attributes) {
-//		attributes.addFlashAttribute("message", "メニュー画面");
-//		return "redirect:/menu";
-//	}
-	
-//	@RequestMapping(value="/menu", method = RequestMethod.GET)
-//	  public String printUser(Model model, RedirectAttributes attributes) {
-//	      Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//	      String name = auth.getName();//get logged in username
-//	      attributes.addFlashAttribute("message", "メニュー画面");
-//	      attributes.addFlashAttribute("username", name);
-//	      return "redirect:/menu";
-//	  }
+	@RequestMapping(value = "/registUser", method = RequestMethod.GET)
+	public String showRegistMemberForm(Model model) {
+
+		model.addAttribute(new LoginModel());
+
+		// 会員情報入力画面。
+		return "registUser";
+	}
+
+	@RequestMapping(value = "/menu", method = RequestMethod.GET)
+	public String reserve(Model model, RedirectAttributes attributes) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();// get logged in username
+		model.addAttribute("message", "メニュー画面");
+		model.addAttribute("username", name);
+		return "menu";
+	}
 }

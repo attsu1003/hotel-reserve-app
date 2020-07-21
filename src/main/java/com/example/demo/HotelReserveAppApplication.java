@@ -21,8 +21,8 @@ public class HotelReserveAppApplication implements CommandLineRunner {
 	public HotelReserveAppApplication(MemberMapper memberMapper) {
 		this.memberMapper = memberMapper;
 //		this.roomRepository = roomRepository;
-		MemberModel member = this.memberMapper.select("1111111");
-		System.out.println(member.getName());
+//		MemberModel member = this.memberMapper.select("1111111");
+//		System.out.println(member.getName());
 //		System.out.println(member.getMemberName());
 //		MemberModel memberModel = new MemberModel("1111111", "test", "passwd");
 //		memberMapper.insert(memberModel);

@@ -15,12 +15,15 @@ import com.example.demo.application.command.Command;
 
 @Component
 public class SimpleCommandHandlerProvider<D, S> implements CommandHandlerProvider<D, S> {
-	
+
 	private ReserveApplicationService reserveApplicationService;
-	
-	public SimpleCommandHandlerProvider(ReserveApplicationService reserveApplicationService) {
+	private MemberApplicationService memberApplicationService;
+
+	public SimpleCommandHandlerProvider(ReserveApplicationService reserveApplicationService,
+			MemberApplicationService memberApplicationService) {
 		super();
 		this.reserveApplicationService = reserveApplicationService;
+		this.memberApplicationService = memberApplicationService;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -35,7 +38,8 @@ public class SimpleCommandHandlerProvider<D, S> implements CommandHandlerProvide
 	public void postConstruct() {
 		List<Object> serviceBeans = new ArrayList<Object>() {
 			{
-			add(reserveApplicationService);
+				add(reserveApplicationService);
+				add(memberApplicationService);
 			}
 		};
 		for (Object serviceBean : serviceBeans) {
