@@ -17,7 +17,7 @@ public class LoginController {
 	public String reserve(Model model) {
 		LoginModel loginModel = new LoginModel();
 		model.addAttribute("loginModel", loginModel);
-		model.addAttribute("message", "ログイン画面");
+		model.addAttribute("message", "メンバーログイン");
 		return "login";
 	}
 

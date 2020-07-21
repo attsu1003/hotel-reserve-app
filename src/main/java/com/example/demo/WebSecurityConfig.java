@@ -13,34 +13,31 @@ import com.example.demo.application.LoginApplicationServiceImpl;
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
-    LoginApplicationServiceImpl loginApplicationServiceImpl;
+	LoginApplicationServiceImpl loginApplicationServiceImpl;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/js/**", "/css/**","/createMember","/createdMember").permitAll().anyRequest().authenticated();
-		http.formLogin().loginPage("/login").loginProcessingUrl("/authenticate")
-        .usernameParameter("username")
-        .passwordParameter("password")
-        .defaultSuccessUrl("/menu", true)
-        .permitAll();
+		http.authorizeRequests().antMatchers("/js/**", "/common/css/**", "/common/image/**", "/createMember",
+				"/webjars/**", "/createdMember").permitAll().anyRequest().authenticated();
+		http.formLogin().loginPage("/login").loginProcessingUrl("/authenticate").usernameParameter("username")
+				.passwordParameter("password").defaultSuccessUrl("/menu", true).permitAll();
 
 		http.csrf().disable().authorizeRequests()
-        
-        .anyRequest().authenticated();
+
+				.anyRequest().authenticated();
 	}
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Autowired
-    void configureAuthenticationManager(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(loginApplicationServiceImpl)
-            .passwordEncoder(passwordEncoder());
-    }
+	void configureAuthenticationManager(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(loginApplicationServiceImpl).passwordEncoder(passwordEncoder());
+	}
 
 }

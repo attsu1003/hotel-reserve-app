@@ -32,11 +32,6 @@ public class LoginApplicationServiceImpl implements UserDetailsService {
 				.orElseThrow(() -> new UsernameNotFoundException("User not found."));
 
 		return new LoginUserDetails(memberModel, getAuthorities(memberModel));
-//		MemberModel memberModel = memberRepository.getMember(userid);
-//		if (memberModel == null) {
-//			throw new UsernameNotFoundException(userid + "is not found");
-//		}
-//		return memberModel;
 	}
 
 	/**
@@ -48,13 +43,5 @@ public class LoginApplicationServiceImpl implements UserDetailsService {
 	private Collection<GrantedAuthority> getAuthorities(MemberModel memberModel) {
 		// 認証が通った時にユーザに与える権限の範囲を設定する。
 		return AuthorityUtils.createAuthorityList("ROLE_USER");
-	}
-
-	public void registerMember(MemberModel memberModel) {
-
-		// パスワードをハッシュ化して、insertMemberInfo()に渡すオブジェクトにセット。
-		memberModel.setPasswd(passwordEncoder.encode(memberModel.getPassword()));
-
-		memberRepository.createMember(memberModel);
 	}
 }

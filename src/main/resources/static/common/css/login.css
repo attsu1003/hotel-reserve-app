@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+body#login-background{
+	background:url("../image/login_bg.jpg") no-repeat center top;
+	background-size: cover;
+	overflow: hidden;
+}
+
+/* 表示領域*/
+.login-wrapper{
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(10%);
+	-ms-transform: translateY(10%);
+	-moz-transform: translateY(10%);
+	margin: 0 20%;
+}
+
+.login-input-box{
+	padding: 20px;
+	border: 1px solid #ddd;
+	background: rgba(255,255,255,0.7);
+}
+
+.login-input-box div{
+	margin: 1em 0;
+}
+
+.login-input-box　span{
+	width: 130px;
+	padding-right: 20px;
+	text-align:right;
+	float:left;
+}
+
