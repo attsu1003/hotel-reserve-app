@@ -4,6 +4,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -14,12 +16,23 @@ import com.example.demo.domain.model.LoginModel;
 public class LoginController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String reserve(Model model) {
+	public String login(Model model) {
 		LoginModel loginModel = new LoginModel();
 		model.addAttribute("loginModel", loginModel);
 		model.addAttribute("message", "メンバーログイン");
 		return "login";
 	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String error(@Validated LoginModel loginModel, BindingResult bindingResult, Model model) {
+		System.out.println("error");
+		if(bindingResult.hasErrors()) {
+			return "login";
+		}
+		return "menu";
+	}
+	
+	
 
 	@RequestMapping(value = "/registUser", method = RequestMethod.GET)
 	public String showRegistMemberForm(Model model) {

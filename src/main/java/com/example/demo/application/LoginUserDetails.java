@@ -13,7 +13,7 @@ public class LoginUserDetails extends User {
 	private MemberModel memberModel;
 
 	public LoginUserDetails(MemberModel memberModel, Collection<GrantedAuthority> authorities) {
-		super(memberModel.getId(), memberModel.getPassword(), true, true, true, true, authorities);
+		super(memberModel.getName(), memberModel.getPassword(), true, true, true, true, authorities);
 
 		this.memberModel = memberModel;
 	}

@@ -2,32 +2,23 @@ package com.example.demo.application.command;
 
 public class CreateMemberCommand implements Command {
 	
-	private String memberId;
+	private String username;
 	private String password;
-	
-	
 
-	public CreateMemberCommand(String memberId, String password) {
+	public CreateMemberCommand(String username, String password) {
 		super();
-		this.memberId = memberId;
+		this.username = username;
 		this.password = password;
 	}
-	
-	
 
-
-
-	public String getMemberId() {
-		return memberId;
+	public String getUsername() {
+		return username;
 	}
 
-
-
-
-
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setUsername(String username) {
+		this.username = username;
 	}
+
 
 
 
@@ -41,9 +32,11 @@ public class CreateMemberCommand implements Command {
 
 
 
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 
 
 

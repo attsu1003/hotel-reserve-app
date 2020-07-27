@@ -1,3 +1,4 @@
+
 @charset "UTF-8";
 /* datepicker */
 .datepicker {
@@ -26,6 +27,23 @@
 .search-condition-line{
 	margin: 0.8em 0;
 	padding: 0 2em;
+}
+
+.errorMessage{
+    color: #FF0000;
+}
+.fieldError{
+    background-color: #FFCCFF;
+}
+
+.has-error .control-label{
+	color: #E94442;
+	font-size: large;
+	font-weight: bold;
+}
+
+.common-block{
+	display: block;
 }
 
 .has-error .form-control {

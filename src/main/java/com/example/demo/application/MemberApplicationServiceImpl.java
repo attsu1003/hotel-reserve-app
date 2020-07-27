@@ -21,9 +21,8 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 	public void execute(CreateMemberCommand createMemberCommand) {
 		// TODO Auto-generated method stub
 		System.out.println("through");
-		memberRepository.createMember(new MemberModel(createMemberCommand.getMemberId(), "test",
+		memberRepository.createMember(new MemberModel(createMemberCommand.getUsername(),
 				this.hashingPassword(createMemberCommand.getPassword())));
-
 	}
 
 	// パスワードをハッシュ化

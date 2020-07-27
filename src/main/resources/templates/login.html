@@ -16,20 +16,31 @@
 			<div class="row">
 				<h4>メンバーログイン</h4>
 			</div>
+			
 			<div class="row">
+			<div th:if="${param.error}" class="errorMessage">
+        	ユーザー名またはパスワードが誤っています。
+    		</div>
 				<form th:action="@{/authenticate}" method="POST" th:object="${loginModel}">
 					<div class="login-input-box">
 						<div>
 							<div class="row">
 								<div class="col-md-5 col-md-offset-1"><span>会員コード</span></div>
-								<div class="col-md-5"><input type="text" name="username" /></div>
+								<div class="col-md-5"><input type="text" class="form-control" th:field="*{username}" autofocus="autofocus"></div>	
 							</div>
 							
 						</div>
 						<div>
 							<div class="row">
 								<div class="col-md-5 col-md-offset-1"><span>パスワード</span></div>
-								<div class="col-md-5"><input type="password" name="password" /></div>
+								<div th:class="${#fields.hasErrors('password')} ?  'col-md-5 has-error' : 'col-md-5'"  >
+						 			<input type="text" class="form-control" th:field="*{password}" th:maxlength="10" >
+						 		</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4"></div>
+								
+								
 							</div>
 						</div>
 						<button type="submit">送信</button>

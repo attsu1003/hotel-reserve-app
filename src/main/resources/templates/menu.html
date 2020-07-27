@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>welcome</title>
@@ -23,6 +23,10 @@ p {
 	<li><a th:href="@{/reserve/}">予約</a></li>
 	<li><a th:href="@{/refer/}">予約照会</a></li>
 	<li><a th:href="@{/referVacancy/}">空き状況確認</a></li>
+	
+	<form method="post" th:action="@{/logout}">
+        <button type="submit">ログアウト</button>
+    </form>
 	
 
 </body>

@@ -1,29 +1,23 @@
 package com.example.demo.domain.model;
 
-import java.util.Collection;
-
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-public class LoginModel implements UserDetails{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class LoginModel{
+	
 	
 	@NotBlank
-	private String memberId;
+	private String username;
 	
-	@NotBlank
+	@NotNull
 	private String password;
 	
-	public String getMemberId() {
-		return memberId;
+	
+	public String getUsername() {
+		return username;
 	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getPassword() {
 		return password;
@@ -31,29 +25,4 @@ public class LoginModel implements UserDetails{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
-	}
-	@Override
-	public String getUsername() {
-		return this.memberId;
-	}
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
-	
 }

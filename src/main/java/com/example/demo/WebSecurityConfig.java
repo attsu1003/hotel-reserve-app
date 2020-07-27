@@ -2,6 +2,7 @@ package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -37,7 +38,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	void configureAuthenticationManager(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(loginApplicationServiceImpl).passwordEncoder(passwordEncoder());
+		DaoAuthenticationProvider daoAuthenticationProvider=new DaoAuthenticationProvider();
+		daoAuthenticationProvider.setUserDetailsService(loginApplicationServiceImpl);
+		daoAuthenticationProvider.setPasswordEncoder(new BCryptPasswordEncoder());
+		daoAuthenticationProvider.setHideUserNotFoundExceptions(false);
+		auth.authenticationProvider(daoAuthenticationProvider);
 	}
 
 }

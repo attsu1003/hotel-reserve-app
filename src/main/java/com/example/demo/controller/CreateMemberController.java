@@ -30,7 +30,7 @@ public class CreateMemberController {
 		if (bindingResult.hasErrors()) {
 		
 		}
-		CreateMemberCommand createMemberCommand = new CreateMemberCommand(loginModel.getMemberId(),
+		CreateMemberCommand createMemberCommand = new CreateMemberCommand(loginModel.getUsername(),
 				loginModel.getPassword());
 		applicationCommandBus.dispatch(createMemberCommand);
 

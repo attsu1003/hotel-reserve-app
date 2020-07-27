@@ -12,8 +12,8 @@ public class MemberRepository {
 	@Autowired
 	MemberMapper memberMapper;
 
-	public MemberModel getMember(String id) {
-		return memberMapper.select(id);
+	public MemberModel getMember(String username) {
+		return memberMapper.select(username);
 	}
 
 	public void createMember(MemberModel memberModel) {
