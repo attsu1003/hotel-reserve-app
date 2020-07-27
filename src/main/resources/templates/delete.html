@@ -13,20 +13,29 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<p class="msg" th:text="${message}"></p>
-	予約番号を入力してください。
-	<form th:action="@{/referDetail}" th:object="${reserveModel}" method="post">
-		<table border="0" align="left">
-		  <tr>
-		    <th align="left">予約番号:</th>
-		    <td>
-		      <input type="text" th:field="*{id}" size="10" maxlength="8">
-		    </td>
-		  </tr>
-		</table>
-		<input type="submit" class="btn btn-primary" value="参照" />
-	</form>
+	<main>
+		<div class="py-3">
+			<div class="container">
+				<h3 class="mb-3">予約削除フォーム</h3>
+				<form th:action="@{/delete}" th:object="${reserveModel}" method="post">
+					<div class="form-group">
+						<div class="col-md-3">
+							<label for="name" class="col-form-label">
+							予約番号 <span class="badge badge-warning">必須</span>
+							</label>
+						</div>			
+						<div class="col-md-9">
+							<input type="text" class="form-control" id="name" th:field="*{id}" required
+							placeholder="予約番号を入力">
+						</div>
+					</div>
+					<input type="submit" class="btn btn-primary" value="削除" />
+					<a th:href="@{/menu/}" class="btn btn-primary btn-back">戻る</a>
+				</form>
+			</div>
+		</div>
+	</main>
+
 	
-	<a th:href="@{/menu/}" class="btn btn-primary btn-back">戻る</a>
 </body>
 </html>

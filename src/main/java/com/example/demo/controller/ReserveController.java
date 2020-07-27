@@ -35,4 +35,11 @@ public class ReserveController {
 		applicationCommandBus.dispatch(deleteCommand);
 		return "cancel";
 	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public String delete(Model model) {
+		ReserveModel reserveModel = new ReserveModel();
+		model.addAttribute("reserveModel", reserveModel);
+		return "delete";
+	}
 }
