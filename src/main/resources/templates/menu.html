@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>welcome</title>
-
+<link rel="stylesheet" href="/common/css/menu.css" th:href="@{/common/css/menu.css}" />
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/common/css/common.css" th:href="@{/common/css/common.css}" th:maxlength="10"/>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="webjars/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  
 <style>
 h1 {
 	font-size: 16pt;
@@ -15,19 +22,43 @@ p {
 	color: #000066;
 }
 </style>
+
+<script>
+
+</script>
+
 </head>
 <body>
 
-	<h1>メニュー画面</h1>
-	<p class="msg" th:text="ようこそ + ${username} + 様"></p>
-	<li><a th:href="@{/reserve/}">予約</a></li>
-	<li><a th:href="@{/refer/}">予約照会</a></li>
-	<li><a th:href="@{/referVacancy/}">空き状況確認</a></li>
-	
-	<form method="post" th:action="@{/logout}">
-        <button type="submit">ログアウト</button>
-    </form>
-	
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="collapse navbar-collapse flex-column justify-content-start" id="navbarNav">
+			<div class="justify-content-start">メニュー</div>
+			<div class="d-flex">
+				<ul class="navbar-nav justify-content-start" id="menuNavigator">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" aria-haspopup="true" aria-expanded="false">予約</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+							<a class="dropdown-item" th:href="@{/reserve/}">予約</a>					
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" aria-haspopup="true" aria-expanded="false">照会</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+							<a class="dropdown-item" href="@{/refer/}">予約照会</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" aria-haspopup="true" aria-expanded="false">空き状況確認</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+							<a class="dropdown-item" href="@{/referVacancy/}">空き状況確認</a>
+						</div>
+					</li>				
+				</ul>				
+			</div>
+			
+		</div>
+		<a th:href="@{/logout}" class="btn btn-primary">ログアウト</a>
+	</nav>
 
 </body>
 </html>
