@@ -13,16 +13,16 @@
 <body id="login-background">
 	<div class="login-wrapper">
 		<div class="common-center">
-			<div class="row">
-				<h4>メンバーログイン</h4>
-			</div>
+			
 			
 			<div class="row">
-			<div th:if="${param.error}" class="errorMessage">
-        	ユーザー名またはパスワードが誤っています。
-    		</div>
+			
 				<form th:action="@{/authenticate}" method="POST" th:object="${loginModel}">
 					<div class="login-input-box">
+						<h3>予約照会フォーム</h3>
+						<div th:if="${param.error}" class="errorMessage">
+        					<p>ユーザー名またはパスワードが誤っています。</p>
+    					</div>
 						<div>
 							<div class="row">
 								<div class="col-md-5 col-md-offset-1"><span>会員コード</span></div>
@@ -39,11 +39,9 @@
 							</div>
 							<div class="row">
 								<div class="col-md-4"></div>
-								
-								
 							</div>
 						</div>
-						<button type="submit">送信</button>
+						<button type="submit" class="btn btn-primary">送信</button>
 						<a href="/createMember">新規登録</a>
 					</div>
 				</form>

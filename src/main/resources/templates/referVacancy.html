@@ -53,18 +53,25 @@
 
 
 <body>
-	<p class="msg" th:text="${message}"></p>
-	
-	<form method="post">
-		<input type="hidden" id="hiddenYear" name="year" value="">
-		<input type="hidden" id="hiddenMonth" name="month" value="">
-		<input type="submit" id="prev" class="btn btn-primary btn-back" value=前の月 data-action="referVacancyNextDate">
-		<input type="submit" id="next" class="btn btn-primary btn-back" value=次の月 data-action="/referVacancyNextDate">
-	</form>
+
+	<main>
+		<div class="py-3">
+			<div class="container">
+				<h3 class="mb-3">空き状況照会フォーム</h3>
+				<p>○・・・空室あり  △・・・空室わずか  ×・・・空室なし</p>
+				<form method="post">
+					<input type="hidden" id="hiddenYear" name="year" value="">
+					<input type="hidden" id="hiddenMonth" name="month" value="">
+					<input type="submit" id="prev" class="btn btn-primary btn-back" value=前の月 data-action="referVacancyNextDate">
+					<input type="submit" id="next" class="btn btn-primary btn-back" value=次の月 data-action="/referVacancyNextDate">
+				</form>
 	<div id="calendar"></div>
-	
+	<a th:href="@{/reserve/}" class="btn btn-primary btn-back">予約へ</a>
 	<a th:href="@{/menu/}" class="btn btn-primary btn-back">戻る</a>
-	
+			</div>
+		</div>
+	</main>
+
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	
 	<script type="text/javascript" th:inline="javascript">
