@@ -5,7 +5,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.application.command.CreateMemberCommand;
+import com.example.demo.domain.member.MemberAlreadyExistException;
 import com.example.demo.domain.member.MemberRepository;
+import com.example.demo.domain.member.MemberService;
 import com.example.demo.domain.model.MemberModel;
 
 @Component
@@ -17,10 +19,16 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
+	@Autowired
+	MemberService memberService;
+
 	@Override
-	public void execute(CreateMemberCommand createMemberCommand) {
+	public void execute(CreateMemberCommand createMemberCommand) throws MemberAlreadyExistException {
 		// TODO Auto-generated method stub
-		System.out.println("through");
+		if (memberService.isMemberExists(createMemberCommand)) {
+			throw new MemberAlreadyExistException("ユーザ名\"" + createMemberCommand.getUsername() + "\"のユーザは既に登録されています。",
+					"userId");
+		}
 		memberRepository.createMember(new MemberModel(createMemberCommand.getUsername(),
 				this.hashingPassword(createMemberCommand.getPassword())));
 	}

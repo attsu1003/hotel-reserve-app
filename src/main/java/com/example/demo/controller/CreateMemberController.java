@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.CreateMemberCommand;
+import com.example.demo.domain.HotelReserveMessages;
+import com.example.demo.domain.member.MemberAlreadyExistException;
 import com.example.demo.domain.model.LoginModel;
 
 @Controller
-public class CreateMemberController {
+public class CreateMemberController extends AbstractController{
 
 	@Autowired
 	private ApplicationCommandBus applicationCommandBus;
@@ -26,14 +28,26 @@ public class CreateMemberController {
 	}
 
 	@RequestMapping(value = "/createdMember")
-	public String createdMember(@Validated LoginModel loginModel, BindingResult bindingResult, Model model) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public String createdMember(@Validated LoginModel loginModel, BindingResult bindingResult, Model model)
+			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		if (bindingResult.hasErrors()) {
-		
+
 		}
 		CreateMemberCommand createMemberCommand = new CreateMemberCommand(loginModel.getUsername(),
 				loginModel.getPassword());
-		applicationCommandBus.dispatch(createMemberCommand);
+		try {
+			applicationCommandBus.dispatch(createMemberCommand);
+		} catch (Exception e) {
+			addErrorMessage("MSGE1001");
+			return "createMember";
+		}
 
 		return "createdMember";
 	}
+
+//	private void addErrorMessage(String string) {
+//		HotelReserveMessages messages = new HotelReserveMessages();
+//		messages.addErrorMessage(string);
+//
+//	}
 }
