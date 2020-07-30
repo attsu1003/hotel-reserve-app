@@ -13,9 +13,9 @@ import com.example.demo.domain.InvalidArgumentException;
 public enum MailTemplateCds {
 
 	/**
-	 * メールテンプレートenum：031
+	 * メールテンプレートenum：001
 	 */
-	MAIL_TEMPLATE_031("031", null, null);
+	MAIL_TEMPLATE_001("001", null, null);
 
 	private final String key;
 	private final Optional<String> groupKey;

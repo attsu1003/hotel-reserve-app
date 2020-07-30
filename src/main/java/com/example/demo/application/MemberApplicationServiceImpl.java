@@ -1,11 +1,16 @@
 package com.example.demo.application;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.application.command.CreateMemberCommand;
+import com.example.demo.application.command.RequestRePasswordCommand;
+import com.example.demo.common.MailController;
 import com.example.demo.domain.member.MemberAlreadyExistException;
+import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.member.MemberRepository;
 import com.example.demo.domain.member.MemberService;
 import com.example.demo.domain.model.MemberModel;
@@ -22,15 +27,26 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 	@Autowired
 	MemberService memberService;
 
+	
+
 	@Override
 	public void execute(CreateMemberCommand createMemberCommand) throws MemberAlreadyExistException {
-		// TODO Auto-generated method stub
-		if (memberService.isMemberExists(createMemberCommand)) {
+		if (memberService.isMemberExists(createMemberCommand.getUsername())) {
 			throw new MemberAlreadyExistException("ユーザ名\"" + createMemberCommand.getUsername() + "\"のユーザは既に登録されています。",
 					"userId");
 		}
 		memberRepository.createMember(new MemberModel(createMemberCommand.getUsername(),
 				this.hashingPassword(createMemberCommand.getPassword())));
+	}
+
+	@Override
+	public void execute(RequestRePasswordCommand requestRePasswordCommand) throws MemberNotFoundException, IOException {
+		if (memberService.isMemberNotExists(requestRePasswordCommand.getMailAddress())) {
+			throw new MemberNotFoundException(
+					"ユーザ名\"" + requestRePasswordCommand.getMailAddress() + "\"のユーザは登録されていません。", "userId");
+		}
+		MemberModel memberModel = memberRepository.getMember(requestRePasswordCommand.getMailAddress());
+		memberService.updatePassword(memberModel);
 	}
 
 	// パスワードをハッシュ化

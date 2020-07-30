@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 body#login-background{
-	background:url("../image/login_bg.jpg") no-repeat center top;
+	background:url("../image/original.jpg") no-repeat center top;
 	background-size: cover;
 	overflow: hidden;
 }

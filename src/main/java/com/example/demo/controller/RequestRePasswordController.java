@@ -15,14 +15,13 @@ import com.example.demo.application.command.RequestRePasswordCommand;
 import com.example.demo.domain.model.RequestRePasswordModel;
 
 @Controller
-public class RequestRePasswordController {
+public class RequestRePasswordController extends AbstractController {
 
 	@Autowired
 	ApplicationCommandBus applicationCommandBus;
 
 	@RequestMapping(value = "requestRePassword", method = RequestMethod.GET)
 	public String requestRePassword(Model model) {
-		System.out.println("requestRePassword");
 		RequestRePasswordModel requestRePasswordModel = new RequestRePasswordModel();
 		model.addAttribute("requestRePasswordModel", requestRePasswordModel);
 		return "requestRePassword";
@@ -34,8 +33,11 @@ public class RequestRePasswordController {
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		RequestRePasswordCommand requestRePasswordCommand = new RequestRePasswordCommand(
 				requestRePasswordModel.getMailAddress());
-		applicationCommandBus.dispatch(requestRePasswordCommand);
-		System.out.println("requestedRePassword");
+		try {
+			applicationCommandBus.dispatch(requestRePasswordCommand);
+		} catch (Exception e) {
+			addErrorMessage("MSGE1002");
+		}
 		return "requestRePassword";
 	}
 

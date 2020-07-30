@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.application.command.Command;
@@ -18,12 +17,14 @@ public class SimpleCommandHandlerProvider<D, S> implements CommandHandlerProvide
 
 	private ReserveApplicationService reserveApplicationService;
 	private MemberApplicationService memberApplicationService;
+	//private RequestRePasswordApplicationService requestRePasswordApplicationService;
 
 	public SimpleCommandHandlerProvider(ReserveApplicationService reserveApplicationService,
 			MemberApplicationService memberApplicationService) {
 		super();
 		this.reserveApplicationService = reserveApplicationService;
 		this.memberApplicationService = memberApplicationService;
+		//this.requestRePasswordApplicationService = requestRePasswordApplicationService;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -40,6 +41,7 @@ public class SimpleCommandHandlerProvider<D, S> implements CommandHandlerProvide
 			{
 				add(reserveApplicationService);
 				add(memberApplicationService);
+				//add(requestRePasswordApplicationService);
 			}
 		};
 		for (Object serviceBean : serviceBeans) {
