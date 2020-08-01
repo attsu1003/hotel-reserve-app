@@ -19,4 +19,8 @@ public class MemberRepository {
 	public void createMember(MemberModel memberModel) {
 		memberMapper.insert(memberModel);
 	}
+
+	public void updatePassword(String password) {
+		
+	}
 }

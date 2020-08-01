@@ -8,11 +8,13 @@ import org.springframework.stereotype.Component;
 
 import com.example.demo.application.command.CreateMemberCommand;
 import com.example.demo.application.command.RequestRePasswordCommand;
+import com.example.demo.application.command.SetPasswordCommand;
 import com.example.demo.common.MailController;
 import com.example.demo.domain.member.MemberAlreadyExistException;
 import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.member.MemberRepository;
 import com.example.demo.domain.member.MemberService;
+import com.example.demo.domain.member.PasswordNotMatchException;
 import com.example.demo.domain.model.MemberModel;
 
 @Component
@@ -26,8 +28,6 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 
 	@Autowired
 	MemberService memberService;
-
-	
 
 	@Override
 	public void execute(CreateMemberCommand createMemberCommand) throws MemberAlreadyExistException {
@@ -47,6 +47,16 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 		}
 		MemberModel memberModel = memberRepository.getMember(requestRePasswordCommand.getMailAddress());
 		memberService.updatePassword(memberModel);
+	}
+
+	@Override
+	public void execute(SetPasswordCommand setPasswordCommand) throws PasswordNotMatchException {
+		// 入力したパスワードと確認用に入力したパスワードが一致しない場合
+		if (memberService.isPasswordNotMatch(setPasswordCommand.getPassword(),setPasswordCommand.getConfirmPassword())) {
+			throw new PasswordNotMatchException("入力したパスワードとパスワード(確認用)が一致しません。", "password");
+		}
+		memberRepository.updatePassword(setPasswordCommand.getPassword());
+		
 	}
 
 	// パスワードをハッシュ化

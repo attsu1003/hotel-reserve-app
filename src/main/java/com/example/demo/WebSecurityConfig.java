@@ -22,7 +22,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.authorizeRequests().antMatchers("/js/**", "/common/css/**", "/common/image/**", "/createMember",
-				"/webjars/**", "/createdMember","/requestRePassword").permitAll().anyRequest().authenticated();
+				"/webjars/**", "/createdMember", "/requestRePassword", "/setPwd").permitAll().anyRequest()
+				.authenticated();
 		http.formLogin().loginPage("/login").loginProcessingUrl("/authenticate").usernameParameter("username")
 				.passwordParameter("password").defaultSuccessUrl("/menu", true).permitAll();
 
@@ -38,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	void configureAuthenticationManager(AuthenticationManagerBuilder auth) throws Exception {
-		DaoAuthenticationProvider daoAuthenticationProvider=new DaoAuthenticationProvider();
+		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
 		daoAuthenticationProvider.setUserDetailsService(loginApplicationServiceImpl);
 		daoAuthenticationProvider.setPasswordEncoder(new BCryptPasswordEncoder());
 		daoAuthenticationProvider.setHideUserNotFoundExceptions(false);

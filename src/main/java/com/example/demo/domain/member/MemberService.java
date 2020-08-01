@@ -15,7 +15,7 @@ public class MemberService {
 
 	@Autowired
 	MemberRepository memberRepository;
-	
+
 	@Autowired
 	MailController mailController;
 
@@ -23,12 +23,16 @@ public class MemberService {
 		MemberModel memberModel = memberRepository.getMember(username);
 		return memberModel != null;
 	}
-	
+
 	public boolean isMemberNotExists(String username) {
 		MemberModel memberModel = memberRepository.getMember(username);
 		return memberModel == null;
 	}
-	
+
+	public boolean isPasswordNotMatch(String password, String confirmPassword) {
+		return !password.equals(confirmPassword);
+	}
+
 	public void updatePassword(MemberModel memberModel) {
 		try {
 			mailController.preparingSendMail(memberModel);

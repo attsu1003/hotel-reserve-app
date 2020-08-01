@@ -1,7 +1,5 @@
 package com.example.demo.domain;
 
-import com.example.demo.domain.BaseException;
-
 /**
  * システム的に（業務的にではなく）通常、起こりえない事象が発生した場合に生成する例外。
  * 
