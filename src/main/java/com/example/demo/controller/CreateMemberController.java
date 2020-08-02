@@ -16,7 +16,7 @@ import com.example.demo.domain.member.MemberAlreadyExistException;
 import com.example.demo.domain.model.LoginModel;
 
 @Controller
-public class CreateMemberController extends AbstractController{
+public class CreateMemberController extends AbstractController {
 
 	@Autowired
 	private ApplicationCommandBus applicationCommandBus;
@@ -41,7 +41,7 @@ public class CreateMemberController extends AbstractController{
 			addErrorMessage("MSGE1001");
 			return "createMember";
 		}
-
-		return "createdMember";
+		addMessage("MSGE1006");
+		return "createMember";
 	}
 }
