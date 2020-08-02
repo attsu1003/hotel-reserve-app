@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,17 +25,17 @@ public class SetPasswordController extends AbstractController {
 	@RequestMapping(value = "setPwd", method = RequestMethod.GET)
 	public String setPwd(Model model) {
 		SetPasswordModel setPasswordModel = new SetPasswordModel();
-		model.addAttribute("setPasswordModel", setPasswordModel);	
+		model.addAttribute("setPasswordModel", setPasswordModel);
 		return "setPassword";
 	}
 
 	@RequestMapping(value = "setPwd", method = RequestMethod.POST)
 	public String setPwd(@Validated SetPasswordModel setPasswordModel, BindingResult bindingResult,
-			@ModelAttribute("mailAddress") String mailAddress) {
+			@ModelAttribute("mailAddress") String mailAddress, HttpServletRequest request) {
 		SetPasswordCommand setPasswordCommand = new SetPasswordCommand(setPasswordModel.getPassword(),
-				setPasswordModel.getConfirmPassword());
+				setPasswordModel.getConfirmPassword(), (String) request.getSession().getAttribute("mailAddress"));
 		try {
-			System.out.println(mailAddress);
+			System.out.println(request.getSession().getAttribute("mailAddress"));
 			applicationCommandBus.dispatch(setPasswordCommand);
 		} catch (Exception e) {
 			if (e.getCause() instanceof PasswordNotMatchException) {

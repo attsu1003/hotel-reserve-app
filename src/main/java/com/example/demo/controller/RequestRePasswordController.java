@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.lang.reflect.InvocationTargetException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +34,7 @@ public class RequestRePasswordController extends AbstractController {
 
 	@RequestMapping(value = "requestRePassword", method = RequestMethod.POST)
 	public String requestedRePassword(@Validated RequestRePasswordModel requestRePasswordModel,
-			BindingResult bindingResult, Model model)
+			BindingResult bindingResult, Model model,HttpServletRequest request)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		RequestRePasswordCommand requestRePasswordCommand = new RequestRePasswordCommand(
 				requestRePasswordModel.getMailAddress());
@@ -41,8 +43,10 @@ public class RequestRePasswordController extends AbstractController {
 		} catch (Exception e) {
 			addErrorMessage("MSGE1002");
 		}
+		request.getSession().setAttribute("mailAddress", requestRePasswordModel.getMailAddress());
 		model.addAttribute("mailAddress", requestRePasswordModel.getMailAddress());
-		return "requestRePassword";
+		//return "redirect:/setPasswordComplete/";
+		return "setPasswordComplete";
 	}
 
 }

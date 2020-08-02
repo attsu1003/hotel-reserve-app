@@ -15,5 +15,5 @@ public interface MemberApplicationService {
 
 	public void execute(RequestRePasswordCommand requestRePasswordCommand) throws MemberNotFoundException, IOException;
 
-	public void execute(SetPasswordCommand setPasswordCommand) throws PasswordNotMatchException;
+	public void execute(SetPasswordCommand setPasswordCommand) throws PasswordNotMatchException, MemberNotFoundException;
 }

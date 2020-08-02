@@ -24,11 +24,6 @@ public class MemberService {
 		return memberModel != null;
 	}
 
-	public boolean isMemberNotExists(String username) {
-		MemberModel memberModel = memberRepository.getMember(username);
-		return memberModel == null;
-	}
-
 	public boolean isPasswordNotMatch(String password, String confirmPassword) {
 		return !password.equals(confirmPassword);
 	}

@@ -44,10 +44,4 @@ public class CreateMemberController extends AbstractController{
 
 		return "createdMember";
 	}
-
-//	private void addErrorMessage(String string) {
-//		HotelReserveMessages messages = new HotelReserveMessages();
-//		messages.addErrorMessage(string);
-//
-//	}
 }

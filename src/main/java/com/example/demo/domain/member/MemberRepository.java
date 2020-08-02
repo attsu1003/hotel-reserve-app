@@ -20,7 +20,7 @@ public class MemberRepository {
 		memberMapper.insert(memberModel);
 	}
 
-	public void updatePassword(String password) {
-		
+	public boolean updatePassword(String password,String username) {
+		return memberMapper.update(password,username);
 	}
 }

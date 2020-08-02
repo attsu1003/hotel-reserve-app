@@ -31,7 +31,7 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 
 	@Override
 	public void execute(CreateMemberCommand createMemberCommand) throws MemberAlreadyExistException {
-		if (memberService.isMemberExists(createMemberCommand.getUsername())) {
+		if (isMemberExists(createMemberCommand.getUsername())) {
 			throw new MemberAlreadyExistException("ユーザ名\"" + createMemberCommand.getUsername() + "\"のユーザは既に登録されています。",
 					"userId");
 		}
@@ -41,7 +41,7 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 
 	@Override
 	public void execute(RequestRePasswordCommand requestRePasswordCommand) throws MemberNotFoundException, IOException {
-		if (memberService.isMemberNotExists(requestRePasswordCommand.getMailAddress())) {
+		if (isMemberNotExists(requestRePasswordCommand.getMailAddress())) {
 			throw new MemberNotFoundException(
 					"ユーザ名\"" + requestRePasswordCommand.getMailAddress() + "\"のユーザは登録されていません。", "userId");
 		}
@@ -50,13 +50,31 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 	}
 
 	@Override
-	public void execute(SetPasswordCommand setPasswordCommand) throws PasswordNotMatchException {
+	public void execute(SetPasswordCommand setPasswordCommand)
+			throws PasswordNotMatchException, MemberNotFoundException {
 		// 入力したパスワードと確認用に入力したパスワードが一致しない場合
-		if (memberService.isPasswordNotMatch(setPasswordCommand.getPassword(),setPasswordCommand.getConfirmPassword())) {
+		if (isPasswordNotMatch(setPasswordCommand.getPassword(), setPasswordCommand.getConfirmPassword())) {
 			throw new PasswordNotMatchException("入力したパスワードとパスワード(確認用)が一致しません。", "password");
 		}
-		memberRepository.updatePassword(setPasswordCommand.getPassword());
-		
+		if (isMemberNotExists(setPasswordCommand.getMailAddress())) {
+			throw new MemberNotFoundException("ユーザ名\"" + setPasswordCommand.getMailAddress() + "\"のユーザは登録されていません。",
+					"userId");
+		}
+		memberRepository.updatePassword(this.hashingPassword(setPasswordCommand.getPassword()),
+				setPasswordCommand.getMailAddress());
+
+	}
+
+	private boolean isMemberExists(String username) {
+		return memberService.isMemberExists(username);
+	}
+
+	private boolean isMemberNotExists(String password) {
+		return !memberService.isMemberExists(password);
+	}
+
+	private boolean isPasswordNotMatch(String password, String confirmPassword) {
+		return memberService.isPasswordNotMatch(password, confirmPassword);
 	}
 
 	// パスワードをハッシュ化
