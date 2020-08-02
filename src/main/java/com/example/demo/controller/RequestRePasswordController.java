@@ -9,17 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.RequestRePasswordCommand;
 import com.example.demo.domain.model.RequestRePasswordModel;
 
 @Controller
-@SessionAttributes(names = "mailAddress")
 public class RequestRePasswordController extends AbstractController {
 
 	@Autowired
@@ -34,7 +31,7 @@ public class RequestRePasswordController extends AbstractController {
 
 	@RequestMapping(value = "requestRePassword", method = RequestMethod.POST)
 	public String requestedRePassword(@Validated RequestRePasswordModel requestRePasswordModel,
-			BindingResult bindingResult, Model model,HttpServletRequest request)
+			BindingResult bindingResult, Model model, HttpServletRequest request)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		RequestRePasswordCommand requestRePasswordCommand = new RequestRePasswordCommand(
 				requestRePasswordModel.getMailAddress());
@@ -44,8 +41,6 @@ public class RequestRePasswordController extends AbstractController {
 			addErrorMessage("MSGE1002");
 		}
 		request.getSession().setAttribute("mailAddress", requestRePasswordModel.getMailAddress());
-		model.addAttribute("mailAddress", requestRePasswordModel.getMailAddress());
-		//return "redirect:/setPasswordComplete/";
 		return "setPasswordComplete";
 	}
 

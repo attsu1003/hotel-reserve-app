@@ -35,7 +35,6 @@ public class SetPasswordController extends AbstractController {
 		SetPasswordCommand setPasswordCommand = new SetPasswordCommand(setPasswordModel.getPassword(),
 				setPasswordModel.getConfirmPassword(), (String) request.getSession().getAttribute("mailAddress"));
 		try {
-			System.out.println(request.getSession().getAttribute("mailAddress"));
 			applicationCommandBus.dispatch(setPasswordCommand);
 		} catch (Exception e) {
 			if (e.getCause() instanceof PasswordNotMatchException) {
@@ -43,6 +42,7 @@ public class SetPasswordController extends AbstractController {
 				return "setPassword";
 			}
 		}
+		request.getSession().removeAttribute("mailAddress");
 		return "setPassword";
 	}
 }
