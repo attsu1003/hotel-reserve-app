@@ -14,9 +14,16 @@ public abstract class AbstractController {
 	@Autowired
 	private ApplicationContext applicationContext;
 
+	protected void addMessage(String paramString, Object... paramArrayObject) {
+		HotelReserveMessages hotelReserveMessages = getMessage();
+		hotelReserveMessages.addMessage(paramString, messageSource.getMessage(paramString, paramArrayObject, null));
+
+	}
+
 	protected void addErrorMessage(String paramString, Object... paramArrayObject) {
 		HotelReserveMessages hotelReserveMessages = getMessage();
-		hotelReserveMessages.addErrorMessage(paramString, messageSource.getMessage(paramString, paramArrayObject, null));
+		hotelReserveMessages.addErrorMessage(paramString,
+				messageSource.getMessage(paramString, paramArrayObject, null));
 	}
 
 	protected HotelReserveMessages getMessage() {

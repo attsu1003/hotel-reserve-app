@@ -20,6 +20,10 @@ public class HotelReserveMessages {
 		return messages;
 	}
 
+	public void addMessage(String code, String message) {
+		messages.add(new Message(MSG_TYPE_INFO, code, message));
+	}
+
 	public void addErrorMessage(String code, String message) {
 		messages.add(new Message(MSG_TYPE_ERROR, code, message));
 	}
@@ -34,8 +38,6 @@ public class HotelReserveMessages {
 			this.code = code;
 			this.value = value;
 		}
-		
-		
 
 	}
 

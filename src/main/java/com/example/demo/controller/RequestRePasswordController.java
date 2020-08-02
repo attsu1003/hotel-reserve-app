@@ -39,9 +39,10 @@ public class RequestRePasswordController extends AbstractController {
 			applicationCommandBus.dispatch(requestRePasswordCommand);
 		} catch (Exception e) {
 			addErrorMessage("MSGE1002");
+			return "requestRePassword"; 
 		}
 		request.getSession().setAttribute("mailAddress", requestRePasswordModel.getMailAddress());
-		return "setPasswordComplete";
+		return "requestRePasswordComplete";
 	}
 
 }

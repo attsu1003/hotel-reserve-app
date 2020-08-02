@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import com.example.demo.application.command.CreateMemberCommand;
 import com.example.demo.application.command.RequestRePasswordCommand;
 import com.example.demo.application.command.SetPasswordCommand;
-import com.example.demo.common.MailController;
 import com.example.demo.domain.member.MemberAlreadyExistException;
 import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.member.MemberRepository;
@@ -57,12 +56,10 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 			throw new PasswordNotMatchException("入力したパスワードとパスワード(確認用)が一致しません。", "password");
 		}
 		if (isMemberNotExists(setPasswordCommand.getMailAddress())) {
-			throw new MemberNotFoundException("ユーザ名\"" + setPasswordCommand.getMailAddress() + "\"のユーザは登録されていません。",
-					"userId");
+			throw new MemberNotFoundException("ユーザ情報が見つかりません。恐れ入りますがパスワード再設定依頼を実施してください。");
 		}
 		memberRepository.updatePassword(this.hashingPassword(setPasswordCommand.getPassword()),
 				setPasswordCommand.getMailAddress());
-
 	}
 
 	private boolean isMemberExists(String username) {

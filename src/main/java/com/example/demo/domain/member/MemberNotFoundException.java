@@ -15,6 +15,10 @@ public class MemberNotFoundException extends BaseException {
 		super(message);
 		this.causeAttributeName = causeAttributeName;
 	}
+	
+	public MemberNotFoundException(String message) {
+		super(message);
+	}
 
 	public String getCauseAttributeName() {
 		return causeAttributeName;
