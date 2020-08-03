@@ -108,7 +108,7 @@ public class MailController {
 
 	private MailDataModel createMailDataModel(MemberModel memberModel) {
 		MailDataModel mailDataModel = new MailDataModel();
-		mailDataModel.setToAddr("attsuyagimpul@gmail.com");
+		mailDataModel.setToAddr(memberModel.getName());
 		mailDataModel.setFromAddr(MailProperties.getFromAddr());
 		mailDataModel.setPasswordSettingUrl(MailProperties.getPasswordSettingUrl());
 		return mailDataModel;

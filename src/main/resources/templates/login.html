@@ -19,24 +19,24 @@
 			
 				<form th:action="@{/authenticate}" method="POST" th:object="${loginModel}">
 					<div class="login-input-box">
-						<h3>予約照会フォーム</h3>
+						<h3>ログインフォーム</h3>
 						<div th:if="${param.error}" class="errorMessage">
         					<p>ユーザー名またはパスワードが誤っています。</p>
     					</div>
 						<div>
 							<div class="row">
-								<div class="col-md-5 col-md-offset-1"><span>会員コード</span></div>
-								<div class="col-md-5"><input type="text" class="form-control" th:field="*{username}" autofocus="autofocus"></div>	
-							</div>
-							
+								<div class="col-md-5 col-md-offset-1"><span>ユーザ名(メールアドレス)</span></div>
+								<div class="col-md-7"><input type="email" class="form-control" th:field="*{username}" placeholder="メールアドレスを入力"></div>	
+							</div>					
 						</div>
 						<div>
 							<div class="row">
 								<div class="col-md-5 col-md-offset-1"><span>パスワード</span></div>
-								<div th:class="${#fields.hasErrors('password')} ?  'col-md-5 has-error' : 'col-md-5'"  >
-						 			<input type="text" class="form-control" th:field="*{password}" th:maxlength="10" >
+								<div class="col-md-7">
+									<div th:class="${#fields.hasErrors('password')} ?  'col-md-7 has-error' : 'col-md-7'"></div>
+							 		<input type="password" class="form-control" th:field="*{password}" placeholder="パスワードを入力"> 		
 						 		</div>
-							</div>
+							</div>					
 							<div class="row">
 								<div class="col-md-4"></div>
 							</div>
