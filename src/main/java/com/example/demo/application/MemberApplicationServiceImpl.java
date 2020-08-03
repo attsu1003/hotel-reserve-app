@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.example.demo.application.command.CreateMemberCommand;
 import com.example.demo.application.command.RequestRePasswordCommand;
 import com.example.demo.application.command.SetPasswordCommand;
+import com.example.demo.application.command.UpdatePasswordCommand;
 import com.example.demo.domain.member.MemberAlreadyExistException;
 import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.member.MemberRepository;
@@ -62,8 +63,29 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 				setPasswordCommand.getMailAddress());
 	}
 
+	@Override
+	public void execute(UpdatePasswordCommand updatePasswordCommand)
+			throws PasswordNotMatchException, MemberNotFoundException {
+		// 入力した新パスワードと確認用に入力した新パスワードが一致しない場合
+		if (isPasswordNotMatch(updatePasswordCommand.getNewPassword(), updatePasswordCommand.getNewConfirmPassword())) {
+			throw new PasswordNotMatchException("入力した新パスワードと新パスワード(確認用)が一致しません。", "password");
+		}
+		// 入力した現在のパスワードが間違っている場合
+		if (isMemberNotExists(
+				new MemberModel(updatePasswordCommand.getMailAddress(), updatePasswordCommand.getPassword()))) {
+			throw new MemberNotFoundException("現在のパスワードの入力が誤っています。");
+		}
+		memberRepository.updatePassword(this.hashingPassword(updatePasswordCommand.getNewPassword()),
+				updatePasswordCommand.getMailAddress());
+	}
+
 	private boolean isMemberExists(String username) {
 		return memberService.isMemberExists(username);
+	}
+
+	private boolean isMemberNotExists(MemberModel memberModel) {
+		return !passwordEncoder.matches(memberModel.getPasswd(),
+				memberRepository.getMember(memberModel.getUsername()).getPasswd());
 	}
 
 	private boolean isMemberNotExists(String password) {

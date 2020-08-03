@@ -24,6 +24,10 @@ public class MemberService {
 		return memberModel != null;
 	}
 
+	public boolean isMemberExists(MemberModel memberModel) {
+		return memberRepository.getMember(memberModel) != null;
+	}
+
 	public boolean isPasswordNotMatch(String password, String confirmPassword) {
 		return !password.equals(confirmPassword);
 	}
@@ -36,4 +40,5 @@ public class MemberService {
 			e.printStackTrace();
 		}
 	}
+
 }

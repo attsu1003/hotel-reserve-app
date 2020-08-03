@@ -42,12 +42,12 @@ public class SetPasswordController extends AbstractController {
 				addErrorMessage("MSGE1003");
 			}
 			if (e.getCause() instanceof MemberNotFoundException) {
-				addErrorMessage("MSGE1004");
+				addErrorMessage("MSGE1005");
 			}
 			return "setPassword";
 		}
 		request.getSession().removeAttribute("mailAddress");
-		addMessage("MSGE1005");
+		addMessage("MSGM1003");
 		return "setPassword";
 	}
 }

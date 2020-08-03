@@ -18,6 +18,10 @@ public interface MemberMapper {
 	@Select("SELECT id, name, password FROM member WHERE name = #{username}")
 	MemberModel select(String username);
 
+	@Select("SELECT id, name, password FROM member WHERE name = #{username} AND password = #{passwd}")
+	MemberModel selectMemberModel(MemberModel memberModel);
+
 	@Update("UPDATE member SET password = #{password} WHERE name = #{username}")
-	boolean update(String password,String username);
+	boolean update(String password, String username);
+
 }

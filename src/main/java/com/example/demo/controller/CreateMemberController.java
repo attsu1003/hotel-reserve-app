@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.CreateMemberCommand;
-import com.example.demo.domain.HotelReserveMessages;
-import com.example.demo.domain.member.MemberAlreadyExistException;
 import com.example.demo.domain.model.LoginModel;
 
 @Controller
@@ -41,7 +39,7 @@ public class CreateMemberController extends AbstractController {
 			addErrorMessage("MSGE1001");
 			return "createMember";
 		}
-		addMessage("MSGE1006");
+		addMessage("MSGM1001");
 		return "createMember";
 	}
 }
