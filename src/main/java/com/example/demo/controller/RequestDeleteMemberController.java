@@ -28,7 +28,7 @@ public class RequestDeleteMemberController extends AbstractController {
 		model.addAttribute("requestDeleteMemberModel", requestDeleteMemberModel);
 		return "requestDeleteMember";
 	}
-	
+
 	@RequestMapping(value = "requestDeleteMember", method = RequestMethod.POST)
 	public String requestDeleteMember(@Validated RequestDeleteMemberModel requestDeleteMemberModel,
 			BindingResult bindingResult, Model model, HttpServletRequest request) {
@@ -40,6 +40,7 @@ public class RequestDeleteMemberController extends AbstractController {
 			addErrorMessage("MSGE1002");
 			return "requestDeleteMember";
 		}
+		request.getSession().setAttribute("mailAddress", requestDeleteMemberModel.getMailAddress());
 		return "requestDeleteMemberComplete";
 	}
 

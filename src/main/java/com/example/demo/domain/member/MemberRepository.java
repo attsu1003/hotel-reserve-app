@@ -16,12 +16,12 @@ public class MemberRepository {
 		return memberMapper.select(username);
 	}
 
-	public MemberModel getMember(MemberModel memberModel) {
-		return memberMapper.selectMemberModel(memberModel);
-	}
-
 	public void createMember(MemberModel memberModel) {
 		memberMapper.insert(memberModel);
+	}
+	
+	public void deleteMember(MemberModel memberModel) {
+		memberMapper.delete(memberModel);
 	}
 
 	public boolean updatePassword(String password, String username) {

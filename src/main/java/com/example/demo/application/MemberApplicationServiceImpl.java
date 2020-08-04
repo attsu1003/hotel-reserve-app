@@ -16,6 +16,7 @@ import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.member.MemberRepository;
 import com.example.demo.domain.member.MemberService;
 import com.example.demo.domain.member.PasswordNotMatchException;
+import com.example.demo.domain.member.WrongPasswordException;
 import com.example.demo.domain.model.MemberModel;
 
 @Component
@@ -41,11 +42,18 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 	}
 
 	@Override
-	public void execute(DeleteMemberCommand deleteMemberCommand) throws MemberNotFoundException {
+	public void execute(DeleteMemberCommand deleteMemberCommand)
+			throws MemberNotFoundException, WrongPasswordException {
+		// ユーザ情報が見つからない場合
 		if (isMemberNotExists(deleteMemberCommand.getUsername())) {
-			throw new MemberNotFoundException("ユーザ名\"" + deleteMemberCommand.getUsername() + "\"のユーザは登録されていません。");
+			throw new MemberNotFoundException("ユーザ情報が見つかりません。恐れ入りますがパスワード再設定依頼を実施してください。");
 		}
-		MemberModel memberModel=memberRepository.getMember(deleteMemberCommand.getUsername());
+		// 入力したパスワードが間違っている場合
+		if (isMemberNotExists(new MemberModel(deleteMemberCommand.getUsername(), deleteMemberCommand.getPassword()))) {
+			throw new WrongPasswordException("パスワードの入力が誤っています。");
+		}
+		memberRepository.deleteMember(new MemberModel(deleteMemberCommand.getUsername(),
+				this.hashingPassword(deleteMemberCommand.getPassword())));
 	}
 
 	@Override

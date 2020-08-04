@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -12,6 +12,7 @@
 				<p>退会依頼メールの送信が完了しました。</p>
 				<p>メールの案内に従って、退会処理を行ってください。</p>
 			</div>
+			<a th:href="@{/menu/}" class="btn btn-primary btn-back">ログイン画面へ</a>
 		</div>
 	</main>
 </body>

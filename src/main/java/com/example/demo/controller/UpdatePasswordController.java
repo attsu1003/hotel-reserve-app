@@ -40,9 +40,9 @@ public class UpdatePasswordController extends AbstractController {
 				addErrorMessage("MSGE1004");
 			}
 			if (e.getCause() instanceof MemberNotFoundException) {
-				addErrorMessage("MSGE1006");
+				addErrorMessage("MSGE1007");
 			}
-			return "updatePassword"; 
+			return "updatePassword";
 		}
 		addMessage("MSGM1002");
 		return "updatePassword";

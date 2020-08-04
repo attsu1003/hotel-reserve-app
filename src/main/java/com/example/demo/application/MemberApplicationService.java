@@ -10,12 +10,13 @@ import com.example.demo.application.command.UpdatePasswordCommand;
 import com.example.demo.domain.member.MemberAlreadyExistException;
 import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.member.PasswordNotMatchException;
+import com.example.demo.domain.member.WrongPasswordException;
 
 public interface MemberApplicationService {
 
 	public void execute(CreateMemberCommand createMemberCommand) throws MemberAlreadyExistException;
 
-	public void execute(DeleteMemberCommand deleteMemberCommand) throws MemberNotFoundException;
+	public void execute(DeleteMemberCommand deleteMemberCommand) throws MemberNotFoundException, WrongPasswordException;
 
 	public void execute(RequestRePasswordCommand requestRePasswordCommand) throws MemberNotFoundException, IOException;
 

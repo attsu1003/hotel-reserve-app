@@ -1,5 +1,6 @@
 package com.example.demo.port;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -18,10 +19,10 @@ public interface MemberMapper {
 	@Select("SELECT id, name, password FROM member WHERE name = #{username}")
 	MemberModel select(String username);
 
-	@Select("SELECT id, name, password FROM member WHERE name = #{username} AND password = #{passwd}")
-	MemberModel selectMemberModel(MemberModel memberModel);
-
 	@Update("UPDATE member SET password = #{password} WHERE name = #{username}")
 	boolean update(String password, String username);
+
+	@Delete("DELETE FROM member WHERE name = #{username}")
+	void delete(MemberModel memberModel);
 
 }
