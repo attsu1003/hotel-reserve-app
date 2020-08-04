@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.common.MailController;
-import com.example.demo.common.MailProperties;
-import com.example.demo.domain.model.MailDataModel;
 import com.example.demo.domain.model.MemberModel;
 
 @Service
@@ -34,7 +32,7 @@ public class MemberService {
 
 	public void updatePassword(MemberModel memberModel) {
 		try {
-			mailController.preparingSendMail(memberModel);
+			mailController.sendMail(memberModel.getName());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

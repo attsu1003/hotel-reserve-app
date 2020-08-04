@@ -17,23 +17,19 @@ public class SimpleCommandHandlerProvider<D, S> implements CommandHandlerProvide
 
 	private ReserveApplicationService reserveApplicationService;
 	private MemberApplicationService memberApplicationService;
-	//private RequestRePasswordApplicationService requestRePasswordApplicationService;
+	private RequestMailApplicationService requestMailApplicationService;
 
 	public SimpleCommandHandlerProvider(ReserveApplicationService reserveApplicationService,
-			MemberApplicationService memberApplicationService) {
+			MemberApplicationService memberApplicationService,
+			RequestMailApplicationService requestMailApplicationService) {
 		super();
 		this.reserveApplicationService = reserveApplicationService;
 		this.memberApplicationService = memberApplicationService;
-		//this.requestRePasswordApplicationService = requestRePasswordApplicationService;
+		this.requestMailApplicationService = requestMailApplicationService;
 	}
 
 	@SuppressWarnings("rawtypes")
 	private final Map<Class, CommandHandler> map = new HashMap<>();
-//	private List<Object> serviceBeans = new ArrayList<Object>() {
-//		{
-//			add(reserveApplicationService);
-//		}
-//	};
 
 	@PostConstruct
 	public void postConstruct() {
@@ -41,7 +37,7 @@ public class SimpleCommandHandlerProvider<D, S> implements CommandHandlerProvide
 			{
 				add(reserveApplicationService);
 				add(memberApplicationService);
-				//add(requestRePasswordApplicationService);
+				add(requestMailApplicationService);
 			}
 		};
 		for (Object serviceBean : serviceBeans) {

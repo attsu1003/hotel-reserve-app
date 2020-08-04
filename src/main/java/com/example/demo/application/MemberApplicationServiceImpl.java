@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.application.command.CreateMemberCommand;
+import com.example.demo.application.command.DeleteMemberCommand;
 import com.example.demo.application.command.RequestRePasswordCommand;
 import com.example.demo.application.command.SetPasswordCommand;
 import com.example.demo.application.command.UpdatePasswordCommand;
@@ -37,6 +38,14 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 		}
 		memberRepository.createMember(new MemberModel(createMemberCommand.getUsername(),
 				this.hashingPassword(createMemberCommand.getPassword())));
+	}
+
+	@Override
+	public void execute(DeleteMemberCommand deleteMemberCommand) throws MemberNotFoundException {
+		if (isMemberNotExists(deleteMemberCommand.getUsername())) {
+			throw new MemberNotFoundException("ユーザ名\"" + deleteMemberCommand.getUsername() + "\"のユーザは登録されていません。");
+		}
+		MemberModel memberModel=memberRepository.getMember(deleteMemberCommand.getUsername());
 	}
 
 	@Override

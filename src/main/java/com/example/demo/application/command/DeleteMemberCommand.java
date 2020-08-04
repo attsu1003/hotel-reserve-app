@@ -1,11 +1,11 @@
 package com.example.demo.application.command;
 
-public class CreateMemberCommand implements Command {
+public class DeleteMemberCommand implements Command {
 
 	private String username;
 	private String password;
 
-	public CreateMemberCommand(String username, String password) {
+	public DeleteMemberCommand(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;

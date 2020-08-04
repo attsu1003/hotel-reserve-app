@@ -3,6 +3,7 @@ package com.example.demo.application;
 import java.io.IOException;
 
 import com.example.demo.application.command.CreateMemberCommand;
+import com.example.demo.application.command.DeleteMemberCommand;
 import com.example.demo.application.command.RequestRePasswordCommand;
 import com.example.demo.application.command.SetPasswordCommand;
 import com.example.demo.application.command.UpdatePasswordCommand;
@@ -13,6 +14,8 @@ import com.example.demo.domain.member.PasswordNotMatchException;
 public interface MemberApplicationService {
 
 	public void execute(CreateMemberCommand createMemberCommand) throws MemberAlreadyExistException;
+
+	public void execute(DeleteMemberCommand deleteMemberCommand) throws MemberNotFoundException;
 
 	public void execute(RequestRePasswordCommand requestRePasswordCommand) throws MemberNotFoundException, IOException;
 

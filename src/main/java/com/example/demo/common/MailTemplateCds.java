@@ -4,18 +4,15 @@ import java.util.Optional;
 
 import com.example.demo.domain.InvalidArgumentException;
 
-
-
 /**
  * メール送信時のテンプレート識別キーの列挙クラス.
  * 
  */
 public enum MailTemplateCds {
 
-	/**
-	 * メールテンプレートenum：001
-	 */
-	MAIL_TEMPLATE_001("001", null, null);
+	MAIL_TEMPLATE_001("001", null, null),
+
+	MAIL_TEMPLATE_002("002", null, null);
 
 	private final String key;
 	private final Optional<String> groupKey;
@@ -59,7 +56,7 @@ public enum MailTemplateCds {
 	 * 
 	 * @param key キー
 	 * @return コード
-	 * @throws InvalidArgumentException 
+	 * @throws InvalidArgumentException
 	 */
 	public static Optional<MailTemplateCds> getKeyFromCode(String key) throws InvalidArgumentException {
 		if (null == key)

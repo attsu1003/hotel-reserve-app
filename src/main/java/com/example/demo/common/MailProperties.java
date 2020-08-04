@@ -6,6 +6,7 @@ public class MailProperties {
 
 	private static final String FROM_ADDRESS = "fromaddress";
 	private static final String PASSWORD_SETTING_URL = "passwordSettingUrl";
+	private static final String DELETE_MEMBER_URL = "deleteMemberUrl";
 
 	private static final String MAIL_PROPERTIES_FILE = "mail";
 	private static final String MAIL_TEMPLATE_PATH = "src/main/resources/mailtemplate";
@@ -21,6 +22,10 @@ public class MailProperties {
 
 	public static String getPasswordSettingUrl() {
 		return resourceBundle.getString(PASSWORD_SETTING_URL);
+	}
+	
+	public static String getDeleteMemberUrl() {
+		return resourceBundle.getString(DELETE_MEMBER_URL);
 	}
 
 	public static String getMailTemplateResourcePath() {
