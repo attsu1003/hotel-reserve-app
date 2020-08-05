@@ -1,11 +1,15 @@
-package com.example.demo.domain.model;
+package com.example.demo.web.form;
 
-public class UpdatePasswordModel {
+import javax.validation.constraints.Size;
 
+public class UpdatePasswordForm {
+
+	@Size(min = 8, max = 16)
 	private String password;
+	@Size(min = 8, max = 16)
 	private String newPassword;
+	@Size(min = 8, max = 16)
 	private String newConfirmPassword;
-
 
 	public String getPassword() {
 		return password;

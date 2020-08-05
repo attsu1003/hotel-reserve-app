@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.UpdatePasswordCommand;
+import com.example.demo.controller.AbstractController;
 import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.member.PasswordNotMatchException;
-import com.example.demo.domain.model.UpdatePasswordModel;
+import com.example.demo.web.form.UpdatePasswordForm;
 
 @Controller
 public class UpdatePasswordController extends AbstractController {
@@ -23,16 +24,19 @@ public class UpdatePasswordController extends AbstractController {
 
 	@RequestMapping(value = "updatePwd", method = RequestMethod.GET)
 	public String updatePwd(Model model) {
-		UpdatePasswordModel updatePasswordModel = new UpdatePasswordModel();
-		model.addAttribute("updatePasswordModel", updatePasswordModel);
+		UpdatePasswordForm updatePasswordForm = new UpdatePasswordForm();
+		model.addAttribute("updatePasswordForm", updatePasswordForm);
 		return "updatePassword";
 	}
 
 	@RequestMapping(value = "updatePwd", method = RequestMethod.POST)
-	public String updatePwd(@Validated UpdatePasswordModel updatePasswordModel, BindingResult bindingResult) {
-		UpdatePasswordCommand updatePasswordCommand = new UpdatePasswordCommand(updatePasswordModel.getPassword(),
-				updatePasswordModel.getNewPassword(), updatePasswordModel.getNewConfirmPassword(),
+	public String updatePwd(@Validated UpdatePasswordForm updatePasswordForm, BindingResult bindingResult) {
+		UpdatePasswordCommand updatePasswordCommand = new UpdatePasswordCommand(updatePasswordForm.getPassword(),
+				updatePasswordForm.getNewPassword(), updatePasswordForm.getNewConfirmPassword(),
 				SecurityContextHolder.getContext().getAuthentication().getName());
+		if (bindingResult.hasErrors()) {
+			return "updatePassword";
+		}
 		try {
 			applicationCommandBus.dispatch(updatePasswordCommand);
 		} catch (Exception e) {
