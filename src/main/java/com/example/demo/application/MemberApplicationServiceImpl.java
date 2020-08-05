@@ -1,14 +1,11 @@
 package com.example.demo.application;
 
-import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.application.command.CreateMemberCommand;
 import com.example.demo.application.command.DeleteMemberCommand;
-import com.example.demo.application.command.RequestRePasswordCommand;
 import com.example.demo.application.command.SetPasswordCommand;
 import com.example.demo.application.command.UpdatePasswordCommand;
 import com.example.demo.domain.member.MemberAlreadyExistException;
@@ -54,16 +51,6 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 		}
 		memberRepository.deleteMember(new MemberModel(deleteMemberCommand.getUsername(),
 				this.hashingPassword(deleteMemberCommand.getPassword())));
-	}
-
-	@Override
-	public void execute(RequestRePasswordCommand requestRePasswordCommand) throws MemberNotFoundException, IOException {
-		if (isMemberNotExists(requestRePasswordCommand.getMailAddress())) {
-			throw new MemberNotFoundException(
-					"ユーザ名\"" + requestRePasswordCommand.getMailAddress() + "\"のユーザは登録されていません。", "userId");
-		}
-		MemberModel memberModel = memberRepository.getMember(requestRePasswordCommand.getMailAddress());
-		memberService.updatePassword(memberModel);
 	}
 
 	@Override

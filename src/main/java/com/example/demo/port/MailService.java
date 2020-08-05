@@ -139,7 +139,4 @@ public abstract class MailService {
 		simpleMailMessage.setTo(toAddress);
 		return simpleMailMessage;
 	}
-
-	
-
 }

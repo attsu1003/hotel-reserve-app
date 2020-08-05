@@ -21,10 +21,8 @@ public class RequestDeleteMemberMailService extends MailService {
 	private MailDataModel prepareSendDeleteMemberMail(String mailAddress) {
 		MailDataModel mailDataModel = this.createMailDataModel(mailAddress);
 		try {
-			mailDataModel.setSubject(
-					getMailTemplateText(mailDataModel, TemplateTypes.SUBJECT, mailTemplateCds));
-			mailDataModel
-					.setBody(getMailTemplateText(mailDataModel, TemplateTypes.BODY, mailTemplateCds));
+			mailDataModel.setSubject(getMailTemplateText(mailDataModel, TemplateTypes.SUBJECT, mailTemplateCds));
+			mailDataModel.setBody(getMailTemplateText(mailDataModel, TemplateTypes.BODY, mailTemplateCds));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

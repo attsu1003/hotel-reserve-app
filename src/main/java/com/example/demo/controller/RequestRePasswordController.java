@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.RequestRePasswordCommand;
+import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.model.RequestRePasswordModel;
 
 @Controller
@@ -38,7 +39,9 @@ public class RequestRePasswordController extends AbstractController {
 		try {
 			applicationCommandBus.dispatch(requestRePasswordCommand);
 		} catch (Exception e) {
-			addErrorMessage("MSGE1002");
+			if (e.getCause() instanceof MemberNotFoundException) {
+				addErrorMessage("MSGE1002");
+			}
 			return "requestRePassword";
 		}
 		request.getSession().setAttribute("mailAddress", requestRePasswordModel.getMailAddress());
