@@ -1,7 +1,10 @@
-package com.example.demo.domain.model;
+package com.example.demo.web.form;
 
-public class DeleteMemberModel {
+import javax.validation.constraints.Size;
 
+public class DeleteMemberForm {
+	
+	@Size(min = 8, max = 16)
 	private String password;
 
 	public String getPassword() {

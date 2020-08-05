@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.web.controller;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.CreateMemberCommand;
 import com.example.demo.application.command.DeleteMemberCommand;
+import com.example.demo.controller.AbstractController;
 import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.member.WrongPasswordException;
-import com.example.demo.domain.model.DeleteMemberModel;
 import com.example.demo.domain.model.LoginModel;
+import com.example.demo.web.form.DeleteMemberForm;
 
 @Controller
 public class MemberController extends AbstractController {
@@ -52,16 +53,19 @@ public class MemberController extends AbstractController {
 
 	@RequestMapping(value = "/deleteMember", method = RequestMethod.GET)
 	public String deleteMember(Model model) {
-		DeleteMemberModel deleteMemberModel = new DeleteMemberModel();
-		model.addAttribute("deleteMemberModel", deleteMemberModel);
+		DeleteMemberForm deleteMemberForm = new DeleteMemberForm();
+		model.addAttribute("deleteMemberForm", deleteMemberForm);
 		return "deleteMember";
 	}
 
 	@RequestMapping(value = "/deleteMember", method = RequestMethod.POST)
-	public String deleteMember(@Validated DeleteMemberModel deleteMemberModel, BindingResult bindingResult, Model model,
+	public String deleteMember(@Validated DeleteMemberForm deleteMemberForm, BindingResult bindingResult, Model model,
 			HttpServletRequest request) {
+		if (bindingResult.hasErrors()) {
+			return "deleteMember";
+		}
 		DeleteMemberCommand deleteMemberCommand = new DeleteMemberCommand(
-				(String) request.getSession().getAttribute("mailAddress"), deleteMemberModel.getPassword());
+				(String) request.getSession().getAttribute("mailAddress"), deleteMemberForm.getPassword());
 		try {
 			applicationCommandBus.dispatch(deleteMemberCommand);
 		} catch (Exception e) {

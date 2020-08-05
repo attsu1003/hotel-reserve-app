@@ -23,8 +23,8 @@
 						<label th:text="${message.value}" class="control-label common-block"></label>
 					</div>
 				</div>
-				<form th:action="@{/deleteMember}" th:object="${deleteMemberModel}" method="post">
-					<div class="form-group">
+				<form th:action="@{/deleteMember}" th:object="${deleteMemberForm}" method="post">
+					<div class="form-group" th:classappend="${#fields.hasErrors('password')}? has-error">
 						<div class="col-md-3">
 							<label for="name" class="col-form-label">
 							パスワード <span class="badge badge-warning">必須</span>
@@ -33,6 +33,7 @@
 						<div class="col-md-9">
 							<input type="password" class="form-control" id="name" th:field="*{password}" required
 							placeholder="パスワードを入力">
+							<span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
 						</div>
 					</div>
 					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteMemberModal">
