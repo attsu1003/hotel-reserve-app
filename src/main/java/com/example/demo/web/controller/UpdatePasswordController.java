@@ -31,12 +31,12 @@ public class UpdatePasswordController extends AbstractController {
 
 	@RequestMapping(value = "updatePwd", method = RequestMethod.POST)
 	public String updatePwd(@Validated UpdatePasswordForm updatePasswordForm, BindingResult bindingResult) {
-		UpdatePasswordCommand updatePasswordCommand = new UpdatePasswordCommand(updatePasswordForm.getPassword(),
-				updatePasswordForm.getNewPassword(), updatePasswordForm.getNewConfirmPassword(),
-				SecurityContextHolder.getContext().getAuthentication().getName());
 		if (bindingResult.hasErrors()) {
 			return "updatePassword";
 		}
+		UpdatePasswordCommand updatePasswordCommand = new UpdatePasswordCommand(updatePasswordForm.getPassword(),
+				updatePasswordForm.getNewPassword(), updatePasswordForm.getNewConfirmPassword(),
+				SecurityContextHolder.getContext().getAuthentication().getName());
 		try {
 			applicationCommandBus.dispatch(updatePasswordCommand);
 		} catch (Exception e) {

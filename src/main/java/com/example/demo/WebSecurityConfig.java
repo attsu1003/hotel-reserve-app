@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests()
 				.antMatchers("/js/**", "/common/css/**", "/common/image/**", "/createMember", "/webjars/**",
-						"/createdMember", "/requestRePassword", "/setPwd", "/setPasswordComplete")
+						"/createdMember", "/requestRePassword", "/setPassword", "/setPasswordComplete")
 				.permitAll().anyRequest().authenticated();
 		http.formLogin().loginPage("/login").loginProcessingUrl("/authenticate").usernameParameter("username")
 				.passwordParameter("password").defaultSuccessUrl("/menu", true).permitAll();
