@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.example.demo.application.command.RequestCreateMemberCommand;
 import com.example.demo.application.command.RequestDeleteMemberCommand;
 import com.example.demo.application.command.RequestRePasswordCommand;
+import com.example.demo.domain.member.MemberAlreadyExistException;
 import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.member.MemberRepository;
 import com.example.demo.domain.member.MemberService;
@@ -34,7 +35,11 @@ public class RequestMailApplicationServiceImpl implements RequestMailApplication
 	RequestDeleteMemberMailService requestDeleteMemberMailService;
 
 	@Override
-	public void execute(RequestCreateMemberCommand requestCreateMemberCommand) {
+	public void execute(RequestCreateMemberCommand requestCreateMemberCommand) throws MemberAlreadyExistException {
+		if (isMemberExists(requestCreateMemberCommand.getMailAddress())) {
+			throw new MemberAlreadyExistException(
+					"メールアドレス\"" + requestCreateMemberCommand.getMailAddress() + "既に登録されています。");
+		}
 		requestCreateMemberMailService.requestCreateMemberMail(requestCreateMemberCommand.getMailAddress());
 	}
 
@@ -54,6 +59,10 @@ public class RequestMailApplicationServiceImpl implements RequestMailApplication
 					"ユーザ名\"" + requestDeleteMemberCommand.getMailAddress() + "\"のユーザは登録されていません。", "userId");
 		}
 		requestDeleteMemberMailService.requestDeleteMemberMail(requestDeleteMemberCommand.getMailAddress());
+	}
+
+	private boolean isMemberExists(String password) {
+		return memberService.isMemberExists(password);
 	}
 
 	private boolean isMemberNotExists(String password) {

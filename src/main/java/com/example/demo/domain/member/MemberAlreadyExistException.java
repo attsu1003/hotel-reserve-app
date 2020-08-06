@@ -16,6 +16,10 @@ public class MemberAlreadyExistException extends BaseException {
 		this.causeAttributeName = causeAttributeName;
 	}
 
+	public MemberAlreadyExistException(String message) {
+		super(message);
+	}
+
 	public String getCauseAttributeName() {
 		return causeAttributeName;
 	}

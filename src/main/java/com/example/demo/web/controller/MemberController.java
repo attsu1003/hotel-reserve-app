@@ -16,6 +16,7 @@ import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.CreateMemberCommand;
 import com.example.demo.application.command.DeleteMemberCommand;
 import com.example.demo.controller.AbstractController;
+import com.example.demo.domain.member.MemberAlreadyExistException;
 import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.member.WrongPasswordException;
 import com.example.demo.domain.model.LoginModel;
@@ -44,8 +45,10 @@ public class MemberController extends AbstractController {
 		try {
 			applicationCommandBus.dispatch(createMemberCommand);
 		} catch (Exception e) {
-			addErrorMessage("MSGE1001");
-			return "createMember";
+			if (e.getCause() instanceof MemberAlreadyExistException) {
+				addErrorMessage("MSGE1001");
+				return "createMember";
+			}
 		}
 		addMessage("MSGM1001");
 		return "createMember";

@@ -1,7 +1,5 @@
 package com.example.demo.web.controller;
 
-import java.lang.reflect.InvocationTargetException;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.RequestCreateMemberCommand;
 import com.example.demo.controller.AbstractController;
+import com.example.demo.domain.member.MemberAlreadyExistException;
 import com.example.demo.web.form.RequestCreateMemberForm;
 
 @Controller
@@ -40,8 +39,11 @@ public class RequestCreateMemberController extends AbstractController {
 				requestCreateMemberForm.getMailAddress());
 		try {
 			applicationCommandBus.dispatch(requestCreateMemberCommand);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			return "requestCreateMember";
+		} catch (Exception e) {
+			if (e.getCause() instanceof MemberAlreadyExistException) {
+				addErrorMessage("MSGE1008");
+				return "requestCreateMember";
+			}
 		}
 		return "requestCreateMemberComplete";
 	}
