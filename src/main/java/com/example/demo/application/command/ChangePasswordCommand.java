@@ -1,13 +1,13 @@
 package com.example.demo.application.command;
 
-public class UpdatePasswordCommand implements Command {
+public class ChangePasswordCommand implements Command {
 
 	private String password;
 	private String newPassword;
 	private String newConfirmPassword;
 	private String mailAddress;
 
-	public UpdatePasswordCommand(String password, String newPassword, String newConfirmPassword, String mailAddress) {
+	public ChangePasswordCommand(String password, String newPassword, String newConfirmPassword, String mailAddress) {
 		super();
 		this.password = password;
 		this.newPassword = newPassword;

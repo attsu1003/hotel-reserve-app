@@ -24,7 +24,7 @@ public class MemberRepository {
 		memberMapper.delete(memberModel);
 	}
 
-	public boolean updatePassword(String password, String username) {
+	public boolean changePassword(String password, String username) {
 		return memberMapper.update(password, username);
 	}
 }

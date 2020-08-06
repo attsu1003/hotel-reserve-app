@@ -10,35 +10,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.application.ApplicationCommandBus;
-import com.example.demo.application.command.UpdatePasswordCommand;
+import com.example.demo.application.command.ChangePasswordCommand;
 import com.example.demo.controller.AbstractController;
 import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.member.PasswordNotMatchException;
-import com.example.demo.web.form.UpdatePasswordForm;
+import com.example.demo.web.form.ChangePasswordForm;
 
 @Controller
-public class UpdatePasswordController extends AbstractController {
+public class ChangePasswordController extends AbstractController {
 
 	@Autowired
 	ApplicationCommandBus applicationCommandBus;
 
-	@RequestMapping(value = "updatePwd", method = RequestMethod.GET)
-	public String updatePwd(Model model) {
-		UpdatePasswordForm updatePasswordForm = new UpdatePasswordForm();
-		model.addAttribute("updatePasswordForm", updatePasswordForm);
-		return "updatePassword";
+	@RequestMapping(value = "changePassword", method = RequestMethod.GET)
+	public String changePassword(Model model) {
+		ChangePasswordForm changePasswordForm = new ChangePasswordForm();
+		model.addAttribute("changePasswordForm", changePasswordForm);
+		return "changePassword";
 	}
 
-	@RequestMapping(value = "updatePwd", method = RequestMethod.POST)
-	public String updatePwd(@Validated UpdatePasswordForm updatePasswordForm, BindingResult bindingResult) {
+	@RequestMapping(value = "changePassword", method = RequestMethod.POST)
+	public String changePassword(@Validated ChangePasswordForm changePasswordForm, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			return "updatePassword";
+			return "changePassword";
 		}
-		UpdatePasswordCommand updatePasswordCommand = new UpdatePasswordCommand(updatePasswordForm.getPassword(),
-				updatePasswordForm.getNewPassword(), updatePasswordForm.getNewConfirmPassword(),
+		ChangePasswordCommand changePasswordCommand = new ChangePasswordCommand(changePasswordForm.getPassword(),
+				changePasswordForm.getNewPassword(), changePasswordForm.getNewConfirmPassword(),
 				SecurityContextHolder.getContext().getAuthentication().getName());
 		try {
-			applicationCommandBus.dispatch(updatePasswordCommand);
+			applicationCommandBus.dispatch(changePasswordCommand);
 		} catch (Exception e) {
 			if (e.getCause() instanceof PasswordNotMatchException) {
 				addErrorMessage("MSGE1004");
@@ -46,10 +46,10 @@ public class UpdatePasswordController extends AbstractController {
 			if (e.getCause() instanceof MemberNotFoundException) {
 				addErrorMessage("MSGE1007");
 			}
-			return "updatePassword";
+			return "changePassword";
 		}
 		addMessage("MSGM1002");
-		return "updatePassword";
+		return "changePassword";
 	}
 
 }

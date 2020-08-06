@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.example.demo.application.command.CreateMemberCommand;
 import com.example.demo.application.command.DeleteMemberCommand;
 import com.example.demo.application.command.SetPasswordCommand;
-import com.example.demo.application.command.UpdatePasswordCommand;
+import com.example.demo.application.command.ChangePasswordCommand;
 import com.example.demo.domain.member.MemberAlreadyExistException;
 import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.member.MemberRepository;
@@ -63,24 +63,24 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 		if (isMemberNotExists(setPasswordCommand.getMailAddress())) {
 			throw new MemberNotFoundException("ユーザ情報が見つかりません。恐れ入りますがパスワード再設定依頼を実施してください。");
 		}
-		memberRepository.updatePassword(this.hashingPassword(setPasswordCommand.getPassword()),
+		memberRepository.changePassword(this.hashingPassword(setPasswordCommand.getPassword()),
 				setPasswordCommand.getMailAddress());
 	}
 
 	@Override
-	public void execute(UpdatePasswordCommand updatePasswordCommand)
+	public void execute(ChangePasswordCommand changePasswordCommand)
 			throws PasswordNotMatchException, MemberNotFoundException {
 		// 入力した新パスワードと確認用に入力した新パスワードが一致しない場合
-		if (isPasswordNotMatch(updatePasswordCommand.getNewPassword(), updatePasswordCommand.getNewConfirmPassword())) {
+		if (isPasswordNotMatch(changePasswordCommand.getNewPassword(), changePasswordCommand.getNewConfirmPassword())) {
 			throw new PasswordNotMatchException("入力した新パスワードと新パスワード(確認用)が一致しません。", "password");
 		}
 		// 入力した現在のパスワードが間違っている場合
 		if (isMemberNotExists(
-				new MemberModel(updatePasswordCommand.getMailAddress(), updatePasswordCommand.getPassword()))) {
+				new MemberModel(changePasswordCommand.getMailAddress(), changePasswordCommand.getPassword()))) {
 			throw new MemberNotFoundException("現在のパスワードの入力が誤っています。");
 		}
-		memberRepository.updatePassword(this.hashingPassword(updatePasswordCommand.getNewPassword()),
-				updatePasswordCommand.getMailAddress());
+		memberRepository.changePassword(this.hashingPassword(changePasswordCommand.getNewPassword()),
+				changePasswordCommand.getMailAddress());
 	}
 
 	private boolean isMemberExists(String username) {

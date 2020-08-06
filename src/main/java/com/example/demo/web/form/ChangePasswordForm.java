@@ -2,7 +2,7 @@ package com.example.demo.web.form;
 
 import javax.validation.constraints.Size;
 
-public class UpdatePasswordForm {
+public class ChangePasswordForm {
 
 	@Size(min = 8, max = 16)
 	private String password;
