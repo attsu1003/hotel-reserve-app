@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.RequestDeleteMemberCommand;
+import com.example.demo.controller.AbstractController;
 import com.example.demo.domain.member.MemberNotFoundException;
-import com.example.demo.domain.model.RequestDeleteMemberModel;
+import com.example.demo.web.form.RequestDeleteMemberForm;
 
 @Controller
 public class RequestDeleteMemberController extends AbstractController {
@@ -23,16 +24,19 @@ public class RequestDeleteMemberController extends AbstractController {
 
 	@RequestMapping(value = "requestDeleteMember", method = RequestMethod.GET)
 	public String requestDeleteMember(Model model) {
-		RequestDeleteMemberModel requestDeleteMemberModel = new RequestDeleteMemberModel();
-		model.addAttribute("requestDeleteMemberModel", requestDeleteMemberModel);
+		RequestDeleteMemberForm requestDeleteMemberForm = new RequestDeleteMemberForm();
+		model.addAttribute("requestDeleteMemberForm", requestDeleteMemberForm);
 		return "requestDeleteMember";
 	}
 
 	@RequestMapping(value = "requestDeleteMember", method = RequestMethod.POST)
-	public String requestDeleteMember(@Validated RequestDeleteMemberModel requestDeleteMemberModel,
+	public String requestDeleteMember(@Validated RequestDeleteMemberForm requestDeleteMemberForm,
 			BindingResult bindingResult, Model model, HttpServletRequest request) {
+		if (bindingResult.hasErrors()) {
+			return "requestDeleteMember";
+		}
 		RequestDeleteMemberCommand requestDeleteMemberCommand = new RequestDeleteMemberCommand(
-				requestDeleteMemberModel.getMailAddress());
+				requestDeleteMemberForm.getMailAddress());
 		try {
 			applicationCommandBus.dispatch(requestDeleteMemberCommand);
 		} catch (Exception e) {
@@ -41,8 +45,7 @@ public class RequestDeleteMemberController extends AbstractController {
 			}
 			return "requestDeleteMember";
 		}
-		request.getSession().setAttribute("mailAddress", requestDeleteMemberModel.getMailAddress());
+		request.getSession().setAttribute("mailAddress", requestDeleteMemberForm.getMailAddress());
 		return "requestDeleteMemberComplete";
 	}
-
 }

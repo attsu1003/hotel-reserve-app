@@ -1,7 +1,7 @@
-package com.example.demo.domain.model;
+package com.example.demo.web.form;
 
-public class RequestDeleteMemberModel {
-
+public class RequestDeleteMemberForm {
+	
 	private String mailAddress;
 
 	public String getMailAddress() {
