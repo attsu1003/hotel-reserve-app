@@ -2,6 +2,9 @@ package com.example.demo.web.form;
 
 import javax.validation.constraints.Size;
 
+import com.example.demo.web.validation.ConfirmChangePassword;
+
+@ConfirmChangePassword(password = "password", newPassword = "newPassword")
 public class ChangePasswordForm {
 
 	@Size(min = 8, max = 16)
