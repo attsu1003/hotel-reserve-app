@@ -32,7 +32,12 @@ public class ReserveController {
 	public String delete(@RequestParam(name = "id") String id, Model model)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		DeleteCommand deleteCommand = new DeleteCommand(new ReserveId(id));
-		applicationCommandBus.dispatch(deleteCommand);
+		try {
+			applicationCommandBus.dispatch(deleteCommand);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "cancel";
 	}
 

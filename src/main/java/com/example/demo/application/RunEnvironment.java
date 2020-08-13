@@ -16,7 +16,7 @@ public class RunEnvironment {
 		this.commandHandlerProvider = commandHandlerProvider;
 	}
 
-	public Object runHandler(Command command) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public Object runHandler(Command command) throws Exception {
 		CommandHandler commandHandler = this.commandHandlerProvider.get(command);
 		return commandHandler.handle(command);
 	}

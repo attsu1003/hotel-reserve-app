@@ -36,7 +36,12 @@ public class ReserveConfirmController {
 		ReserveCondition reserveCondition = new ReserveCondition(name, reserveModel.getCheckInDay(),
 				reserveModel.getCheckOutDay());
 		ReserveCommand reserveCommand = new ReserveCommand(new ReserveId("test11"), reserveCondition);
-		applicationCommandBus.dispatch(reserveCommand);
+		try {
+			applicationCommandBus.dispatch(reserveCommand);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		reserveModel.setId(reserveCommand.getReserveId().getReserveId());
 		model.addAttribute("reserveModel", reserveModel);

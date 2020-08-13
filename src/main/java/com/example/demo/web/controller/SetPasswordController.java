@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.SetPasswordCommand;
@@ -27,14 +28,14 @@ public class SetPasswordController extends AbstractController {
 	public String setPassword(Model model) {
 		SetPasswordForm setPasswordForm = new SetPasswordForm();
 		model.addAttribute("setPasswordForm", setPasswordForm);
-		return "setPassword";
+		return "/usermgmt/setPassword";
 	}
 
 	@RequestMapping(value = "setPassword", method = RequestMethod.POST)
 	public String setPassword(@Validated SetPasswordForm setPasswordForm, BindingResult bindingResult,
 			HttpServletRequest request) {
 		if (bindingResult.hasErrors()) {
-			return "setPassword";
+			return "/usermgmt/setPassword";
 		}
 		SetPasswordCommand setPasswordCommand = new SetPasswordCommand(setPasswordForm.getPassword(),
 				setPasswordForm.getConfirmPassword(), (String) request.getSession().getAttribute("mailAddress"));
@@ -47,10 +48,10 @@ public class SetPasswordController extends AbstractController {
 			if (e.getCause() instanceof MemberNotFoundException) {
 				addErrorMessage("MSGE1005");
 			}
-			return "setPassword";
+			return "/usermgmt/setPassword";
 		}
 		request.getSession().removeAttribute("mailAddress");
 		addMessage("MSGM1003");
-		return "setPassword";
+		return "/usermgmt/setPassword";
 	}
 }

@@ -1,7 +1,5 @@
 package com.example.demo.application;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +15,7 @@ public class ApplicationCommandBus {
 	ReserveRepository reserveRepository;
 
 	public void dispatch(Command command)
-			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+			throws Exception {
 		runEnvironment.runHandler(command);
 	}
 
