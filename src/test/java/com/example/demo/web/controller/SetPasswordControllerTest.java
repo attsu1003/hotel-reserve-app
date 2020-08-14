@@ -67,7 +67,7 @@ public class SetPasswordControllerTest {
 	@Nested
 	public class test_setPassword_POST {
 		@Test
-		public void 作成したsetPasswordCommandを引数にアプリケーションサービスを呼び出しsetPasswordが正常終了したことを画面表示する() throws Exception {
+		public void 作成したsetPasswordCommandを引数にアプリケーションサービスを呼び出しパスワード設定が正常終了したことを画面表示する() throws Exception {
 
 			// given
 			when(applicationContextMock.getBean(HotelReserveMessages.class)).thenReturn(new HotelReserveMessages());
@@ -100,12 +100,17 @@ public class SetPasswordControllerTest {
 		public void PasswordNotMatchException発生時はパスワード設定が失敗したことを画面表示する() throws Exception {
 			// given
 			when(applicationContextMock.getBean(HotelReserveMessages.class)).thenReturn(new HotelReserveMessages());
+			when(messageSourceMock.getMessage("MSGE1003", null, null))
+			.thenReturn("入力したパスワードとパスワード(確認用)が一致しません。");
 
 			doThrow(new Exception(new PasswordNotMatchException("入力したパスワードとパスワード(確認用)が一致しません。", "password")))
 					.when(applicationCommandBusMock).dispatch(Mockito.any(SetPasswordCommand.class));
 
 			// when
 			ArgumentCaptor<SetPasswordCommand> argument = ArgumentCaptor.forClass(SetPasswordCommand.class);
+			ArgumentCaptor<String> argumentString = ArgumentCaptor.forClass(String.class);
+			ArgumentCaptor<Object[]> argumentObject = ArgumentCaptor.forClass(Object[].class);
+			ArgumentCaptor<Locale> argumentLocale = ArgumentCaptor.forClass(Locale.class);
 
 			// then
 			mockMvc.perform(post("/setPassword").param("password", "password")
@@ -117,6 +122,10 @@ public class SetPasswordControllerTest {
 			verify(applicationCommandBusMock).dispatch(argument.capture());
 
 			assertThat(argument.getValue(), is(instanceOf(SetPasswordCommand.class)));
+			
+			verify(messageSourceMock).getMessage(argumentString.capture(), argumentObject.capture(),
+					argumentLocale.capture());
+			assertThat(argumentString.getValue(), is("MSGE1003"));
 
 			verifyNoMoreInteractions(applicationCommandBusMock);
 		}
@@ -125,13 +134,18 @@ public class SetPasswordControllerTest {
 		public void MemberNotFoundException発生時はパスワード設定が失敗したことを画面表示する() throws Exception {
 			// given
 			when(applicationContextMock.getBean(HotelReserveMessages.class)).thenReturn(new HotelReserveMessages());
-
+			when(messageSourceMock.getMessage("MSGE1005", null, null))
+			.thenReturn("ユーザ情報が見つかりません。恐れ入りますがログイン画面に戻り、パスワード再設定依頼を実施してください。");
+			
 			doThrow(new Exception(new MemberNotFoundException("ユーザ情報が見つかりません。恐れ入りますがパスワード再設定依頼を実施してください。")))
 					.when(applicationCommandBusMock).dispatch(Mockito.any(SetPasswordCommand.class));
 
 			// when
 			ArgumentCaptor<SetPasswordCommand> argument = ArgumentCaptor.forClass(SetPasswordCommand.class);
-
+			ArgumentCaptor<String> argumentString = ArgumentCaptor.forClass(String.class);
+			ArgumentCaptor<Object[]> argumentObject = ArgumentCaptor.forClass(Object[].class);
+			ArgumentCaptor<Locale> argumentLocale = ArgumentCaptor.forClass(Locale.class);
+			
 			// then
 			mockMvc.perform(post("/setPassword").param("password", "password")
 					.param("confirmPassword", "confirmPassword").with(request -> {
@@ -141,6 +155,11 @@ public class SetPasswordControllerTest {
 
 			verify(applicationCommandBusMock).dispatch(argument.capture());
 			assertThat(argument.getValue(), is(instanceOf(SetPasswordCommand.class)));
+			
+			verify(messageSourceMock).getMessage(argumentString.capture(), argumentObject.capture(),
+					argumentLocale.capture());
+			assertThat(argumentString.getValue(), is("MSGE1005"));
+			
 			verifyNoMoreInteractions(applicationCommandBusMock);
 
 		}
