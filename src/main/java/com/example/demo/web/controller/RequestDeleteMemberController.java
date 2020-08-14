@@ -1,7 +1,5 @@
 package com.example.demo.web.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,14 +24,14 @@ public class RequestDeleteMemberController extends AbstractController {
 	public String requestDeleteMember(Model model) {
 		RequestDeleteMemberForm requestDeleteMemberForm = new RequestDeleteMemberForm();
 		model.addAttribute("requestDeleteMemberForm", requestDeleteMemberForm);
-		return "requestDeleteMember";
+		return "/reqmail/requestDeleteMember";
 	}
 
 	@RequestMapping(value = "requestDeleteMember", method = RequestMethod.POST)
 	public String requestDeleteMember(@Validated RequestDeleteMemberForm requestDeleteMemberForm,
-			BindingResult bindingResult, Model model, HttpServletRequest request) {
+			BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
-			return "requestDeleteMember";
+			return "/reqmail/requestDeleteMember";
 		}
 		RequestDeleteMemberCommand requestDeleteMemberCommand = new RequestDeleteMemberCommand(
 				requestDeleteMemberForm.getMailAddress());
@@ -43,9 +41,8 @@ public class RequestDeleteMemberController extends AbstractController {
 			if (e.getCause() instanceof MemberNotFoundException) {
 				addErrorMessage("MSGE1002");
 			}
-			return "requestDeleteMember";
+			return "/reqmail/requestDeleteMember";
 		}
-		request.getSession().setAttribute("mailAddress", requestDeleteMemberForm.getMailAddress());
 		return "requestDeleteMemberComplete";
 	}
 }
