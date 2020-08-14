@@ -26,14 +26,14 @@ public class RequestCreateMemberController extends AbstractController {
 	public String requestCreateMember(Model model) {
 		RequestCreateMemberForm requestCreateMemberForm = new RequestCreateMemberForm();
 		model.addAttribute("requestCreateMemberForm", requestCreateMemberForm);
-		return "requestCreateMember";
+		return "/reqmail/requestCreateMember";
 	}
 
 	@RequestMapping(value = "requestCreateMember", method = RequestMethod.POST)
 	public String requestCreateMember(@Validated RequestCreateMemberForm requestCreateMemberForm,
 			BindingResult bindingResult, HttpServletRequest request) {
 		if (bindingResult.hasErrors()) {
-			return "requestCreateMember";
+			return "/reqmail/requestCreateMember";
 		}
 		RequestCreateMemberCommand requestCreateMemberCommand = new RequestCreateMemberCommand(
 				requestCreateMemberForm.getMailAddress());
@@ -42,7 +42,7 @@ public class RequestCreateMemberController extends AbstractController {
 		} catch (Exception e) {
 			if (e.getCause() instanceof MemberAlreadyExistException) {
 				addErrorMessage("MSGE1008");
-				return "requestCreateMember";
+				return "/reqmail/requestCreateMember";
 			}
 		}
 		return "requestCreateMemberComplete";
