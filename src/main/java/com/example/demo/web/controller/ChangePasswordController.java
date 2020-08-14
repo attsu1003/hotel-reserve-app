@@ -26,13 +26,13 @@ public class ChangePasswordController extends AbstractController {
 	public String changePassword(Model model) {
 		ChangePasswordForm changePasswordForm = new ChangePasswordForm();
 		model.addAttribute("changePasswordForm", changePasswordForm);
-		return "changePassword";
+		return "/usermgmt/changePassword";
 	}
 
 	@RequestMapping(value = "changePassword", method = RequestMethod.POST)
 	public String changePassword(@Validated ChangePasswordForm changePasswordForm, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			return "changePassword";
+			return "/usermgmt/changePassword";
 		}
 		ChangePasswordCommand changePasswordCommand = new ChangePasswordCommand(changePasswordForm.getPassword(),
 				changePasswordForm.getNewPassword(), changePasswordForm.getNewConfirmPassword(),
@@ -46,10 +46,10 @@ public class ChangePasswordController extends AbstractController {
 			if (e.getCause() instanceof MemberNotFoundException) {
 				addErrorMessage("MSGE1007");
 			}
-			return "changePassword";
+			return "/usermgmt/changePassword";
 		}
 		addMessage("MSGM1002");
-		return "changePassword";
+		return "/usermgmt/changePassword";
 	}
 
 }
