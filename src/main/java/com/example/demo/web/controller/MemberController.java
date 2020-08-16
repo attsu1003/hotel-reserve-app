@@ -31,7 +31,7 @@ public class MemberController extends AbstractController {
 	@RequestMapping(value = "/createMember")
 	public String createMember(Model model) {
 		model.addAttribute(new LoginModel());
-		return "createMember";
+		return "/usermgmt/createMember";
 	}
 
 	@RequestMapping(value = "/createdMember")
@@ -47,25 +47,25 @@ public class MemberController extends AbstractController {
 		} catch (Exception e) {
 			if (e.getCause() instanceof MemberAlreadyExistException) {
 				addErrorMessage("MSGE1001");
-				return "createMember";
+				return "/usermgmt/createMember";
 			}
 		}
 		addMessage("MSGM1001");
-		return "createMember";
+		return "/usermgmt/createMember";
 	}
 
 	@RequestMapping(value = "/deleteMember", method = RequestMethod.GET)
 	public String deleteMember(Model model) {
 		DeleteMemberForm deleteMemberForm = new DeleteMemberForm();
 		model.addAttribute("deleteMemberForm", deleteMemberForm);
-		return "deleteMember";
+		return "/usermgmt/deleteMember";
 	}
 
 	@RequestMapping(value = "/deleteMember", method = RequestMethod.POST)
 	public String deleteMember(@Validated DeleteMemberForm deleteMemberForm, BindingResult bindingResult, Model model,
 			HttpServletRequest request) {
 		if (bindingResult.hasErrors()) {
-			return "deleteMember";
+			return "/usermgmt/deleteMember";
 		}
 		DeleteMemberCommand deleteMemberCommand = new DeleteMemberCommand(
 				(String) request.getSession().getAttribute("mailAddress"), deleteMemberForm.getPassword());
@@ -78,7 +78,7 @@ public class MemberController extends AbstractController {
 			if (e.getCause() instanceof WrongPasswordException) {
 				addErrorMessage("MSGE1007");
 			}
-			return "deleteMember";
+			return "/usermgmt/deleteMember";
 		}
 		request.getSession().removeAttribute("mailAddress");
 		return "deleteMemberComplete";
