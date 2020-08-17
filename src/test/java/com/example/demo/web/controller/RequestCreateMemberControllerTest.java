@@ -77,7 +77,7 @@ class RequestCreateMemberControllerTest {
 
 			// then
 			mockMvc.perform(post("/requestCreateMember").param("mailAddress", "mailAddress")).andExpect(status().isOk())
-					.andExpect(view().name("requestCreateMemberComplete"));
+					.andExpect(view().name("/reqmail/requestCreateMemberComplete"));
 
 			verify(applicationCommandBusMock).dispatch(argument.capture());
 			assertThat(argument.getValue(), is(instanceOf(RequestCreateMemberCommand.class)));

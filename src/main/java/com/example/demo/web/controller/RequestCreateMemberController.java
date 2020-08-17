@@ -45,6 +45,6 @@ public class RequestCreateMemberController extends AbstractController {
 				return "/reqmail/requestCreateMember";
 			}
 		}
-		return "requestCreateMemberComplete";
+		return "/reqmail/requestCreateMemberComplete";
 	}
 }
