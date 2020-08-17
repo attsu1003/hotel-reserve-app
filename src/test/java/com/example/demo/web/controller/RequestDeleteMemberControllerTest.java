@@ -24,8 +24,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.example.demo.application.ApplicationCommandBus;
@@ -49,6 +52,9 @@ class RequestDeleteMemberControllerTest {
 
 	@Mock
 	ApplicationContext applicationContextMock;
+
+	@Mock
+	MockHttpSession mockHttpSession;
 
 	@BeforeEach
 	public void setUpMockMvc() {
@@ -75,12 +81,21 @@ class RequestDeleteMemberControllerTest {
 			ArgumentCaptor<RequestDeleteMemberCommand> argument = ArgumentCaptor
 					.forClass(RequestDeleteMemberCommand.class);
 			// then
-			mockMvc.perform(post("/requestDeleteMember").param("mailAddress", "mailAddress")).andExpect(status().isOk())
-					.andExpect(view().name("/reqmail/requestDeleteMemberComplete"));
+			mockMvc.perform(
+					post("/requestDeleteMember").param("mailAddress", "mailAddress").with(new RequestPostProcessor() {
+
+						@Override
+						public MockHttpServletRequest postProcessRequest(MockHttpServletRequest request) {
+							request.setSession(mockHttpSession);
+							return request;
+						}
+					})).andExpect(status().isOk()).andExpect(view().name("/reqmail/requestDeleteMemberComplete"));
 
 			verify(applicationCommandBusMock).dispatch(argument.capture());
 			assertThat(argument.getValue(), is(instanceOf(RequestDeleteMemberCommand.class)));
 			verifyNoMoreInteractions(applicationCommandBusMock);
+
+			verify(mockHttpSession).setAttribute("mailAddress", "mailAddress");
 		}
 
 		@Test
@@ -101,8 +116,15 @@ class RequestDeleteMemberControllerTest {
 			ArgumentCaptor<Locale> argumentLocale = ArgumentCaptor.forClass(Locale.class);
 
 			// then
-			mockMvc.perform(post("/requestDeleteMember").param("mailAddress", "mailAddress")).andExpect(status().isOk())
-					.andExpect(view().name("/reqmail/requestDeleteMember"));
+			mockMvc.perform(
+					post("/requestDeleteMember").param("mailAddress", "mailAddress").with(new RequestPostProcessor() {
+
+						@Override
+						public MockHttpServletRequest postProcessRequest(MockHttpServletRequest request) {
+							request.setSession(mockHttpSession);
+							return request;
+						}
+					})).andExpect(status().isOk()).andExpect(view().name("/reqmail/requestDeleteMember"));
 
 			verify(applicationCommandBusMock).dispatch(argument.capture());
 			assertThat(argument.getValue(), is(instanceOf(RequestDeleteMemberCommand.class)));
