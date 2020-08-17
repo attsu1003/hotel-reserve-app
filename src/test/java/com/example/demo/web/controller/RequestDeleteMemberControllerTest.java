@@ -76,7 +76,7 @@ class RequestDeleteMemberControllerTest {
 					.forClass(RequestDeleteMemberCommand.class);
 			// then
 			mockMvc.perform(post("/requestDeleteMember").param("mailAddress", "mailAddress")).andExpect(status().isOk())
-					.andExpect(view().name("requestDeleteMemberComplete"));
+					.andExpect(view().name("/reqmail/requestDeleteMemberComplete"));
 
 			verify(applicationCommandBusMock).dispatch(argument.capture());
 			assertThat(argument.getValue(), is(instanceOf(RequestDeleteMemberCommand.class)));

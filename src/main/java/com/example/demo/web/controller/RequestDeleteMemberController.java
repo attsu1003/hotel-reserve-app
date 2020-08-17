@@ -1,5 +1,7 @@
 package com.example.demo.web.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +31,7 @@ public class RequestDeleteMemberController extends AbstractController {
 
 	@RequestMapping(value = "requestDeleteMember", method = RequestMethod.POST)
 	public String requestDeleteMember(@Validated RequestDeleteMemberForm requestDeleteMemberForm,
-			BindingResult bindingResult, Model model) {
+			BindingResult bindingResult, Model model, HttpServletRequest request) {
 		if (bindingResult.hasErrors()) {
 			return "/reqmail/requestDeleteMember";
 		}
@@ -43,6 +45,7 @@ public class RequestDeleteMemberController extends AbstractController {
 			}
 			return "/reqmail/requestDeleteMember";
 		}
-		return "requestDeleteMemberComplete";
+		request.getSession().setAttribute("mailAddress", requestDeleteMemberForm.getMailAddress());
+		return "/reqmail/requestDeleteMemberComplete";
 	}
 }
