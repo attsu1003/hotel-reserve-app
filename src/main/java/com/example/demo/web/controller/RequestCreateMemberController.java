@@ -1,7 +1,5 @@
 package com.example.demo.web.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +29,7 @@ public class RequestCreateMemberController extends AbstractController {
 
 	@RequestMapping(value = "requestCreateMember", method = RequestMethod.POST)
 	public String requestCreateMember(@Validated RequestCreateMemberForm requestCreateMemberForm,
-			BindingResult bindingResult, HttpServletRequest request) {
+			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return "/reqmail/requestCreateMember";
 		}
