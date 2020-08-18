@@ -1,6 +1,6 @@
-package com.example.demo.domain.model;
+package com.example.demo.web.form;
 
-public class RequestRePasswordModel {
+public class RequestRePasswordForm {
 
 	private String mailAddress;
 

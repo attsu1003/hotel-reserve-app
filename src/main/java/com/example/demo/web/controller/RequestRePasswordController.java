@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.web.controller;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.RequestRePasswordCommand;
+import com.example.demo.controller.AbstractController;
 import com.example.demo.domain.member.MemberNotFoundException;
-import com.example.demo.domain.model.RequestRePasswordModel;
+import com.example.demo.web.form.RequestRePasswordForm;
 
 @Controller
 public class RequestRePasswordController extends AbstractController {
@@ -25,27 +26,27 @@ public class RequestRePasswordController extends AbstractController {
 
 	@RequestMapping(value = "requestRePassword", method = RequestMethod.GET)
 	public String requestRePassword(Model model) {
-		RequestRePasswordModel requestRePasswordModel = new RequestRePasswordModel();
-		model.addAttribute("requestRePasswordModel", requestRePasswordModel);
-		return "requestRePassword";
+		RequestRePasswordForm requestRePasswordForm = new RequestRePasswordForm();
+		model.addAttribute("requestRePasswordForm", requestRePasswordForm);
+		return "/reqmail/requestRePassword";
 	}
 
 	@RequestMapping(value = "requestRePassword", method = RequestMethod.POST)
-	public String requestedRePassword(@Validated RequestRePasswordModel requestRePasswordModel,
+	public String requestedRePassword(@Validated RequestRePasswordForm requestRePasswordForm,
 			BindingResult bindingResult, Model model, HttpServletRequest request)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		RequestRePasswordCommand requestRePasswordCommand = new RequestRePasswordCommand(
-				requestRePasswordModel.getMailAddress());
+				requestRePasswordForm.getMailAddress());
 		try {
 			applicationCommandBus.dispatch(requestRePasswordCommand);
 		} catch (Exception e) {
 			if (e.getCause() instanceof MemberNotFoundException) {
 				addErrorMessage("MSGE1002");
 			}
-			return "requestRePassword";
+			return "/reqmail/requestRePassword";
 		}
-		request.getSession().setAttribute("mailAddress", requestRePasswordModel.getMailAddress());
-		return "requestRePasswordComplete";
+		request.getSession().setAttribute("mailAddress", requestRePasswordForm.getMailAddress());
+		return "/reqmail/requestRePasswordComplete";
 	}
 
 }
