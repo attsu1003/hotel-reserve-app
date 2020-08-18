@@ -13,8 +13,6 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import com.example.demo.web.form.SetPasswordForm;
-
 @SpringBootTest
 class SetPasswordFormTest {
 
@@ -42,7 +40,7 @@ class SetPasswordFormTest {
 	@Nested
 	public class 異常系 {
 		@Test
-		public void パスワードが8文字以上16文字以下出ない場合() {
+		public void パスワードが8文字以上16文字以下でない場合() {
 			setPasswordForm.setPassword("error");
 			validator.validate(setPasswordForm, bindingResult);
 			assertThat(bindingResult.getFieldError().getField(), is("password"));
@@ -50,7 +48,7 @@ class SetPasswordFormTest {
 		}
 
 		@Test
-		public void 確認用パスワードが8文字以上16文字以下出ない場合() {
+		public void 確認用パスワードが8文字以上16文字以下でない場合() {
 			setPasswordForm.setConfirmPassword("error");
 			validator.validate(setPasswordForm, bindingResult);
 			assertThat(bindingResult.getFieldError().getField(), is("confirmPassword"));

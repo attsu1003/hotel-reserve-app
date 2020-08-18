@@ -36,7 +36,6 @@ import com.example.demo.application.command.ChangePasswordCommand;
 import com.example.demo.domain.HotelReserveMessages;
 import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.member.PasswordNotMatchException;
-import com.example.demo.web.controller.ChangePasswordController;
 
 @ExtendWith(SpringExtension.class)
 class ChangePasswordControllerTest {

@@ -35,7 +35,6 @@ import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.RequestDeleteMemberCommand;
 import com.example.demo.domain.HotelReserveMessages;
 import com.example.demo.domain.member.MemberNotFoundException;
-import com.example.demo.web.controller.RequestDeleteMemberController;
 
 @ExtendWith(SpringExtension.class)
 class RequestDeleteMemberControllerTest {
