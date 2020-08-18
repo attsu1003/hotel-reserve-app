@@ -32,6 +32,7 @@ import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.RequestCreateMemberCommand;
 import com.example.demo.domain.HotelReserveMessages;
 import com.example.demo.domain.member.MemberAlreadyExistException;
+import com.example.demo.web.controller.RequestCreateMemberController;
 
 @ExtendWith(SpringExtension.class)
 class RequestCreateMemberControllerTest {
