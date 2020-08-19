@@ -2,18 +2,14 @@ package com.example.demo.domain.model;
 
 import java.util.Date;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import com.example.demo.web.validation.ConfirmDayBeforeAndAfter;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
+@ConfirmDayBeforeAndAfter(checkInDay = "checkInDay", checkOutDay = "checkOutDay")
 public class ReserveModel {
 	private String id;
-	
-	@NotNull
+
 	private Date checkInDay;
-	
-	@NotNull
+
 	private Date checkOutDay;
 
 	private String memberid;
@@ -28,7 +24,6 @@ public class ReserveModel {
 
 	public ReserveModel() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getId() {

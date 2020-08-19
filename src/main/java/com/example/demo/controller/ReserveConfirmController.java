@@ -26,9 +26,13 @@ public class ReserveConfirmController {
 	ApplicationCommandBus applicationCommandBus;
 
 	@RequestMapping(value = "confirm", method = RequestMethod.POST)
-	public String reserve(@Validated ReserveModel reserveModel, BindingResult bindingResult, Model model)
+	public String reserve(@Validated @ModelAttribute("reserveModel") ReserveModel reserveModel,
+			BindingResult bindingResult, Model model)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		if(bindingResult.hasErrors()) {
+
+		if (bindingResult.hasErrors()) {
+			reserveModel.setCheckInDay(null);
+			reserveModel.setCheckOutDay(null);
 			return "reserve";
 		}
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -58,7 +62,7 @@ public class ReserveConfirmController {
 		model.addAttribute("message", "予約完了画面");
 		return "complete";
 	}
-	
+
 	@RequestMapping(value = "/back", method = RequestMethod.GET)
 	public String back(Model model) {
 		ReserveModel reserveModel = new ReserveModel();
