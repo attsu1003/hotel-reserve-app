@@ -26,7 +26,7 @@ public class ReserveReferController {
 
 	@RequestMapping(value = "/referDetail", method = RequestMethod.POST)
 	public String refer(@RequestParam(name = "id") String id, Model model) {
-		ReserveModel reserveModel = reserveApplicationQueryService.execute(id);
+		ReserveModel reserveModel = reserveApplicationQueryService.referReserve(id);
 		model.addAttribute("message", "予約明細画面");
 		model.addAttribute("reserveModel", reserveModel);
 		return "referDetail";

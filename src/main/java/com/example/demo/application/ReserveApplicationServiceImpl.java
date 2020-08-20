@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.application.command.DeleteCommand;
-import com.example.demo.application.command.ReferCommand;
 import com.example.demo.application.command.ReserveCommand;
 import com.example.demo.domain.model.ReserveModel;
 import com.example.demo.domain.reserve.Reserve;
@@ -28,11 +27,12 @@ public class ReserveApplicationServiceImpl implements ReserveApplicationService 
 	@Override
 	public void execute(ReserveCommand reserveCommand) {
 
-		if (reserveService.isReservable(reserveCommand, roomRepository.countRoom())) {
-			Reserve reserve = new Reserve(reserveCommand.getReserveId(), new ReserveCondition(
-					reserveCommand.getMemberId(), reserveCommand.getCheckInDay(), reserveCommand.getCheckOutDay()));
-			ReserveModel reserveModel = new ReserveModel(reserveCommand.getReserveId().getReserveId(),
-					reserveCommand.getCheckInDay(), reserveCommand.getCheckOutDay(), reserveCommand.getMemberId());
+		if (reserveService.isReservable(reserveCommand.getCheckInDay(), reserveCommand.getCheckOutDay(),
+				roomRepository.countRoom())) {
+			Reserve reserve = new Reserve(new ReserveCondition(reserveCommand.getMemberId(),
+					reserveCommand.getCheckInDay(), reserveCommand.getCheckOutDay()));
+			ReserveModel reserveModel = new ReserveModel(reserveCommand.getCheckInDay(),
+					reserveCommand.getCheckOutDay(), reserveCommand.getMemberId());
 //			reserveRepository.reserve(reserveModel);
 		}
 	}

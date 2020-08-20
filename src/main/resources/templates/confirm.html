@@ -1,63 +1,82 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
-<title>welcome</title>
-<style>
-h1 {
-	font-size: 16pt;
-	background-color: CCCCFF;
-	padding: 3px;
-}
 
-p {
-	color: #000066;
-}
-</style>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" href="/common/css/menu.css" th:href="@{/common/css/menu.css}" />
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="/common/css/common.css" th:href="@{/common/css/common.css}" th:maxlength="10" />
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="webjars/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<style>
+		h1 {
+			font-size: 16pt;
+			background-color: CCCCFF;
+			padding: 3px;
+		}
+
+		p {
+			color: #000066;
+		}
+	</style>
 </head>
+
 <body>
-	<p class="msg" th:text="${message}"></p>
-	予約内容をご確認ください。
-	<form th:action="@{/confirm}" th:object="${reserveModel}" method="post">
-		<table width="310" border="0">
-			<tr>
-				<td>会員名</td>
-				<td><span th:text="${name} + 様"></span></td>
-			</tr>
-			<tr>
-				<td>チェックイン日</td>
-				<td><span th:text="${#dates.format(reserveModel.checkInDay, 'yyyy-MM-dd')}"></span></td>
-			</tr>
-			<tr>
-				<td>チェックアウト日</td>
-				<td><span th:text="${#dates.format(reserveModel.checkOutDay, 'yyyy-MM-dd')}"></span></span></td>
-			</tr>
-		</table>
-		
-		<input type="submit" name="submit" class="btn btn-primary" value="予約"/>
-		
-		
-		<button type="submit" id="back" class="btn btn-primary btn-back" data-action="back">戻る</button>
-		
-		
-	</form>
-	
+	<main>
+		<div class="py-3">
+			<div class="container">
+				<h3 class="mb-3">予約確認フォーム</h3>
+				<p>予約内容を確認してください。</p>
+				<div th:if="${hotelReserveMessages} != null">
+					<div th:each="message : ${hotelReserveMessages.messages}"
+						th:class="${message.type == 'info'} ? 'column-line has-success' : 'column-line has-error'">
+						<label th:text="${message.value}" class="control-label common-block"></label>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3">チェックイン日</div>
+						<div class="col-md-9">
+							<span th:text="${#dates.format(reserveForm.checkInDay, 'yyyy-MM-dd')}"></span>
+						</div>
+					</div>
+				</div>
+	            <div class="container">
+					<div class="row">
+						<div class="col-md-3">チェックアウト日</div>
+						<div class="col-md-9">
+							<span th:text="${#dates.format(reserveForm.checkOutDay, 'yyyy-MM-dd')}"></span>
+						</div>
+					</div>
+				</div>
+				<form th:action="@{/reserveConfirm}" th:object="${reserveForm}" method="post">
+	                    <button type="submit" class="btn btn-primary">予約</button>
+						<a th:href="@{/menu/}" class="btn btn-primary btn-back">戻る</a>
+				</form>      
+			</div>
+		</div>
+	 </main>
+
 	<a th:href="@{/menu/}" class="btn btn-primary">メニューへ</a>
 	
 	<form method="post">
 	</form>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script type="text/javascript" th:inline="javascript">
-	
-	$("#back").click(function(){
-		$(this).parents('form').attr({ "method" : "get",
-			"action" : $(this).data('action') });
-	});
-	
-	function setActionPath(element, path){
-		$(this).parents('form').attr("action",path);
-	}
+
+		$("#back").click(function () {
+			$(this).parents('form').attr({
+				"method": "get",
+				"action": $(this).data('action')
+			});
+		});
+
+		function setActionPath(element, path) {
+			$(this).parents('form').attr("action", path);
+		}
 	</script>
 </body>
 </html>

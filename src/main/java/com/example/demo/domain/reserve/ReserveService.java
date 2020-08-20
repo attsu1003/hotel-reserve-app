@@ -1,5 +1,7 @@
 package com.example.demo.domain.reserve;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +14,8 @@ public class ReserveService {
 	@Autowired
 	ReserveRepository reserveRepository;
 
-	public boolean isReservable(ReserveCommand reserveCommand, int roomNum) {
-		return reserveRepository.isReservable(reserveCommand.getCheckInDay(), reserveCommand.getCheckOutDay(), roomNum);
+	public boolean isReservable(Date CheckInDay, Date checkOutDay, int roomNum) {
+		return reserveRepository.isReservable(CheckInDay, checkOutDay, roomNum);
 	}
 
 	private boolean correctStayPeriod(ReserveCommand reserveCommand) {
