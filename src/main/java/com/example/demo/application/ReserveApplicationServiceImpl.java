@@ -5,7 +5,8 @@ import org.springframework.stereotype.Component;
 
 import com.example.demo.application.command.DeleteCommand;
 import com.example.demo.application.command.ReserveCommand;
-import com.example.demo.domain.model.ReserveModel;
+import com.example.demo.domain.member.MemberRepository;
+import com.example.demo.domain.model.MemberModel;
 import com.example.demo.domain.reserve.Reserve;
 import com.example.demo.domain.reserve.ReserveCondition;
 import com.example.demo.domain.reserve.ReserveRepository;
@@ -19,6 +20,9 @@ public class ReserveApplicationServiceImpl implements ReserveApplicationService 
 	private ReserveRepository reserveRepository;
 
 	@Autowired
+	private MemberRepository memberRepository;
+
+	@Autowired
 	private RoomRepository roomRepository;
 
 	@Autowired
@@ -26,14 +30,12 @@ public class ReserveApplicationServiceImpl implements ReserveApplicationService 
 
 	@Override
 	public void execute(ReserveCommand reserveCommand) {
-
+		MemberModel memberModel = memberRepository.getMember(reserveCommand.getMemberId());
 		if (reserveService.isReservable(reserveCommand.getCheckInDay(), reserveCommand.getCheckOutDay(),
 				roomRepository.countRoom())) {
-			Reserve reserve = new Reserve(new ReserveCondition(reserveCommand.getMemberId(),
-					reserveCommand.getCheckInDay(), reserveCommand.getCheckOutDay()));
-			ReserveModel reserveModel = new ReserveModel(reserveCommand.getCheckInDay(),
-					reserveCommand.getCheckOutDay(), reserveCommand.getMemberId());
-//			reserveRepository.reserve(reserveModel);
+			Reserve reserve = new Reserve(new ReserveCondition(reserveCommand.getCheckInDay(),
+					reserveCommand.getCheckOutDay(), memberModel.getId()));
+			reserveRepository.reserve(reserve);
 		}
 	}
 

@@ -28,8 +28,8 @@ public class ReserveConfirmController {
 	public String reserve(@ModelAttribute ReserveForm reserveForm, BindingResult bindingResult, Model model,
 			SessionStatus sessionStatus) {
 		ReserveCondition reserveCondition = new ReserveCondition(
-				SecurityContextHolder.getContext().getAuthentication().getName(), reserveForm.getCheckInDay(),
-				reserveForm.getCheckOutDay());
+				reserveForm.getCheckInDay(), reserveForm.getCheckOutDay(),
+				SecurityContextHolder.getContext().getAuthentication().getName());
 		ReserveCommand reserveCommand = new ReserveCommand(reserveCondition);
 		try {
 			applicationCommandBus.dispatch(reserveCommand);

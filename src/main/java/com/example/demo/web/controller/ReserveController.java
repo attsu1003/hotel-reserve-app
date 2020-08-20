@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.example.demo.application.ApplicationCommandBus;
-import com.example.demo.application.command.DeleteCommand;
 import com.example.demo.application.query.ReserveApplicationQueryService;
 import com.example.demo.controller.AbstractController;
 import com.example.demo.domain.model.ReserveModel;
-import com.example.demo.domain.reserve.ReserveId;
 import com.example.demo.web.form.ReserveConfirmForm;
 import com.example.demo.web.form.ReserveForm;
 
@@ -66,13 +64,13 @@ public class ReserveController extends AbstractController {
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(@RequestParam(name = "id") String id, Model model)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		DeleteCommand deleteCommand = new DeleteCommand(new ReserveId(id));
-		try {
-			applicationCommandBus.dispatch(deleteCommand);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		DeleteCommand deleteCommand = new DeleteCommand(new ReserveId(id));
+//		try {
+//			applicationCommandBus.dispatch(deleteCommand);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		return "cancel";
 	}
 

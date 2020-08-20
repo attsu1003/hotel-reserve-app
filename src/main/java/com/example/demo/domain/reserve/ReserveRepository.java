@@ -31,10 +31,10 @@ public class ReserveRepository {
 		return reserveMapper.count(date);
 	}
 
-//	public void reserve(ReserveModel reserveModel) {
-//		reserveMapper.insert(reserveModel.getId(), reserveModel.getCheckInDay(), reserveModel.getCheckOutDay(),
-//				reserveModel.getMemberid());
-//	}
+	public void reserve(Reserve reserve) {
+		reserveMapper.insert(reserve.getReserveId(), reserve.getCheckInDay(), reserve.getCheckOutDay(),
+				reserve.getMemberId());
+	}
 
 	public ReserveModel referReserve(String reserveId) {
 		return reserveMapper.select(reserveId);

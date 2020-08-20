@@ -22,7 +22,7 @@ commit;
 
 
 create table reserve (
-    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    id varchar(32) PRIMARY KEY,
     checkindate date not null,
     checkoutdate date not null,
     memberid INT not null,
