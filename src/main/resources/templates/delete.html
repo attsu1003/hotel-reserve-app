@@ -18,7 +18,7 @@
 			<div class="container">
 				<h3 class="mb-3">予約削除フォーム</h3>
 				<p>削除する予約の番号を入力してください。</p>
-				<form th:action="@{/delete}" th:object="${reserveModel}" method="post">
+				<form th:action="@{/delete}" th:object="${deleteReserveForm}" method="post">
 					<div class="form-group">
 						<div class="col-md-3">
 							<label for="name" class="col-form-label">

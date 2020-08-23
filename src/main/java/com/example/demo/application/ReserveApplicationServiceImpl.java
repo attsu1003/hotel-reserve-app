@@ -41,7 +41,7 @@ public class ReserveApplicationServiceImpl implements ReserveApplicationService 
 
 	@Override
 	public void execute(DeleteCommand deleteCommand) {
-		reserveRepository.deleteReserve(deleteCommand.getReserveId().getReserveId());
+		reserveRepository.deleteReserve(deleteCommand.getReserveId());
 	}
 
 }

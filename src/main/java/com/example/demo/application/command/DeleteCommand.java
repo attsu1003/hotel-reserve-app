@@ -1,21 +1,19 @@
 package com.example.demo.application.command;
 
-import com.example.demo.domain.reserve.ReserveId;
-
 public class DeleteCommand implements Command {
-	
-	private ReserveId reserveId;	
-	
-	public DeleteCommand(ReserveId reserveId) {
+
+	private String reserveId;
+
+	public DeleteCommand(String reserveId) {
 		super();
 		this.reserveId = reserveId;
-	}	
+	}
 
-	public ReserveId getReserveId() {
+	public String getReserveId() {
 		return reserveId;
 	}
 
-	public void setReserveId(ReserveId reserveId) {
+	public void setReserveId(String reserveId) {
 		this.reserveId = reserveId;
 	}
 
