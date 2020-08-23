@@ -15,7 +15,9 @@ import javax.validation.Payload;
 @Target({ ElementType.TYPE, ElementType.ANNOTATION_TYPE })
 public @interface ConfirmDayBeforeAndAfter {
 
-	String message() default "チェックアウト日がチェックイン日より過去日となっています。";
+	String message() default "チェックイン日とチェックアウト日が同じ日になっています";
+
+	String message2() default "チェックアウト日がチェックイン日より過去日となっています。";
 
 	Class<?>[] groups() default {};
 
@@ -31,5 +33,4 @@ public @interface ConfirmDayBeforeAndAfter {
 	public @interface List {
 		ConfirmDayBeforeAndAfter[] value();
 	}
-
 }

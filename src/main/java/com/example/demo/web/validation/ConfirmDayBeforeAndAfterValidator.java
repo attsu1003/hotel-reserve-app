@@ -12,12 +12,14 @@ public class ConfirmDayBeforeAndAfterValidator implements ConstraintValidator<Co
 	private String checkInDay;
 	private String checkOutDay;
 	private String message;
+	private String message2;
 
 	@Override
 	public void initialize(ConfirmDayBeforeAndAfter constraintAnnotation) {
 		this.checkInDay = constraintAnnotation.checkInDay();
 		this.checkOutDay = constraintAnnotation.checkOutDay();
 		this.message = constraintAnnotation.message();
+		this.message2 = constraintAnnotation.message2();
 	}
 
 	@Override
@@ -27,10 +29,14 @@ public class ConfirmDayBeforeAndAfterValidator implements ConstraintValidator<Co
 		Date checkOutDayValue = (Date) beanWrapper.getPropertyValue(checkOutDay);
 		if (checkInDayValue.before(checkOutDayValue)) {
 			return true;
-		} else {
+		}
+		if (checkInDayValue.equals(checkOutDayValue)) {
 			context.disableDefaultConstraintViolation();
 			context.buildConstraintViolationWithTemplate(message).addPropertyNode(checkOutDay).addConstraintViolation();
 			return false;
 		}
+		context.disableDefaultConstraintViolation();
+		context.buildConstraintViolationWithTemplate(message2).addPropertyNode(checkOutDay).addConstraintViolation();
+		return false;
 	}
 }
