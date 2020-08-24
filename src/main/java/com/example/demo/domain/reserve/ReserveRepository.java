@@ -1,6 +1,7 @@
 package com.example.demo.domain.reserve;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,8 +37,8 @@ public class ReserveRepository {
 				reserve.getMemberId());
 	}
 
-	public ReserveModel referReserve(String reserveId) {
-		return reserveMapper.select(reserveId);
+	public List<ReserveModel> referReserve(String memberId) {
+		return reserveMapper.select(memberId);
 	}
 
 	public void deleteReserve(String reserveId) {

@@ -2,21 +2,21 @@ package com.example.demo.domain.model;
 
 import java.util.Date;
 
-import com.example.demo.web.validation.ConfirmDayBeforeAndAfter;
-
-@ConfirmDayBeforeAndAfter(checkInDay = "checkInDay", checkOutDay = "checkOutDay")
 public class ReserveModel {
 
-	private Date checkInDay;
+	private String id;
 
-	private Date checkOutDay;
+	private Date checkindate;
+
+	private Date checkoutdate;
 
 	private String memberid;
 
-	public ReserveModel(Date checkInDay, Date checkOutDay, String memberid) {
+	public ReserveModel(String id, Date checkindate, Date checkoutdate, String memberid) {
 		super();
-		this.checkInDay = checkInDay;
-		this.checkOutDay = checkOutDay;
+		this.id = id;
+		this.checkindate = checkindate;
+		this.checkoutdate = checkoutdate;
 		this.memberid = memberid;
 	}
 
@@ -24,20 +24,28 @@ public class ReserveModel {
 		super();
 	}
 
-	public Date getCheckInDay() {
-		return checkInDay;
+	public String getId() {
+		return id;
 	}
 
-	public void setCheckInDay(Date checkInDay) {
-		this.checkInDay = checkInDay;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public Date getCheckOutDay() {
-		return checkOutDay;
+	public Date getCheckindate() {
+		return checkindate;
 	}
 
-	public void setCheckOutDay(Date checkOutDay) {
-		this.checkOutDay = checkOutDay;
+	public void setCheckindate(Date checkindate) {
+		this.checkindate = checkindate;
+	}
+
+	public Date getCheckoutdate() {
+		return checkoutdate;
+	}
+
+	public void setCheckoutdate(Date checkoutdate) {
+		this.checkoutdate = checkoutdate;
 	}
 
 	public String getMemberid() {

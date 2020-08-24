@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +28,7 @@ public class ReserveReferController {
 
 	@RequestMapping(value = "/referDetail", method = RequestMethod.POST)
 	public String refer(@RequestParam(name = "id") String id, Model model) {
-		ReserveModel reserveModel = reserveApplicationQueryService.referReserve(id);
+		List<ReserveModel> reserveModel = reserveApplicationQueryService.referReserve("22");
 		model.addAttribute("message", "予約明細画面");
 		model.addAttribute("reserveModel", reserveModel);
 		return "referDetail";

@@ -1,6 +1,7 @@
 package com.example.demo.web.controller;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +18,7 @@ import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.DeleteCommand;
 import com.example.demo.application.query.ReserveApplicationQueryService;
 import com.example.demo.controller.AbstractController;
+import com.example.demo.domain.model.ReserveModel;
 import com.example.demo.web.form.DeleteReserveForm;
 import com.example.demo.web.form.ReserveConfirmForm;
 import com.example.demo.web.form.ReserveForm;
@@ -64,8 +66,11 @@ public class ReserveController extends AbstractController {
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String delete(Model model) {
+		// ユーザの予約を参照し、その一覧を取得する
+		List<ReserveModel> reserveModelList = reserveApplicationQueryService.referReserve("22");
 		DeleteReserveForm deleteReserveForm = new DeleteReserveForm();
 		model.addAttribute("deleteReserveForm", deleteReserveForm);
+		model.addAttribute("reserveModelList", reserveModelList);
 		return "delete";
 	}
 

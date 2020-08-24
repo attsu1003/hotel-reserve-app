@@ -1,6 +1,7 @@
 package com.example.demo.application.query;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,7 +24,7 @@ public class ReserveApplicationQueryServiceImpl implements ReserveApplicationQue
 	private ReserveService reserveService;
 
 	@Override
-	public ReserveModel referReserve(String reserveId) {
+	public List<ReserveModel> referReserve(String reserveId) {
 		return reserveRepository.referReserve(reserveId);
 	}
 	

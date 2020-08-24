@@ -1,6 +1,7 @@
 package com.example.demo.port;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -21,8 +22,8 @@ public interface ReserveMapper {
 	@Insert("INSERT INTO RESERVE VALUES(#{id}, #{checkindate}, #{checkoutdate}, #{memberid})")
 	void insert(String id, Date checkindate, Date checkoutdate, String memberid);
 	
-	@Select("SELECT * FROM RESERVE WHERE ID = #{id}")
-	ReserveModel select(String id);
+	@Select("SELECT * FROM RESERVE WHERE MEMBERID = #{memberId}")
+	List<ReserveModel> select(String memberId);
 	
 	@Delete("DELETE FROM RESERVE WHERE ID = #{id}")
 	void delete(String id);
