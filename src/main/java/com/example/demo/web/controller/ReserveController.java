@@ -64,7 +64,7 @@ public class ReserveController extends AbstractController {
 		return "confirm";
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/deleteReserve", method = RequestMethod.GET)
 	public String delete(Model model) {
 		// ユーザの予約を参照し、その一覧を取得する
 		List<ReserveModel> reserveModelList = reserveApplicationQueryService.referReserve("22");
@@ -74,7 +74,7 @@ public class ReserveController extends AbstractController {
 		return "deleteReserve";
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteReserve", method = RequestMethod.POST)
 	public String delete(@RequestParam(name = "id") String id, Model model)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		DeleteCommand deleteCommand = new DeleteCommand(id);

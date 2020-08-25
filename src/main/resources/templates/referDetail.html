@@ -6,7 +6,7 @@
 </head>
 <body>
 	<p class="msg" th:text="${message}"></p>
-	<form action="#" th:action="@{/delete}" th:object="${reserveModel}" method="post">
+	<form action="#" th:action="@{/deleteReserve}" th:object="${reserveModel}" method="post">
 		<input type="hidden" name="id" th:value="*{id}" />
 		<table width="310" border="0">
 		  <tr>
