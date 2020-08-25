@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="/common/css/menu.css" th:href="@{/common/css/menu.css}" />
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/common/css/common.css" th:href="@{/common/css/common.css}" th:maxlength="10" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="webjars/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<main>
+		<div class="py-3">
+			<div class="container">
+				<h3 class="mb-3">予約削除完了フォーム</h3>
+				<p>選択した予約を削除しました。</p>
+				<a th:href="@{/menu/}" class="btn btn-primary btn-back">メニューへ</a>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

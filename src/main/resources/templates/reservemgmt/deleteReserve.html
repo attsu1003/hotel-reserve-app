@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" href="/common/css/menu.css" th:href="@{/common/css/menu.css}" />
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="/common/css/common.css" th:href="@{/common/css/common.css}" th:maxlength="10" />
+	<link rel="stylesheet" href="/common/css/list.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="webjars/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<main>
+		<div class="py-3">
+			<div class="container">
+				<h3 class="mb-3">予約削除フォーム</h3>
+				<p>予約内容一覧から削除する予約を選択してください。</p>
+				<table>
+					<thead>
+						<tr>
+							<th>予約番号</th>
+							<th>チェックイン日</th>
+							<th>チェックアウト日</th>
+							<th>ユーザID</th>
+							<th>削除</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="reserveModel : ${reserveModelList}" th:object="${reserveModel}">
+							<td class="center" th:text="*{id}"></td>
+							<td class="center" th:text="${#dates.format(reserveModel.checkindate, 'yyyy-MM-dd')}"></td>
+							<td class="center" th:text="${#dates.format(reserveModel.checkoutdate, 'yyyy-MM-dd')}"></td>
+							<td class="center" th:text="*{memberid}"></td>
+							<td class="center">
+								<form th:action="@{/deleteReserve}" method="post">	 
+									<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteReserveModal">削除</button>
+									<input type="hidden" name="id" th:value="*{id}">
+									<div class="modal" id="deleteReserveModal" tabindex="-1" role="dialog" aria-labelledby="deleteReserveModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="deleteReserveModalLabel">予約削除確認</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													予約削除を行うと予約は削除され、元に戻すことはできません。
+													予約削除を行います。よろしいですか？
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-primary" data-dismiss="modal">閉じる</button>
+													<button type="submit" id="deleteMemberBtn" class="btn btn-danger"
+														data-action="/deleteReserve">削除</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</td>
+						</tbody>
+					</table>
+					<a th:href="@{/menu/}" class="btn btn-primary btn-back">戻る</a>
+				</div>
+			</div>
+		</main>	
+	</body>
+</html>
