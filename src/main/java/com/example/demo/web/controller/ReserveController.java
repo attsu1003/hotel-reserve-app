@@ -71,7 +71,7 @@ public class ReserveController extends AbstractController {
 		DeleteReserveForm deleteReserveForm = new DeleteReserveForm();
 		model.addAttribute("deleteReserveForm", deleteReserveForm);
 		model.addAttribute("reserveModelList", reserveModelList);
-		return "delete";
+		return "deleteReserve";
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -84,7 +84,7 @@ public class ReserveController extends AbstractController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "cancel";
+		return "completeDeleteReserve";
 	}
 
 }
