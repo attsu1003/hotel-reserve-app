@@ -7,10 +7,10 @@ import java.util.GregorianCalendar;
 
 public class DateUtil {
 
-	public static long diffDate(Date before, Date after) {
+	public static int diffDate(Date before, Date after) {
 		final long oneDay = 24 * 60 * 60 * 1000;
 		long diff = (after.getTime() - before.getTime()) / oneDay;
-		return diff;
+		return (int)diff;
 	}
 
 	public static synchronized Date getNextDate(Date date) {

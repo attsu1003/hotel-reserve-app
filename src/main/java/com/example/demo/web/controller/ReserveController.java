@@ -1,6 +1,8 @@
 package com.example.demo.web.controller;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.thymeleaf.util.DateUtils;
 
 import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.DeleteCommand;
 import com.example.demo.application.query.ReserveApplicationQueryService;
+import com.example.demo.common.DateUtil;
 import com.example.demo.controller.AbstractController;
 import com.example.demo.domain.model.ReserveModel;
+import com.example.demo.domain.reserve.Amount;
+import com.example.demo.domain.reserve.Guest;
+import com.example.demo.domain.reserve.Plan;
+import com.example.demo.domain.reserve.TotalHotelFee;
 import com.example.demo.web.form.DeleteReserveForm;
 import com.example.demo.web.form.ReserveConfirmForm;
 import com.example.demo.web.form.ReserveForm;
@@ -36,6 +44,8 @@ public class ReserveController extends AbstractController {
 	@RequestMapping(value = "/reserve", method = RequestMethod.GET)
 	public String reserve(Model model) {
 		ReserveConfirmForm reserveConfirmForm = new ReserveConfirmForm();
+		reserveConfirmForm.setPlanList(Arrays.asList(Plan.values()));
+		reserveConfirmForm.setNumberOfGuestList(getNumberOfGuestList(Guest.MAXIMUM_APPROVE_GUEST_NUMBER));
 		model.addAttribute("reserveConfirmForm", reserveConfirmForm);
 		return "reserve";
 	}
@@ -44,22 +54,33 @@ public class ReserveController extends AbstractController {
 	public String reserve(@Validated ReserveConfirmForm reserveConfirmForm, BindingResult bindingResult, Model model)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		if (bindingResult.hasErrors()) {
+			// todo エラーがあった場合チェックイン日とチェックアウト日の入力が消えず、日付の表示形式が崩れて表示されるため明示的にnullをセット
 			reserveConfirmForm.setCheckInDay(null);
 			reserveConfirmForm.setCheckOutDay(null);
 			return "reserve";
 		}
 		if (!reserveApplicationQueryService.isReservable(reserveConfirmForm.getCheckInDay(),
 				reserveConfirmForm.getCheckOutDay())) {
+			// todo エラーがあった場合チェックイン日とチェックアウト日の入力が消えず、日付の表示形式が崩れて表示されるため明示的にnullをセット
 			reserveConfirmForm.setCheckInDay(null);
 			reserveConfirmForm.setCheckOutDay(null);
 			addErrorMessage("MSGE1008");
 			return "reserve";
 		}
+		// todo 料金計算
+		TotalHotelFee totalHotelFee = new TotalHotelFee(
+				DateUtil.diffDate(reserveConfirmForm.getCheckInDay(), reserveConfirmForm.getCheckOutDay()),
+				reserveConfirmForm.getNumberOfGuest(), reserveConfirmForm.getPlan());
+		Amount amount = totalHotelFee.calcTotalHotelFee();
+
 		// 予約フォームの作成
 		ReserveForm reserveForm = new ReserveForm();
+		reserveForm.setPlan(reserveConfirmForm.getPlan());
 		reserveForm.setCheckInDay(reserveConfirmForm.getCheckInDay());
 		reserveForm.setCheckOutDay(reserveConfirmForm.getCheckOutDay());
 		reserveForm.setMemberid(SecurityContextHolder.getContext().getAuthentication().getName());
+		reserveForm.setNumberOfGuest(reserveConfirmForm.getNumberOfGuest());
+		reserveForm.setTotalHotelFee(amount.getAmountValue());
 		model.addAttribute("reserveForm", reserveForm);
 		return "confirm";
 	}
@@ -87,4 +108,11 @@ public class ReserveController extends AbstractController {
 		return "/reservemgmt/completeDeleteReserve";
 	}
 
+	private List<Integer> getNumberOfGuestList(int maximumApproveGuestNumber) {
+		List<Integer> numberOfGuestList = new ArrayList<>();
+		for (int i = 1; i <= maximumApproveGuestNumber; i++) {
+			numberOfGuestList.add(i);
+		}
+		return numberOfGuestList;
+	}
 }
