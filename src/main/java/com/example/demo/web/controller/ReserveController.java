@@ -15,18 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.thymeleaf.util.DateUtils;
 
 import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.DeleteCommand;
+import com.example.demo.application.query.CalculationTotalHotelFeeApplicationQueryService;
 import com.example.demo.application.query.ReserveApplicationQueryService;
 import com.example.demo.common.DateUtil;
 import com.example.demo.controller.AbstractController;
 import com.example.demo.domain.model.ReserveModel;
-import com.example.demo.domain.reserve.Amount;
+import com.example.demo.domain.model.TotalHotelFeeModel;
 import com.example.demo.domain.reserve.Guest;
 import com.example.demo.domain.reserve.Plan;
-import com.example.demo.domain.reserve.TotalHotelFee;
 import com.example.demo.web.form.DeleteReserveForm;
 import com.example.demo.web.form.ReserveConfirmForm;
 import com.example.demo.web.form.ReserveForm;
@@ -40,6 +39,9 @@ public class ReserveController extends AbstractController {
 
 	@Autowired
 	ReserveApplicationQueryService reserveApplicationQueryService;
+
+	@Autowired
+	CalculationTotalHotelFeeApplicationQueryService CalculationTotalHotelFeeApplicationQueryService;
 
 	@RequestMapping(value = "/reserve", method = RequestMethod.GET)
 	public String reserve(Model model) {
@@ -68,10 +70,10 @@ public class ReserveController extends AbstractController {
 			return "reserve";
 		}
 		// todo 料金計算
-		TotalHotelFee totalHotelFee = new TotalHotelFee(
-				DateUtil.diffDate(reserveConfirmForm.getCheckInDay(), reserveConfirmForm.getCheckOutDay()),
-				reserveConfirmForm.getNumberOfGuest(), reserveConfirmForm.getPlan());
-		Amount amount = totalHotelFee.calcTotalHotelFee();
+		TotalHotelFeeModel totalHotelFeeModel = CalculationTotalHotelFeeApplicationQueryService
+				.calculationTotalHotelFee(
+						DateUtil.diffDate(reserveConfirmForm.getCheckInDay(), reserveConfirmForm.getCheckOutDay()),
+						reserveConfirmForm.getNumberOfGuest(), reserveConfirmForm.getPlan());
 
 		// 予約フォームの作成
 		ReserveForm reserveForm = new ReserveForm();
@@ -80,7 +82,7 @@ public class ReserveController extends AbstractController {
 		reserveForm.setCheckOutDay(reserveConfirmForm.getCheckOutDay());
 		reserveForm.setMemberid(SecurityContextHolder.getContext().getAuthentication().getName());
 		reserveForm.setNumberOfGuest(reserveConfirmForm.getNumberOfGuest());
-		reserveForm.setTotalHotelFee(amount.getAmountValue());
+		reserveForm.setTotalHotelFee(totalHotelFeeModel.getAmount());
 		model.addAttribute("reserveForm", reserveForm);
 		return "confirm";
 	}

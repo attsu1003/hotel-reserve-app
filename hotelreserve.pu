@@ -1,0 +1,131 @@
+@startuml
+package "com.example.demo.application" {
+  package "query" {
+    interface ReserveApplicationQueryService{
+      +List<ReserveModel> referReserve(String reserveId)
+      +boolean isReservable(Date CheckInDay, Date checkOutDay)
+    }
+    class ReserveApplicationQueryServiceImpl{
+      -ReserveRepository reserveRepository
+      -RoomRepository roomRepository
+      -ReserveService reserveService
+      +List<ReserveModel> referReserve(String reserveId)
+      +boolean isReservable(Date CheckInDay, Date checkOutDay)
+    }
+    ReserveApplicationQueryService <|-- ReserveApplicationQueryServiceImpl
+  }
+  package "command" {
+    interface Command{
+      +execute(Command)
+    }
+    class CreateMemberCommand{
+      -String username
+      -String password
+    }
+    class DeleteCommand{
+      -String reserveId
+    }
+    Command <|-- CreateMemberCommand
+    Command <|-- DeleteCommand
+  }
+  class ApplicationCommandBus{
+    -RunEnvironment runEnvironment
+    +ReserveRepository reserveRepository
+    +dispatch(Command command)
+  }
+  Command <.. ApplicationCommandBus
+}
+package "com.example.demo.common"{
+  class DateUtil{
+    +static int diffDate(Date before, Date after)
+    +static synchronized Date getNextDate(Date date)
+    +static synchronized Date getDateFrom(String year, String month, String day)
+    +static int countMonthDays(Date date)
+  }
+}
+package "com.example.demo.domain"{
+  package "member"{
+
+  }
+  package "model"{
+    
+  }
+  package "reserve"{
+    
+  }
+  package "room"{
+    
+  }
+}
+package "com.example.demo.port"{
+
+}
+package "com.example.demo.web" {
+  package "controller"{
+    class ChangePasswordController{
+
+    }
+    class MemberController{
+
+    }
+    class RequestCreateMemberController{
+      
+    }
+    class RequestDeleteMemberController{
+      
+    }
+    class RequestRePasswordController{
+      
+    }
+    class ReserveConfirmController{
+
+    }
+    class ReserveController{
+
+    }
+    class SetPasswordController{
+
+    }
+  }
+  package "form"{
+    class ChangePasswordForm{
+
+    }
+    class DeleteMemberForm{
+
+    }
+    class DeleteReserveForm{
+
+    }
+    class RequestCreateMemberForm{
+
+    }
+    class RequestDeleteMemberForm{
+
+    }
+    class RequestRePasswordForm{
+
+    }
+    class ReserveConfirmForm{
+
+    }
+    class ReserveForm{
+
+    }
+    class SetPasswordForm{
+
+    }
+
+  }
+  ChangePasswordForm <.. ChangePasswordController
+  DeleteMemberForm <.. ChangePasswordController
+  DeleteReserveForm <.. ChangePasswordController
+  RequestCreateMemberForm <.. ChangePasswordController
+  RequestDeleteMemberForm <.. ChangePasswordController
+  RequestRePasswordForm <.. ChangePasswordController
+  ReserveConfirmForm <.. ChangePasswordController
+  ReserveForm <.. ChangePasswordController
+  SetPasswordForm <.. ChangePasswordController
+
+}
+@enduml

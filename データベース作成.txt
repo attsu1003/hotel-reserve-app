@@ -10,8 +10,7 @@ create table member (
  password VARCHAR(64) not null
 );
 
-insert into member values (1234567, "山田", "passwd");
-
+insert into member values (1, "attsuyagimpul@gmail.com", "$2a$08$nzdN3R/bQzlH5cM/kqhk2uGDLUwL7qcHBYLiFCsk3YkwUqkKMWRja");
 create table hotelreservedb.ROOM (
 	id char(3)		not null,
 	constraint pk_reserve primary key (id)

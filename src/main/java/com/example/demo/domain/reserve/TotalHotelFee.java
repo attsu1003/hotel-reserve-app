@@ -14,8 +14,11 @@ public class TotalHotelFee {
 		this.plan = plan;
 	}
 
-	public Amount calcTotalHotelFee() {
-		return new Amount(stayTerm * numberOfGuest * plan.getAmount().value);
+	public void calcTotalHotelFee() {
+		this.amount = new Amount(stayTerm * numberOfGuest * plan.getAmount().value);
 	}
 
+	public Amount getTotalFeeAmount() {
+		return this.amount;
+	}
 }

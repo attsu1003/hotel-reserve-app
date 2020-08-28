@@ -13,6 +13,9 @@ public class Amount {
 		this.value = value;
 	}
 
+	public Amount() {
+	}
+
 	public Amount add(Amount other) {
 		return new Amount(value + other.value);
 	}
