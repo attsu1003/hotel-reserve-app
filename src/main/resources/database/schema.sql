@@ -1,15 +1,14 @@
 create table IF NOT EXISTS hotelreservedb.MEMBER (
- 	id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
- 	name varchar(30) not null,
- 	password VARCHAR(64) not null
+ name varchar(30) NOT NULL PRIMARY KEY,
+ password VARCHAR(64) NOT NULL
 );
 
 create table IF NOT EXISTS hotelreservedb.RESERVE (
     id varchar(32) PRIMARY KEY,
     checkindate date not null,
     checkoutdate date not null,
-    memberid INT not null,
-    foreign key (memberid) references MEMBER (id)
+    memberid varchar(30) not null,
+    foreign key (memberid) references MEMBER (name)
 );  
 
 create table IF NOT EXISTS hotelreservedb.ROOM (
