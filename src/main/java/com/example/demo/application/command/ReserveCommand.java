@@ -32,11 +32,4 @@ public class ReserveCommand implements Command {
 	public String getMemberId() {
 		return reserveCondition.getMemberId();
 	}
-
-	@Override
-	public void execute(Command command) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

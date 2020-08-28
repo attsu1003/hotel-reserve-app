@@ -30,26 +30,26 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 
 	@Override
 	public void execute(CreateMemberCommand createMemberCommand) throws MemberAlreadyExistException {
-		if (isMemberExists(createMemberCommand.getUsername())) {
-			throw new MemberAlreadyExistException("ユーザ名\"" + createMemberCommand.getUsername() + "\"のユーザは既に登録されています。",
+		if (isMemberExists(createMemberCommand.getId())) {
+			throw new MemberAlreadyExistException("ユーザ名\"" + createMemberCommand.getId() + "\"のユーザは既に登録されています。",
 					"userId");
 		}
-		memberRepository.createMember(new MemberModel(createMemberCommand.getUsername(),
-				this.hashingPassword(createMemberCommand.getPassword())));
+		memberRepository.createMember(
+				new MemberModel(createMemberCommand.getId(), this.hashingPassword(createMemberCommand.getPassword())));
 	}
 
 	@Override
 	public void execute(DeleteMemberCommand deleteMemberCommand)
 			throws MemberNotFoundException, WrongPasswordException {
 		// ユーザ情報が見つからない場合
-		if (isMemberNotExists(deleteMemberCommand.getUsername())) {
+		if (isMemberNotExists(deleteMemberCommand.getId())) {
 			throw new MemberNotFoundException("ユーザ情報が見つかりません。恐れ入りますがパスワード再設定依頼を実施してください。");
 		}
 		// 入力したパスワードが間違っている場合
-		if (isMemberNotExists(new MemberModel(deleteMemberCommand.getUsername(), deleteMemberCommand.getPassword()))) {
+		if (isMemberNotExists(new MemberModel(deleteMemberCommand.getId(), deleteMemberCommand.getPassword()))) {
 			throw new WrongPasswordException("パスワードの入力が誤っています。");
 		}
-		memberRepository.deleteMember(new MemberModel(deleteMemberCommand.getUsername(),
+		memberRepository.deleteMember(new MemberModel(deleteMemberCommand.getId(),
 				this.hashingPassword(deleteMemberCommand.getPassword())));
 	}
 
@@ -83,13 +83,13 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 				changePasswordCommand.getMailAddress());
 	}
 
-	private boolean isMemberExists(String username) {
-		return memberService.isMemberExists(username);
+	private boolean isMemberExists(String id) {
+		return memberService.isMemberExists(id);
 	}
 
 	private boolean isMemberNotExists(MemberModel memberModel) {
-		return !passwordEncoder.matches(memberModel.getPasswd(),
-				memberRepository.getMember(memberModel.getUsername()).getPasswd());
+		return !passwordEncoder.matches(memberModel.getPassword(),
+				memberRepository.getMember(memberModel.getUsername()).getPassword());
 	}
 
 	private boolean isMemberNotExists(String password) {

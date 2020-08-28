@@ -12,8 +12,8 @@ public class MemberRepository {
 	@Autowired
 	MemberMapper memberMapper;
 
-	public MemberModel getMember(String username) {
-		return memberMapper.select(username);
+	public MemberModel getMember(String id) {
+		return memberMapper.select(id);
 	}
 
 	public void createMember(MemberModel memberModel) {
@@ -24,7 +24,7 @@ public class MemberRepository {
 		memberMapper.delete(memberModel);
 	}
 
-	public boolean changePassword(String password, String username) {
-		return memberMapper.update(password, username);
+	public boolean changePassword(String password, String id) {
+		return memberMapper.update(password, id);
 	}
 }

@@ -16,11 +16,4 @@ public class RequestCreateMemberCommand implements Command {
 	public void setMailAddress(String mailAddress) {
 		this.mailAddress = mailAddress;
 	}
-
-	@Override
-	public void execute(Command command) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

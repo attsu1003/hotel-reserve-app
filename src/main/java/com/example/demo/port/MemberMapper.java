@@ -11,16 +11,16 @@ import com.example.demo.domain.model.MemberModel;
 @Mapper
 public interface MemberMapper {
 
-	@Insert("INSERT INTO member (name, password) VALUES (#{name}, #{passwd})")
+	@Insert("INSERT INTO member (id, password) VALUES (#{id}, #{password})")
 	void insert(MemberModel memberModel);
 
-	@Select("SELECT name, password FROM member WHERE name = #{username}")
-	MemberModel select(String username);
+	@Select("SELECT id, password FROM member WHERE id = #{id}")
+	MemberModel select(String id);
 
-	@Update("UPDATE member SET password = #{password} WHERE name = #{username}")
-	boolean update(String password, String username);
+	@Update("UPDATE member SET password = #{password} WHERE id = #{id}")
+	boolean update(String password, String id);
 
-	@Delete("DELETE FROM member WHERE name = #{username}")
+	@Delete("DELETE FROM member WHERE id = #{id}")
 	void delete(MemberModel memberModel);
 
 }

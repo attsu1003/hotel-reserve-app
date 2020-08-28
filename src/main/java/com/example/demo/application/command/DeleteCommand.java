@@ -16,11 +16,4 @@ public class DeleteCommand implements Command {
 	public void setReserveId(String reserveId) {
 		this.reserveId = reserveId;
 	}
-
-	@Override
-	public void execute(Command command) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

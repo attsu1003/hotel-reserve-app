@@ -6,21 +6,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class MemberModel implements UserDetails {
-	private String id;
-	private String name;
-	private String passwd;
 
-	public MemberModel(String id, String name, String passwd) {
+	private static final long serialVersionUID = 1L;
+	private String id;
+	private String password;
+
+	public MemberModel(String id, String password) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.passwd = passwd;
-	}
-
-	public MemberModel(String name, String passwd) {
-		super();
-		this.name = name;
-		this.passwd = passwd;
+		this.password = password;
 	}
 
 	public String getId() {
@@ -31,20 +25,12 @@ public class MemberModel implements UserDetails {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getPasswd() {
-		return passwd;
-	}
-
-	public void setPasswd(String passwd) {
-		this.passwd = passwd;
+	public void setPassword(String passwd) {
+		this.password = passwd;
 	}
 
 	@Override
@@ -53,13 +39,8 @@ public class MemberModel implements UserDetails {
 	}
 
 	@Override
-	public String getPassword() {
-		return this.getPasswd();
-	}
-
-	@Override
 	public String getUsername() {
-		return this.getName();
+		return this.getId();
 	}
 
 	@Override
