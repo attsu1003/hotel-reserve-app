@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.application.command.ChangePasswordCommand;
 import com.example.demo.application.command.CreateMemberCommand;
 import com.example.demo.application.command.DeleteMemberCommand;
 import com.example.demo.application.command.SetPasswordCommand;
-import com.example.demo.application.command.ChangePasswordCommand;
+import com.example.demo.domain.member.CurrentPasswordException;
 import com.example.demo.domain.member.MemberAlreadyExistException;
 import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.member.MemberRepository;
@@ -49,17 +50,22 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 		if (isMemberNotExists(new MemberModel(deleteMemberCommand.getId(), deleteMemberCommand.getPassword()))) {
 			throw new WrongPasswordException("パスワードの入力が誤っています。");
 		}
-		memberRepository.deleteMember(new MemberModel(deleteMemberCommand.getId(),
-				this.hashingPassword(deleteMemberCommand.getPassword())));
+		memberRepository.deleteMember(
+				new MemberModel(deleteMemberCommand.getId(), this.hashingPassword(deleteMemberCommand.getPassword())));
 	}
 
 	@Override
 	public void execute(SetPasswordCommand setPasswordCommand)
-			throws PasswordNotMatchException, MemberNotFoundException {
+			throws PasswordNotMatchException, CurrentPasswordException, MemberNotFoundException {
 		// 入力したパスワードと確認用に入力したパスワードが一致しない場合
 		if (isPasswordNotMatch(setPasswordCommand.getPassword(), setPasswordCommand.getConfirmPassword())) {
 			throw new PasswordNotMatchException("入力したパスワードとパスワード(確認用)が一致しません。", "password");
 		}
+		// 入力したパスワードが既にそのユーザのパスワードに一致する場合
+		if (isMemberExists(new MemberModel(setPasswordCommand.getMailAddress(), setPasswordCommand.getPassword()))) {
+			throw new CurrentPasswordException("入力したパスワードは既に使用されています。異なるパスワードを入力してください。");
+		}
+		// ユーザ情報が読み込めない場合
 		if (isMemberNotExists(setPasswordCommand.getMailAddress())) {
 			throw new MemberNotFoundException("ユーザ情報が見つかりません。恐れ入りますがパスワード再設定依頼を実施してください。");
 		}
@@ -85,6 +91,11 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 
 	private boolean isMemberExists(String id) {
 		return memberService.isMemberExists(id);
+	}
+
+	private boolean isMemberExists(MemberModel memberModel) {
+		return passwordEncoder.matches(memberModel.getPassword(),
+				memberRepository.getMember(memberModel.getUsername()).getPassword());
 	}
 
 	private boolean isMemberNotExists(MemberModel memberModel) {

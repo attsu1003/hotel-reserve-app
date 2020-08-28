@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.SetPasswordCommand;
 import com.example.demo.controller.AbstractController;
+import com.example.demo.domain.member.CurrentPasswordException;
 import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.member.PasswordNotMatchException;
 import com.example.demo.web.form.SetPasswordForm;
@@ -43,6 +44,9 @@ public class SetPasswordController extends AbstractController {
 		} catch (Exception e) {
 			if (e.getCause() instanceof PasswordNotMatchException) {
 				addErrorMessage("MSGE1003");
+			}
+			if(e.getCause() instanceof CurrentPasswordException) {
+				addErrorMessage("MSGE1009");
 			}
 			if (e.getCause() instanceof MemberNotFoundException) {
 				addErrorMessage("MSGE1005");
