@@ -25,8 +25,11 @@
 					<thead>
 						<tr>
 							<th>予約番号</th>
+							<th>宿泊プラン</th>
 							<th>チェックイン日</th>
 							<th>チェックアウト日</th>
+							<th>宿泊人数</th>
+							<th>合計料金(税込み)</th>
 							<th>ユーザID</th>
 							<th>削除</th>
 						</tr>
@@ -34,8 +37,11 @@
 					<tbody>
 						<tr th:each="reserveModel : ${reserveModelList}" th:object="${reserveModel}">
 							<td class="center" th:text="*{id}"></td>
+							<td class="center" th:text="*{plan}"></td>
 							<td class="center" th:text="${#dates.format(reserveModel.checkindate, 'yyyy-MM-dd')}"></td>
 							<td class="center" th:text="${#dates.format(reserveModel.checkoutdate, 'yyyy-MM-dd')}"></td>
+							<td class="center" th:text="*{numberOfGuest}+'人'"></td>
+							<td class="center" th:text="*{totalHotelFee} + '円'"></td>
 							<td class="center" th:text="*{memberid}"></td>
 							<td class="center">
 								<form th:action="@{/deleteReserve}" method="post">	 

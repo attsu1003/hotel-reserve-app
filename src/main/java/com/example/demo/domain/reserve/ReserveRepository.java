@@ -33,7 +33,8 @@ public class ReserveRepository {
 	}
 
 	public void reserve(Reserve reserve) {
-		reserveMapper.insert(reserve.getReserveId(), reserve.getCheckInDay(), reserve.getCheckOutDay(),
+		reserveMapper.insert(reserve.getReserveId(), reserve.getPlan(), reserve.getCheckInDay(),
+				reserve.getCheckOutDay(), reserve.getNumberOfGuest(), reserve.getTotalHotelFee(),
 				reserve.getMemberId());
 	}
 

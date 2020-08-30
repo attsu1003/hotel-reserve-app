@@ -5,8 +5,11 @@ create table IF NOT EXISTS hotelreservedb.MEMBER (
 
 create table IF NOT EXISTS hotelreservedb.RESERVE (
     id varchar(32) PRIMARY KEY,
+    plan varchar(10) NOT NULL,
     checkindate date NOT NULL,
     checkoutdate date NOT NULL,
+    numberofguest int NOT NULL,
+    totalhotelfee int NOT NULL,
     memberid varchar(30) NOT NULL,
     foreign key (memberid) references MEMBER (id)
 );  

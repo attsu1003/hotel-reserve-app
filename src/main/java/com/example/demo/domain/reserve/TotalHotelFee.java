@@ -7,6 +7,10 @@ public class TotalHotelFee {
 	private int numberOfGuest;
 	private Plan plan;
 
+	public TotalHotelFee(Amount amount) {
+		this.amount = amount;
+	}
+
 	public TotalHotelFee(int stayTerm, int numberOfGuest, Plan plan) {
 		super();
 		this.stayTerm = stayTerm;

@@ -7,6 +7,7 @@ import com.example.demo.application.command.DeleteCommand;
 import com.example.demo.application.command.ReserveCommand;
 import com.example.demo.domain.member.MemberRepository;
 import com.example.demo.domain.model.MemberModel;
+import com.example.demo.domain.reserve.Amount;
 import com.example.demo.domain.reserve.Reserve;
 import com.example.demo.domain.reserve.ReserveCondition;
 import com.example.demo.domain.reserve.ReserveRepository;
@@ -34,10 +35,12 @@ public class ReserveApplicationServiceImpl implements ReserveApplicationService 
 		MemberModel memberModel = memberRepository.getMember(reserveCommand.getMemberId());
 		if (reserveService.isReservable(reserveCommand.getCheckInDay(), reserveCommand.getCheckOutDay(),
 				roomRepository.countRoom())) {
-//			Reserve reserve=new Reserve(new ReserveCondition(reserveCommand.getCheckInDay(),
-//					reserveCommand.getCheckOutDay(), memberModel.getId()), new TotalHotelFee(stayTerm, numberOfGuest, plan))
-			Reserve reserve = new Reserve(new ReserveCondition(reserveCommand.getCheckInDay(),
-					reserveCommand.getCheckOutDay(), memberModel.getId()));
+
+			Reserve reserve = new Reserve(reserveCommand.getPlan(), reserveCommand.getCheckInDay(),
+					reserveCommand.getCheckOutDay(), reserveCommand.getNumberOfGuest(),
+					new TotalHotelFee(new Amount(reserveCommand.getTotalHotelFee())), reserveCommand.getMemberId());
+//			Reserve reserve = new Reserve(new ReserveCondition(reserveCommand.getCheckInDay(),
+//					reserveCommand.getCheckOutDay(), memberModel.getId()));
 			reserveRepository.reserve(reserve);
 		}
 	}

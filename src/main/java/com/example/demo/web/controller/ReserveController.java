@@ -90,7 +90,8 @@ public class ReserveController extends AbstractController {
 	@RequestMapping(value = "/deleteReserve", method = RequestMethod.GET)
 	public String delete(Model model) {
 		// ユーザの予約を参照し、その一覧を取得する
-		List<ReserveModel> reserveModelList = reserveApplicationQueryService.referReserve("22");
+		List<ReserveModel> reserveModelList = reserveApplicationQueryService
+				.referReserve(SecurityContextHolder.getContext().getAuthentication().getName());
 		DeleteReserveForm deleteReserveForm = new DeleteReserveForm();
 		model.addAttribute("deleteReserveForm", deleteReserveForm);
 		model.addAttribute("reserveModelList", reserveModelList);

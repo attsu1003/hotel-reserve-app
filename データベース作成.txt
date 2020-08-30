@@ -27,9 +27,12 @@ commit;
 
 create table reserve (
     id varchar(32) PRIMARY KEY,
+    plan varchar(10) not null,
     checkindate date not null,
     checkoutdate date not null,
-    memberid INT not null,
+    numberofguest int not null,
+    totalhotelfee int not null,
+    memberid varchar(30) not null,
     foreign key (memberid) references MEMBER (id)
 );  
 

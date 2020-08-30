@@ -24,8 +24,8 @@ public class ReserveApplicationQueryServiceImpl implements ReserveApplicationQue
 	private ReserveService reserveService;
 
 	@Override
-	public List<ReserveModel> referReserve(String reserveId) {
-		return reserveRepository.referReserve(reserveId);
+	public List<ReserveModel> referReserve(String memberId) {
+		return reserveRepository.referReserve(memberId);
 	}
 	
 	@Override
