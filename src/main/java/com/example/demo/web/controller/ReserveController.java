@@ -21,7 +21,6 @@ import com.example.demo.application.command.DeleteCommand;
 import com.example.demo.application.query.CalculationTotalHotelFeeApplicationQueryService;
 import com.example.demo.application.query.ReserveApplicationQueryService;
 import com.example.demo.common.DateUtil;
-import com.example.demo.controller.AbstractController;
 import com.example.demo.domain.model.ReserveModel;
 import com.example.demo.domain.model.TotalHotelFeeModel;
 import com.example.demo.domain.reserve.Guest;
@@ -29,6 +28,7 @@ import com.example.demo.domain.reserve.Plan;
 import com.example.demo.web.form.DeleteReserveForm;
 import com.example.demo.web.form.ReserveConfirmForm;
 import com.example.demo.web.form.ReserveForm;
+import com.example.demo.web.form.ReserveReferForm;
 
 @Controller
 @SessionAttributes(types = { ReserveForm.class })
@@ -85,6 +85,17 @@ public class ReserveController extends AbstractController {
 		reserveForm.setTotalHotelFee(totalHotelFeeModel.getAmount());
 		model.addAttribute("reserveForm", reserveForm);
 		return "/reservemgmt/confirm";
+	}
+
+	@RequestMapping(value = "updateReserve", method = RequestMethod.POST)
+	public String update(@Validated ReserveReferForm reserveReferForm,
+			BindingResult bindingResult, Model model) {
+		System.out.println(reserveReferForm);
+//		UpdateReserveCommand updateReserveCommand = new UpdateReserveCommand(id);
+//		reserveConfirmForm.setPlanList(Arrays.asList(Plan.values()));
+//		reserveConfirmForm.setNumberOfGuestList(getNumberOfGuestList(Guest.MAXIMUM_APPROVE_GUEST_NUMBER));
+//		model.addAttribute("reserveConfirmForm", reserveConfirmForm);
+		return "/reservemgmt/complete";
 	}
 
 	@RequestMapping(value = "/deleteReserve", method = RequestMethod.GET)

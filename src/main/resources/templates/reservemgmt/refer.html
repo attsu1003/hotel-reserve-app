@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" href="/common/css/menu.css" th:href="@{/common/css/menu.css}" />
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="/common/css/common.css" th:href="@{/common/css/common.css}" th:maxlength="10" />
+	<link rel="stylesheet" href="/common/css/list.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="webjars/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<title>Insert title here</title>
+	<script>
+        $(function () {
+            $(".datepicker").datepicker({
+                language: "ja",
+                dateFormat: "yy/mm/dd",
+                container: 'html',
+                minDate: 0,
+                autoclose: true
+            });
+        });
+    </script>
+</head>
+
+<body>
+	<main>
+		<div class="py-3">
+			<div class="container">
+				<h3 class="mb-3">予約参照フォーム</h3>
+				<p>予約内容を確認してください。</p>
+				<table>
+					<thead>
+						<tr>
+							<th>予約番号</th>
+							<th>宿泊プラン</th>
+							<th>チェックイン日</th>
+							<th>チェックアウト日</th>
+							<th>宿泊人数</th>
+							<th>合計料金(税込み)</th>
+							<th>ユーザID</th>
+							<th>変更</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="reserveModel : ${reserveModelList}" th:object="${reserveModel}">
+							<td class="center" th:text="*{id}"></td>
+							<td class="center" th:text="*{plan}"></td>
+							<td class="center" th:text="${#dates.format(reserveModel.checkindate, 'yyyy-MM-dd')}"></td>
+							<td class="center" th:text="${#dates.format(reserveModel.checkoutdate, 'yyyy-MM-dd')}"></td>
+							<td class="center" th:text="*{numberOfGuest}+'人'"></td>
+							<td class="center" th:text="*{totalHotelFee} + '円'"></td>
+							<td class="center" th:text="*{memberid}"></td>
+							<td class="center">
+								<form th:action="@{/updateReserve}" th:object="${reserveReferForm}" method="post">	 
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteReserveModal">変更</button>
+									<input type="hidden" name="id" th:value="${reserveModel.id}">
+									<div class="modal" id="deleteReserveModal" tabindex="-1" role="dialog" aria-labelledby="deleteReserveModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="deleteReserveModalLabel">予約変更</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<div class="form-group">
+														<div class="col-md-3">予約番号</div>
+														<div class="col-md-9">
+															<span th:text="${reserveModel.id}"></span>
+													    </div>
+													</div>
+													<div class="form-group">
+														<div class="col-md-3">
+															<label for="inputPlanSelect" class="col-form-label">
+																宿泊プラン <span class="badge badge-warning">必須</span>
+															</label>
+														</div>
+														<div class="col-md-5">
+															<select class="custom-select" id="plan" name="plan">
+																<option th:each="plan : ${reserveReferForm.planList}" th:value="${plan}" th:text="${plan.planName}"
+																	th:selected="${plan.planName == planName}">選択してください</option>
+															</select>
+														</div>
+													</div>
+													<div class="form-group" th:classappend="${#fields.hasErrors('checkInDay')}? has-error">
+														<div class="col-md-3">
+															<label for="checkInDay" class="col-form-label">
+																チェックイン日 <span class="badge badge-warning">必須</span>
+															</label>
+														</div>
+														<div class="col-md-9">
+															<input type="text" class="form-control datepicker" id="checkInDay" name="checkInDay" th:value="${reserveReferForm.checkInDay}" 
+																required placeholder="チェックイン日を入力">
+															<span class="text-danger" th:if="${#fields.hasErrors('checkInDay')}" th:errors="*{checkInDay}"></span>
+														</div>
+													</div>
+													<div class="form-group" th:classappend="${#fields.hasErrors('checkOutDay')}? has-error">
+														<div class="col-md-3">
+															<label for="checkOutDay" class="col-form-label">
+																チェックアウト日 <span class="badge badge-warning">必須</span>
+															</label>
+														</div>
+														<div class="col-md-9">
+															<input type="text" class="form-control datepicker" id="checkOutDay" name="checkOutDay" th:value="${reserveReferForm.checkOutDay}"
+																required placeholder="チェックアウト日を入力">
+															<span class="text-danger" th:if="${#fields.hasErrors('checkOutDay')}" th:errors="*{checkOutDay}"></span>
+														</div>
+													</div>
+													<div class="form-group">
+														<div class="col-md-3">
+															<label for="inputNumberSelect" class="col-form-label">
+																宿泊人数 <span class="badge badge-warning">必須</span>
+															</label>
+														</div>
+														<div class="col-md-3">
+															<select class="custom-select" id="numberOfGuest" name="numberOfGuest">
+																<option th:each="numberOfGuest : ${reserveReferForm.numberOfGuestList}" th:value="${numberOfGuest}" th:text="${numberOfGuest}">選択してください</option>
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-primary" data-dismiss="modal">閉じる</button>
+													<button type="submit" id="deleteMemberBtn" class="btn btn-primary"
+														data-action="/updateReserve">変更</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</td>
+						</tbody>
+					</table>
+					<a th:href="@{/menu/}" class="btn btn-primary btn-back">戻る</a>
+				</div>
+			</div>
+		</main>	
+	</body>
+</html>

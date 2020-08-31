@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.RequestCreateMemberCommand;
-import com.example.demo.controller.AbstractController;
 import com.example.demo.domain.member.MemberAlreadyExistException;
 import com.example.demo.web.form.RequestCreateMemberForm;
 

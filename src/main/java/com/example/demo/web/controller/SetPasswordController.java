@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.SetPasswordCommand;
-import com.example.demo.controller.AbstractController;
 import com.example.demo.domain.member.CurrentPasswordException;
 import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.member.PasswordNotMatchException;
