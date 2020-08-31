@@ -17,23 +17,11 @@ public class SetPasswordCommand implements Command {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String getConfirmPassword() {
 		return confirmPassword;
 	}
 
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
-
 	public String getMailAddress() {
 		return mailAddress;
-	}
-
-	public void setMailAddress(String mailAddress) {
-		this.mailAddress = mailAddress;
 	}
 }

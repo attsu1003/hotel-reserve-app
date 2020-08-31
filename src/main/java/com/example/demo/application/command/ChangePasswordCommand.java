@@ -19,31 +19,15 @@ public class ChangePasswordCommand implements Command {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String getNewPassword() {
 		return newPassword;
-	}
-
-	public void setNewPassword(String newPassword) {
-		this.newPassword = newPassword;
 	}
 
 	public String getNewConfirmPassword() {
 		return newConfirmPassword;
 	}
 
-	public void setNewConfirmPassword(String newConfirmPassword) {
-		this.newConfirmPassword = newConfirmPassword;
-	}
-
 	public String getMailAddress() {
 		return mailAddress;
-	}
-
-	public void setMailAddress(String mailAddress) {
-		this.mailAddress = mailAddress;
 	}
 }

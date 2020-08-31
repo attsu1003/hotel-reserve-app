@@ -7,8 +7,4 @@ public class ReferCommand implements Command{
 	public String getReserveId() {
 		return reserveId;
 	}
-
-	public void setReserveId(String reserveId) {
-		this.reserveId = reserveId;
-	}
 }
