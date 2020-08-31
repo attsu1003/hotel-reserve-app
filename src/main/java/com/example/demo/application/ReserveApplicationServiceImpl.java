@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import com.example.demo.application.command.DeleteCommand;
 import com.example.demo.application.command.ReserveCommand;
 import com.example.demo.domain.reserve.Amount;
+import com.example.demo.domain.reserve.NoVacancyRoomException;
 import com.example.demo.domain.reserve.Reserve;
 import com.example.demo.domain.reserve.ReserveRepository;
 import com.example.demo.domain.reserve.ReserveService;
@@ -25,15 +26,15 @@ public class ReserveApplicationServiceImpl implements ReserveApplicationService 
 	private ReserveService reserveService;
 
 	@Override
-	public void execute(ReserveCommand reserveCommand) {
-		if (reserveService.isReservable(reserveCommand.getCheckInDay(), reserveCommand.getCheckOutDay(),
+	public void execute(ReserveCommand reserveCommand) throws NoVacancyRoomException {
+		if (!reserveService.isReservable(reserveCommand.getCheckInDay(), reserveCommand.getCheckOutDay(),
 				roomRepository.countRoom())) {
-
-			Reserve reserve = new Reserve(reserveCommand.getPlan(), reserveCommand.getCheckInDay(),
-					reserveCommand.getCheckOutDay(), reserveCommand.getNumberOfGuest(),
-					new TotalHotelFee(new Amount(reserveCommand.getTotalHotelFee())), reserveCommand.getMemberId());
-			reserveRepository.reserve(reserve);
+			throw new NoVacancyRoomException("空き部屋がありません。別のチェックイン日、チェックアウト日を入力してください。");
 		}
+		Reserve reserve = new Reserve(reserveCommand.getPlan(), reserveCommand.getCheckInDay(),
+				reserveCommand.getCheckOutDay(), reserveCommand.getNumberOfGuest(),
+				new TotalHotelFee(new Amount(reserveCommand.getTotalHotelFee())), reserveCommand.getMemberId());
+		reserveRepository.reserve(reserve);
 	}
 
 	@Override

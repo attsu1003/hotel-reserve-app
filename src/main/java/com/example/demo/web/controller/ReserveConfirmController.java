@@ -13,12 +13,14 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.ReserveCommand;
+import com.example.demo.controller.AbstractController;
 import com.example.demo.domain.model.ReserveModel;
+import com.example.demo.domain.reserve.NoVacancyRoomException;
 import com.example.demo.web.form.ReserveForm;
 
 @Controller
 @SessionAttributes(types = { ReserveForm.class })
-public class ReserveConfirmController {
+public class ReserveConfirmController extends AbstractController {
 
 	@Autowired
 	ApplicationCommandBus applicationCommandBus;
@@ -32,7 +34,10 @@ public class ReserveConfirmController {
 		try {
 			applicationCommandBus.dispatch(reserveCommand);
 		} catch (Exception e) {
-			e.printStackTrace();
+			if (e.getCause() instanceof NoVacancyRoomException) {
+				addErrorMessage("MSGE1010");
+			}
+			return "/reservemgmt/reserve";
 		}
 		model.addAttribute("name", SecurityContextHolder.getContext().getAuthentication().getName());
 		model.addAttribute("message", "予約完了画面");

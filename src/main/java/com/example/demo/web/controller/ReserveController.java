@@ -59,7 +59,7 @@ public class ReserveController extends AbstractController {
 			// todo エラーがあった場合チェックイン日とチェックアウト日の入力が消えず、日付の表示形式が崩れて表示されるため明示的にnullをセット
 			reserveConfirmForm.setCheckInDay(null);
 			reserveConfirmForm.setCheckOutDay(null);
-			return "reserve";
+			return "/reservemgmt/reserve";
 		}
 		if (!reserveApplicationQueryService.isReservable(reserveConfirmForm.getCheckInDay(),
 				reserveConfirmForm.getCheckOutDay())) {
