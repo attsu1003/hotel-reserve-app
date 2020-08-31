@@ -40,7 +40,7 @@ public class ReserveConfirmController {
 		// セッション情報の削除
 		sessionStatus.setComplete();
 
-		return "complete";
+		return "/reservemgmt/complete";
 	}
 
 	@RequestMapping(value = "/back", method = RequestMethod.GET)
@@ -48,7 +48,7 @@ public class ReserveConfirmController {
 		ReserveModel reserveModel = new ReserveModel();
 		model.addAttribute("reserveModel", reserveModel);
 		model.addAttribute("message", "予約画面");
-		return "reserve";
+		return "/reservemgmt/reserve";
 	}
 
 }
