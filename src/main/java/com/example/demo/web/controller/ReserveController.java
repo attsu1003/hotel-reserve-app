@@ -49,7 +49,7 @@ public class ReserveController extends AbstractController {
 		reserveConfirmForm.setPlanList(Arrays.asList(Plan.values()));
 		reserveConfirmForm.setNumberOfGuestList(getNumberOfGuestList(Guest.MAXIMUM_APPROVE_GUEST_NUMBER));
 		model.addAttribute("reserveConfirmForm", reserveConfirmForm);
-		return "reserve";
+		return "/reservemgmt/reserve";
 	}
 
 	@RequestMapping(value = "/reserve", method = RequestMethod.POST)
@@ -66,8 +66,8 @@ public class ReserveController extends AbstractController {
 			// todo エラーがあった場合チェックイン日とチェックアウト日の入力が消えず、日付の表示形式が崩れて表示されるため明示的にnullをセット
 			reserveConfirmForm.setCheckInDay(null);
 			reserveConfirmForm.setCheckOutDay(null);
-			addErrorMessage("MSGE1008");
-			return "reserve";
+			addErrorMessage("MSGE1010");
+			return "/reservemgmt/reserve";
 		}
 		// todo 料金計算
 		TotalHotelFeeModel totalHotelFeeModel = CalculationTotalHotelFeeApplicationQueryService
@@ -84,7 +84,7 @@ public class ReserveController extends AbstractController {
 		reserveForm.setNumberOfGuest(reserveConfirmForm.getNumberOfGuest());
 		reserveForm.setTotalHotelFee(totalHotelFeeModel.getAmount());
 		model.addAttribute("reserveForm", reserveForm);
-		return "confirm";
+		return "/reservemgmt/confirm";
 	}
 
 	@RequestMapping(value = "/deleteReserve", method = RequestMethod.GET)
