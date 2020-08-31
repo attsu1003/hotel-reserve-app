@@ -21,6 +21,12 @@
 			<div class="container">
 				<h3 class="mb-3">予約削除フォーム</h3>
 				<p>予約内容一覧から削除する予約を選択してください。</p>
+				<div th:if="${hotelReserveMessages} != null">
+                    <div th:each="message : ${hotelReserveMessages.messages}"
+                        th:class="${message.type == 'info'} ? 'column-line has-success' : 'column-line has-error'">
+                        <label th:text="${message.value}" class="control-label common-block"></label>
+                    </div>
+                </div>
 				<table>
 					<thead>
 						<tr>

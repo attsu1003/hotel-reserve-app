@@ -32,6 +32,12 @@
 			<div class="container">
 				<h3 class="mb-3">予約参照フォーム</h3>
 				<p>予約内容を確認してください。</p>
+				<div th:if="${hotelReserveMessages} != null">
+                    <div th:each="message : ${hotelReserveMessages.messages}"
+                        th:class="${message.type == 'info'} ? 'column-line has-success' : 'column-line has-error'">
+                        <label th:text="${message.value}" class="control-label common-block"></label>
+                    </div>
+                </div>
 				<table>
 					<thead>
 						<tr>

@@ -14,4 +14,8 @@ public class ReserveId {
 		String randomeUUID = UUID.randomUUID().toString().replaceAll("-", "");
 		this.reserveId = randomeUUID.replaceAll("-", "");
 	}
+
+	public ReserveId(String reserveId) {
+		this.reserveId = reserveId;
+	}
 }

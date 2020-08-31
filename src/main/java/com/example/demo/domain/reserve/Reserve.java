@@ -7,9 +7,20 @@ public class Reserve {
 	private Plan plan;
 	private Date checkInDay;
 	private Date checkOutDay;
-	private int NumberOfGuest;
+	private int numberOfGuest;
 	private TotalHotelFee totalHotelFee;
 	private String memberId;
+
+	public Reserve(ReserveId reserveId, Plan plan, Date checkInDay, Date checkOutDay, int numberOfGuest,
+			TotalHotelFee totalHotelFee, String memberId) {
+		super();
+		this.reserveId = reserveId;
+		this.plan = plan;
+		this.checkInDay = checkInDay;
+		this.checkOutDay = checkOutDay;
+		this.numberOfGuest = numberOfGuest;
+		this.totalHotelFee = totalHotelFee;
+	}
 
 	public Reserve(Plan plan, Date checkInDay, Date checkOutDay, int numberOfGuest, TotalHotelFee totalHotelFee,
 			String memberId) {
@@ -18,7 +29,7 @@ public class Reserve {
 		this.plan = plan;
 		this.checkInDay = checkInDay;
 		this.checkOutDay = checkOutDay;
-		NumberOfGuest = numberOfGuest;
+		this.numberOfGuest = numberOfGuest;
 		this.totalHotelFee = totalHotelFee;
 		this.memberId = memberId;
 	}
@@ -40,7 +51,7 @@ public class Reserve {
 	}
 
 	public int getNumberOfGuest() {
-		return NumberOfGuest;
+		return numberOfGuest;
 	}
 
 	public int getTotalHotelFee() {

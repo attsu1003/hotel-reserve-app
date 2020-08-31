@@ -18,13 +18,18 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.DeleteCommand;
+import com.example.demo.application.command.UpdateReserveCommand;
 import com.example.demo.application.query.CalculationTotalHotelFeeApplicationQueryService;
 import com.example.demo.application.query.ReserveApplicationQueryService;
 import com.example.demo.common.DateUtil;
 import com.example.demo.domain.model.ReserveModel;
 import com.example.demo.domain.model.TotalHotelFeeModel;
+import com.example.demo.domain.reserve.DeleteFailedException;
 import com.example.demo.domain.reserve.Guest;
+import com.example.demo.domain.reserve.NoVacancyRoomException;
 import com.example.demo.domain.reserve.Plan;
+import com.example.demo.domain.reserve.UpdateFailedException;
+import com.example.demo.web.form.CompleteUpdateReserveForm;
 import com.example.demo.web.form.DeleteReserveForm;
 import com.example.demo.web.form.ReserveConfirmForm;
 import com.example.demo.web.form.ReserveForm;
@@ -88,14 +93,36 @@ public class ReserveController extends AbstractController {
 	}
 
 	@RequestMapping(value = "updateReserve", method = RequestMethod.POST)
-	public String update(@Validated ReserveReferForm reserveReferForm,
-			BindingResult bindingResult, Model model) {
-		System.out.println(reserveReferForm);
-//		UpdateReserveCommand updateReserveCommand = new UpdateReserveCommand(id);
-//		reserveConfirmForm.setPlanList(Arrays.asList(Plan.values()));
-//		reserveConfirmForm.setNumberOfGuestList(getNumberOfGuestList(Guest.MAXIMUM_APPROVE_GUEST_NUMBER));
-//		model.addAttribute("reserveConfirmForm", reserveConfirmForm);
-		return "/reservemgmt/complete";
+	public String update(@Validated ReserveReferForm reserveReferForm, BindingResult bindingResult, Model model) {
+		// todo 料金計算
+		TotalHotelFeeModel totalHotelFeeModel = CalculationTotalHotelFeeApplicationQueryService
+				.calculationTotalHotelFee(
+						DateUtil.diffDate(reserveReferForm.getCheckInDay(), reserveReferForm.getCheckOutDay()),
+						reserveReferForm.getNumberOfGuest(), reserveReferForm.getPlan());
+		UpdateReserveCommand updateReserveCommand = new UpdateReserveCommand(reserveReferForm.getId(),
+				reserveReferForm.getPlan(), reserveReferForm.getCheckInDay(), reserveReferForm.getCheckOutDay(),
+				reserveReferForm.getNumberOfGuest(), totalHotelFeeModel.getAmount(), reserveReferForm.getMemberid());
+		try {
+			applicationCommandBus.dispatch(updateReserveCommand);
+		} catch (Exception e) {
+			if (e.getCause() instanceof NoVacancyRoomException) {
+				addErrorMessage("MSGE1010");
+			}
+			if (e.getCause() instanceof UpdateFailedException) {
+				addErrorMessage("MSGE1011");
+			}
+			return "/reservemgmt/refer";
+		}
+		// 予約フォームの作成
+		CompleteUpdateReserveForm completeUpdateReserveForm = new CompleteUpdateReserveForm();
+		completeUpdateReserveForm.setPlan(reserveReferForm.getPlan());
+		completeUpdateReserveForm.setCheckInDay(reserveReferForm.getCheckInDay());
+		completeUpdateReserveForm.setCheckOutDay(reserveReferForm.getCheckOutDay());
+		completeUpdateReserveForm.setMemberid(SecurityContextHolder.getContext().getAuthentication().getName());
+		completeUpdateReserveForm.setNumberOfGuest(reserveReferForm.getNumberOfGuest());
+		completeUpdateReserveForm.setTotalHotelFee(totalHotelFeeModel.getAmount());
+		model.addAttribute("completeUpdateReserveForm", completeUpdateReserveForm);
+		return "/reservemgmt/completeUpdateReserve";
 	}
 
 	@RequestMapping(value = "/deleteReserve", method = RequestMethod.GET)
@@ -116,8 +143,10 @@ public class ReserveController extends AbstractController {
 		try {
 			applicationCommandBus.dispatch(deleteCommand);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			if (e.getCause() instanceof DeleteFailedException) {
+				addErrorMessage("MSGE1012");
+			}
+			return "/reservemgmt/deleteReserve";
 		}
 		return "/reservemgmt/completeDeleteReserve";
 	}

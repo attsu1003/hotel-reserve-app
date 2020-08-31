@@ -38,11 +38,19 @@ public class ReserveRepository {
 				reserve.getMemberId());
 	}
 
+	public boolean updateReserve(Reserve reserve) {
+		return reserveMapper.update(reserve);
+	}
+
+	public ReserveModel referReserve(ReserveId reserveId) {
+		return reserveMapper.selectByReserveId(reserveId.getReserveId());
+	}
+
 	public List<ReserveModel> referReserve(String memberId) {
 		return reserveMapper.select(memberId);
 	}
 
-	public void deleteReserve(String reserveId) {
-		reserveMapper.delete(reserveId);
+	public boolean deleteReserve(String reserveId) {
+		return reserveMapper.delete(reserveId);
 	}
 }

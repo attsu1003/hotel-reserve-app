@@ -7,8 +7,10 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.example.demo.domain.model.ReserveModel;
+import com.example.demo.domain.reserve.Reserve;
 
 @Mapper
 public interface ReserveMapper {
@@ -23,9 +25,16 @@ public interface ReserveMapper {
 	void insert(String id, String plan, Date checkindate, Date checkoutdate, int numberofguest, int totalhotelfee,
 			String memberid);
 
+	@Select("SELECT * FROM RESERVE WHERE ID = #{reserveId}")
+	ReserveModel selectByReserveId(String reserveId);
+
 	@Select("SELECT * FROM RESERVE WHERE MEMBERID = #{memberId}")
 	List<ReserveModel> select(String memberId);
 
+	@Update("UPDATE RESERVE SET plan = #{plan}, CHECKINDATE = #{checkInDay}, CHECKOUTDATE = #{checkOutDay}, NUMBEROFGUEST = #{numberOfGuest}, TOTALHOTELFEE = #{totalHotelFee} WHERE id = #{reserveId}")
+	boolean update(Reserve reserve);
+
 	@Delete("DELETE FROM RESERVE WHERE ID = #{id}")
-	void delete(String id);
+	boolean delete(String id);
+
 }
