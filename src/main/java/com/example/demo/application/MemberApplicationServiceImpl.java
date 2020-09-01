@@ -3,6 +3,7 @@ package com.example.demo.application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.application.command.ChangePasswordCommand;
 import com.example.demo.application.command.CreateMemberCommand;
@@ -29,6 +30,7 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 	@Autowired
 	MemberService memberService;
 
+	@Transactional
 	@Override
 	public void execute(CreateMemberCommand createMemberCommand) throws MemberAlreadyExistException {
 		if (isMemberExists(createMemberCommand.getId())) {
@@ -39,6 +41,7 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 				new MemberModel(createMemberCommand.getId(), this.hashingPassword(createMemberCommand.getPassword())));
 	}
 
+	@Transactional
 	@Override
 	public void execute(DeleteMemberCommand deleteMemberCommand)
 			throws MemberNotFoundException, WrongPasswordException {
@@ -54,6 +57,7 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 				new MemberModel(deleteMemberCommand.getId(), this.hashingPassword(deleteMemberCommand.getPassword())));
 	}
 
+	@Transactional
 	@Override
 	public void execute(SetPasswordCommand setPasswordCommand)
 			throws PasswordNotMatchException, CurrentPasswordException, MemberNotFoundException {
@@ -73,6 +77,7 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 				setPasswordCommand.getMailAddress());
 	}
 
+	@Transactional
 	@Override
 	public void execute(ChangePasswordCommand changePasswordCommand)
 			throws PasswordNotMatchException, MemberNotFoundException {

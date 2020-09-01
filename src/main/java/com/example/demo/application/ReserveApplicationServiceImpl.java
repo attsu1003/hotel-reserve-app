@@ -2,6 +2,7 @@ package com.example.demo.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.application.command.DeleteCommand;
 import com.example.demo.application.command.ReserveCommand;
@@ -29,6 +30,7 @@ public class ReserveApplicationServiceImpl implements ReserveApplicationService 
 	@Autowired
 	private ReserveService reserveService;
 
+	@Transactional
 	@Override
 	public void execute(ReserveCommand reserveCommand) throws NoVacancyRoomException {
 		if (!reserveService.isReservable(reserveCommand.getCheckInDay(), reserveCommand.getCheckOutDay(),
@@ -41,8 +43,10 @@ public class ReserveApplicationServiceImpl implements ReserveApplicationService 
 		reserveRepository.reserve(reserve);
 	}
 
+	@Transactional
 	@Override
-	public void execute(UpdateReserveCommand updateReserveCommand) throws NoVacancyRoomException, UpdateFailedException {
+	public void execute(UpdateReserveCommand updateReserveCommand)
+			throws NoVacancyRoomException, UpdateFailedException {
 		if (!reserveService.isReservable(updateReserveCommand.getCheckInDay(), updateReserveCommand.getCheckOutDay(),
 				roomRepository.countRoom())) {
 			throw new NoVacancyRoomException("空き部屋がありません。別のチェックイン日、チェックアウト日を入力してください。");
@@ -53,14 +57,15 @@ public class ReserveApplicationServiceImpl implements ReserveApplicationService 
 				updateReserveCommand.getCheckOutDay(), updateReserveCommand.getNumberOfGuest(),
 				new TotalHotelFee(new Amount(updateReserveCommand.getTotalHotelFee())),
 				updateReserveCommand.getMemberId());
-		if(!reserveRepository.updateReserve(reserve)) {
-			 throw new UpdateFailedException("選択した予約の更新に失敗しました。恐れ入りますが管理者にお問い合わせください。");
+		if (!reserveRepository.updateReserve(reserve)) {
+			throw new UpdateFailedException("選択した予約の更新に失敗しました。恐れ入りますが管理者にお問い合わせください。");
 		}
 	}
 
+	@Transactional
 	@Override
 	public void execute(DeleteCommand deleteCommand) throws DeleteFailedException {
-		if(!reserveRepository.deleteReserve(deleteCommand.getReserveId())) {
+		if (!reserveRepository.deleteReserve(deleteCommand.getReserveId())) {
 			throw new DeleteFailedException("選択した予約の削除に失敗しました。恐れ入りますが管理者にお問い合わせください。");
 		}
 	}
