@@ -11,12 +11,11 @@ import com.example.demo.domain.reserve.UpdateFailedException;
 
 public interface ReserveApplicationService {
 	
-	@Transactional
 	public void execute(ReserveCommand reserveCommand) throws NoVacancyRoomException;
 	
-	@Transactional
+	//@Transactional
 	public void execute(UpdateReserveCommand updateReserveCommand) throws NoVacancyRoomException, UpdateFailedException;
 	
-	@Transactional
+	//@Transactional
 	public void execute(DeleteCommand deleteCommand) throws DeleteFailedException;
 }

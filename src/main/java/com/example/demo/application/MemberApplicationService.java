@@ -14,17 +14,17 @@ import com.example.demo.domain.member.WrongPasswordException;
 
 public interface MemberApplicationService {
 
-	@Transactional
+	//@Transactional
 	public void execute(CreateMemberCommand createMemberCommand) throws MemberAlreadyExistException;
 
-	@Transactional
+	//@Transactional
 	public void execute(DeleteMemberCommand deleteMemberCommand) throws MemberNotFoundException, WrongPasswordException;
 
-	@Transactional
+	//@Transactional
 	public void execute(SetPasswordCommand setPasswordCommand)
 			throws PasswordNotMatchException, CurrentPasswordException, MemberNotFoundException;
 
-	@Transactional
+	//@Transactional
 	public void execute(ChangePasswordCommand changePasswordCommand)
 			throws PasswordNotMatchException, MemberNotFoundException;
 }

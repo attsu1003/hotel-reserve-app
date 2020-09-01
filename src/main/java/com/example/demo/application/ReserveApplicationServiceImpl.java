@@ -1,7 +1,7 @@
 package com.example.demo.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.application.command.DeleteCommand;
@@ -18,7 +18,7 @@ import com.example.demo.domain.reserve.TotalHotelFee;
 import com.example.demo.domain.reserve.UpdateFailedException;
 import com.example.demo.domain.room.RoomRepository;
 
-@Component
+@Service
 public class ReserveApplicationServiceImpl implements ReserveApplicationService {
 
 	@Autowired
@@ -30,7 +30,6 @@ public class ReserveApplicationServiceImpl implements ReserveApplicationService 
 	@Autowired
 	private ReserveService reserveService;
 
-	@Transactional
 	@Override
 	public void execute(ReserveCommand reserveCommand) throws NoVacancyRoomException {
 		if (!reserveService.isReservable(reserveCommand.getCheckInDay(), reserveCommand.getCheckOutDay(),
@@ -43,7 +42,7 @@ public class ReserveApplicationServiceImpl implements ReserveApplicationService 
 		reserveRepository.reserve(reserve);
 	}
 
-	@Transactional
+	//@Transactional
 	@Override
 	public void execute(UpdateReserveCommand updateReserveCommand)
 			throws NoVacancyRoomException, UpdateFailedException {
@@ -62,7 +61,7 @@ public class ReserveApplicationServiceImpl implements ReserveApplicationService 
 		}
 	}
 
-	@Transactional
+	//@Transactional
 	@Override
 	public void execute(DeleteCommand deleteCommand) throws DeleteFailedException {
 		if (!reserveRepository.deleteReserve(deleteCommand.getReserveId())) {
