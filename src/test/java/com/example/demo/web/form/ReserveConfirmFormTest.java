@@ -34,8 +34,8 @@ class ReserveConfirmFormTest {
 		@SuppressWarnings("deprecation")
 		@Test
 		public void チェックイン日がチェックアウト日より過去日となっている場合() {
-			reserveConfirmForm.setCheckInDay(new Date(2020, 8, 30));
-			reserveConfirmForm.setCheckOutDay(new Date(2020, 8, 31));
+			reserveConfirmForm.setCheckInDay(new Date(122, 8, 15));
+			reserveConfirmForm.setCheckOutDay(new Date(122, 8, 16));
 			validator.validate(reserveConfirmForm, bindingResult);
 			assertThat(bindingResult.getFieldError(), is(nullValue()));
 		}
@@ -46,21 +46,32 @@ class ReserveConfirmFormTest {
 		@SuppressWarnings("deprecation")
 		@Test
 		public void チェックイン日とチェックアウト日が同じ日になっている場合() {
-			reserveConfirmForm.setCheckInDay(new Date(2020, 8, 31));
-			reserveConfirmForm.setCheckOutDay(new Date(2020, 8, 31));
+			reserveConfirmForm.setCheckInDay(new Date(122, 8, 15));
+			reserveConfirmForm.setCheckOutDay(new Date(122, 8, 15));
 			validator.validate(reserveConfirmForm, bindingResult);
 			assertThat(bindingResult.getFieldError().getField(), is("checkOutDay"));
-			assertThat(bindingResult.getFieldError().getDefaultMessage(), is("チェックイン日とチェックアウト日が同じ日になっています"));
+			assertThat(bindingResult.getFieldError().getDefaultMessage(), is("チェックイン日とチェックアウト日が同じ日付になっています。"));
 		}
 
 		@SuppressWarnings("deprecation")
 		@Test
 		public void チェックアウト日がチェックイン日より過去日となっている場合() {
-			reserveConfirmForm.setCheckInDay(new Date(2020, 8, 31));
-			reserveConfirmForm.setCheckOutDay(new Date(2020, 8, 30));
+			reserveConfirmForm.setCheckInDay(new Date(122, 8, 16));
+			reserveConfirmForm.setCheckOutDay(new Date(122, 8, 15));
 			validator.validate(reserveConfirmForm, bindingResult);
 			assertThat(bindingResult.getFieldError().getField(), is("checkOutDay"));
-			assertThat(bindingResult.getFieldError().getDefaultMessage(), is("チェックアウト日がチェックイン日より過去日となっています。"));
+			assertThat(bindingResult.getFieldError().getDefaultMessage(), is("チェックアウト日がチェックイン日より過去の日付となっています。"));
+		}
+
+		@SuppressWarnings("deprecation")
+		@Test
+		public void チェックアウト日が本日より過去の日付となっている場合() {
+			reserveConfirmForm.setCheckInDay(new Date(120, 7, 15));
+			reserveConfirmForm.setCheckOutDay(new Date(120, 7, 16));
+			validator.validate(reserveConfirmForm, bindingResult);
+			assertThat(bindingResult.getFieldError().getField(), is("checkOutDay"));
+			assertThat(bindingResult.getFieldError().getDefaultMessage(), is("チェックアウト日が本日より過去の日付となっています。"));
+
 		}
 	}
 }
