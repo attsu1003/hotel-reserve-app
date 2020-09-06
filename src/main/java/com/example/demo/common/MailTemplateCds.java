@@ -14,7 +14,9 @@ public enum MailTemplateCds {
 
 	MAIL_TEMPLATE_002("002", null, null),
 
-	MAIL_TEMPLATE_003("003", null, null);
+	MAIL_TEMPLATE_003("003", null, null),
+	
+	MAIL_TEMPLATE_004("004", null, null);
 
 	private final String key;
 	private final Optional<String> groupKey;

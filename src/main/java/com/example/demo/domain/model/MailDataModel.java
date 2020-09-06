@@ -14,13 +14,39 @@ public class MailDataModel {
 	/** 本文 */
 	private String body;
 
+	private String name;
+	private String category;
+	private String contents;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getContents() {
+		return contents;
+	}
+
+	public void setContents(String contents) {
+		this.contents = contents;
+	}
+
 	/** 「パスワード設定画面」のURL */
 	private String passwordSettingUrl;
 
 	/** パスワード再設定依頼画面URL */
 	private String repwdUrl;
-	
-	
 
 	public String getSubject() {
 		return subject;

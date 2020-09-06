@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.footer {
+  width:100%;
+  height: 100px;
+  position: absolute;
+  bottom: 0;
+}
+</style>
+</head>
+<body>
+<div th:fragment="footer_fragment">
+	<footer class="py-4 bg-dark text-light">
+	  <div class="container text-center">
+	    <!-- /ナビゲーション -->
+	    <p>
+	      <small>Copyright &copy;hotelreserve, All Rights Reserved.</small>
+	    </p>
+	  </div>
+	</footer>
+	<!-- /フッター -->
+	<script src="js/jquery-3.3.1.slim.min.js"></script>
+	<script src="js/bootstrap.bundle.min.js"></script>
+</div>
+</body>
+</html>

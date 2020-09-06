@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.application.command.RequestContactCommand;
 import com.example.demo.application.command.RequestCreateMemberCommand;
 import com.example.demo.application.command.RequestDeleteMemberCommand;
 import com.example.demo.application.command.RequestRePasswordCommand;
@@ -12,6 +13,7 @@ import com.example.demo.domain.member.MemberAlreadyExistException;
 import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.member.MemberRepository;
 import com.example.demo.domain.member.MemberService;
+import com.example.demo.port.RequestContactMailService;
 import com.example.demo.port.RequestCreateMemberMailService;
 import com.example.demo.port.RequestDeleteMemberMailService;
 import com.example.demo.port.RequestRePasswordMailService;
@@ -33,6 +35,9 @@ public class RequestMailApplicationServiceImpl implements RequestMailApplication
 
 	@Autowired
 	RequestDeleteMemberMailService requestDeleteMemberMailService;
+
+	@Autowired
+	RequestContactMailService requestContactMailService;
 
 	@Override
 	public void execute(RequestCreateMemberCommand requestCreateMemberCommand) throws MemberAlreadyExistException {
@@ -59,6 +64,13 @@ public class RequestMailApplicationServiceImpl implements RequestMailApplication
 					"ユーザ名\"" + requestDeleteMemberCommand.getMailAddress() + "\"のユーザは登録されていません。", "userId");
 		}
 		requestDeleteMemberMailService.requestDeleteMemberMail(requestDeleteMemberCommand.getMailAddress());
+	}
+
+	@Override
+	public void execute(RequestContactCommand requestContactCommand) {
+		requestContactMailService.requestContactMail(requestContactCommand.getName(),
+				requestContactCommand.getMailAddress(), requestContactCommand.getCategory(),
+				requestContactCommand.getContents());
 	}
 
 	private boolean isMemberExists(String password) {

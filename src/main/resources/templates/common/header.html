@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:fragment="header_fragment">
+	  <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+		<div class="collapse navbar-collapse flex-column justify-content-start" id="navbarNav">
+			<!-- ブランド -->
+    		<a class="navbar-brand" th:href="@{/menu}">メニュー</a>
+			<div class="d-flex">
+				<ul class="navbar-nav justify-content-start" id="menuNavigator">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" aria-haspopup="true" aria-expanded="false">予約</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+							<a class="dropdown-item" th:href="@{/reserve}">予約</a>
+							<a class="dropdown-item" th:href="@{/deleteReserve}">予約削除</a>					
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" aria-haspopup="true" aria-expanded="false">照会</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+							<a class="dropdown-item" th:href="@{/refer}">予約照会</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" aria-haspopup="true" aria-expanded="false">空き状況確認</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+							<a class="dropdown-item" th:href="@{/referVacancy}">空き状況確認</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" aria-haspopup="true" aria-expanded="false">アカウント管理</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+							<a class="dropdown-item" th:href="@{/changePassword}">パスワード変更</a>
+							<a class="dropdown-item" th:href="@{/requestDeleteMember}">退会</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" aria-haspopup="true" aria-expanded="false">アクセス</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+							<a class="dropdown-item" th:href="@{/access}">アクセス</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" aria-haspopup="true" aria-expanded="false">お問い合わせ</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+							<a class="dropdown-item" th:href="@{/contact}">お問い合わせ</a>
+						</div>
+					</li>					
+				</ul>				
+			</div>
+		</div>
+		<a th:href="@{/logout}" class="btn btn-primary">ログアウト</a>
+	  </nav>
+	</div>
+</body>
+</html>
