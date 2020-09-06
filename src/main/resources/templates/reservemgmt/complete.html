@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+<link rel="stylesheet" href="/common/css/common.css" th:href="@{/common/css/common.css}" th:maxlength="10" />
+
 <title>Insert title here</title>
 </head>
-<body>
-	<p class="msg" th:text="${message}"></p>
-	<p class="msg" th:text="${name} + 様"></p>
- 予約が完了しました<br>
- <a th:href="@{/menu}" class="btn btn-primary btn-back">メニューへ</a>
+<body class="contents">
+	<header th:replace="common/header :: header_fragment"></header>
+	<main>
+		<p class="msg" th:text="${message}"></p>
+		<p class="msg" th:text="${name} + 様"></p>
+	    予約が完了しました<br>
+	    <a th:href="@{/menu}" class="btn btn-primary btn-back">メニューへ</a>
+    </main>
+    <footer th:replace="common/footer :: footer_fragment"></footer>
 </body>
 </html>

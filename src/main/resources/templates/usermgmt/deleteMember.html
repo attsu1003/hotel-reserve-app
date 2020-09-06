@@ -12,7 +12,8 @@
   <script src="webjars/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 </head>
-<body>
+<body class="contents">
+	<header th:replace="common/header :: header_fragment"></header>
 	<main>
 		<div class="py-3">
 			<div class="container">
@@ -62,11 +63,9 @@
 					</div>
 				</form>			
 			</div>
-			
-			
 		</div>
 	</main>
-	
+	<footer th:replace="common/footer :: footer_fragment"></footer>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	
 	<script type="text/javascript" th:inline="javascript">

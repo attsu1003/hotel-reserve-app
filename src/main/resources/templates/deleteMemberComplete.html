@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body class="contents">
+	<header th:replace="common/header :: header_fragment"></header>
 	<main>
 		<div class="py-3">
 			<div class="container">
@@ -14,5 +15,6 @@
 			<a th:href="@{/login/}" class="btn btn-primary btn-back">ログイン画面へ</a>
 		</div>
 	</main>
+	<footer th:replace="common/footer :: footer_fragment"></footer>
 </body>
 </html>

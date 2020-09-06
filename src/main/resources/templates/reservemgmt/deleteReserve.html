@@ -15,7 +15,8 @@
 	<title>Insert title here</title>
 </head>
 
-<body>
+<body class="contents">
+	<header th:replace="common/header :: header_fragment"></header>
 	<main>
 		<div class="py-3">
 			<div class="container">
@@ -82,6 +83,7 @@
 					<a th:href="@{/menu}" class="btn btn-primary btn-back">戻る</a>
 				</div>
 			</div>
-		</main>	
+		</main>
+		<footer th:replace="common/footer :: footer_fragment"></footer>	
 	</body>
 </html>

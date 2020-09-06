@@ -4,8 +4,8 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" href="/common/css/common.css" th:href="@{/common/css/common.css}" th:maxlength="10" />
 	<title>Insert title here</title>
-
 
 	<style type="text/css">
 		#calendar {
@@ -50,10 +50,8 @@
 	</style>
 </head>
 
-
-
-<body>
-
+<body class="contents">
+	<header th:replace="common/header :: header_fragment"></header>
 	<main>
 		<div class="py-3">
 			<div class="container">
@@ -71,6 +69,7 @@
 			</div>
 		</div>
 	</main>
+	<footer th:replace="common/footer :: footer_fragment"></footer>	
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	

@@ -13,20 +13,10 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="webjars/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 	<title>Insert title here</title>
-	<script>
-        $(function () {
-            $(".datepicker").datepicker({
-                language: "ja",
-                dateFormat: "yy/mm/dd",
-                container: 'html',
-                minDate: 0,
-                autoclose: true
-            });
-        });
-    </script>
 </head>
 
-<body>
+<body class="contents">
+	<header th:replace="common/header :: header_fragment"></header>
 	<main>
 		<div class="py-3">
 			<div class="container">
@@ -146,6 +136,7 @@
 					<a th:href="@{/menu}" class="btn btn-primary btn-back">戻る</a>
 				</div>
 			</div>
-		</main>	
+		</main>
+		<footer th:replace="common/footer :: footer_fragment"></footer>	
 	</body>
 </html>

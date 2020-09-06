@@ -10,76 +10,14 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="webjars/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-  
-<style>
-h1 {
-	font-size: 16pt;
-	background-color: CCCCFF;
-	padding: 3px;
-}
-
-p {
-	color: #000066;
-}
-</style>
-
 <script>
 
 </script>
 
 </head>
-<body>
-
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="collapse navbar-collapse flex-column justify-content-start" id="navbarNav">
-			<div class="justify-content-start">メニュー</div>
-			<div class="d-flex">
-				<ul class="navbar-nav justify-content-start" id="menuNavigator">
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" aria-haspopup="true" aria-expanded="false">予約</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-							<a class="dropdown-item" th:href="@{/reserve}">予約</a>
-							<a class="dropdown-item" th:href="@{/deleteReserve}">予約削除</a>					
-						</div>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" aria-haspopup="true" aria-expanded="false">照会</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-							<a class="dropdown-item" th:href="@{/refer}">予約照会</a>
-						</div>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" aria-haspopup="true" aria-expanded="false">空き状況確認</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-							<a class="dropdown-item" th:href="@{/referVacancy}">空き状況確認</a>
-						</div>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" aria-haspopup="true" aria-expanded="false">アカウント管理</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-							<a class="dropdown-item" th:href="@{/changePassword}">パスワード変更</a>
-							<a class="dropdown-item" th:href="@{/requestDeleteMember}">退会</a>
-						</div>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" aria-haspopup="true" aria-expanded="false">アクセス</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-							<a class="dropdown-item" th:href="@{/access}">アクセス</a>
-						</div>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" aria-haspopup="true" aria-expanded="false">お問い合わせ</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-							<a class="dropdown-item" th:href="@{/contact}">お問い合わせ</a>
-						</div>
-					</li>					
-				</ul>				
-			</div>
-			
-		</div>
-		<a th:href="@{/logout}" class="btn btn-primary">ログアウト</a>
-	</nav>
-	
+<body class="contents">
+	<header th:replace="common/header :: header_fragment"></header>
+	<main>
 	<!-- メインビジュアル -->
 	  <div class="py-4">
 	    <div class="container">
@@ -137,6 +75,7 @@ p {
 	      <!-- / カルーセル外枠 -->
 	    </div>
 	  </div>
-
+	 </main>
+	 <footer th:replace="common/footer :: footer_fragment"></footer>
 </body>
 </html>
