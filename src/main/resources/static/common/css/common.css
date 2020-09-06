@@ -74,3 +74,10 @@
 	background-color: yellow;
 }
 
+/*footer下部に余白ができないよう設定 */
+html,  body { margin: 0; width: 100%; height: 100%; }
+.contents { position: relative; width: 100%; height: auto !important; height: 100%; min-height: 100%; }
+header { width: 100%; height: 60px; position: fixed; }
+main { padding-top: 60px; height: 200px; }
+footer { width: 100%; height: 60px; position: absolute; bottom: 0; }
+
