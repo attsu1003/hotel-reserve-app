@@ -1,7 +1,6 @@
 package com.example.demo.web.controller;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,7 +24,7 @@ import com.example.demo.common.DateUtil;
 import com.example.demo.domain.model.ReserveModel;
 import com.example.demo.domain.model.TotalHotelFeeModel;
 import com.example.demo.domain.reserve.DeleteFailedException;
-import com.example.demo.domain.reserve.Guest;
+import com.example.demo.domain.reserve.Guests;
 import com.example.demo.domain.reserve.NoVacancyRoomException;
 import com.example.demo.domain.reserve.Plan;
 import com.example.demo.domain.reserve.UpdateFailedException;
@@ -52,7 +51,7 @@ public class ReserveController extends AbstractController {
 	public String reserve(Model model) {
 		ReserveConfirmForm reserveConfirmForm = new ReserveConfirmForm();
 		reserveConfirmForm.setPlanList(Arrays.asList(Plan.values()));
-		reserveConfirmForm.setNumberOfGuestList(getNumberOfGuestList(Guest.MAXIMUM_APPROVE_GUEST_NUMBER));
+		reserveConfirmForm.setNumberOfGuestList(Guests.getMaxNumberOfGuestList());
 		model.addAttribute("reserveConfirmForm", reserveConfirmForm);
 		return "/reservemgmt/reserve";
 	}
@@ -149,13 +148,5 @@ public class ReserveController extends AbstractController {
 			return "/reservemgmt/deleteReserve";
 		}
 		return "/reservemgmt/completeDeleteReserve";
-	}
-
-	private List<Integer> getNumberOfGuestList(int maximumApproveGuestNumber) {
-		List<Integer> numberOfGuestList = new ArrayList<>();
-		for (int i = 1; i <= maximumApproveGuestNumber; i++) {
-			numberOfGuestList.add(i);
-		}
-		return numberOfGuestList;
 	}
 }

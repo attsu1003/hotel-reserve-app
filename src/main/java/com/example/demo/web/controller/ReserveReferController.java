@@ -1,6 +1,5 @@
 package com.example.demo.web.controller;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.application.query.ReserveApplicationQueryService;
 import com.example.demo.domain.model.ReserveModel;
-import com.example.demo.domain.reserve.Guest;
+import com.example.demo.domain.reserve.Guests;
 import com.example.demo.domain.reserve.Plan;
 import com.example.demo.web.form.ReserveReferForm;
 
@@ -30,16 +29,8 @@ public class ReserveReferController extends AbstractController {
 		model.addAttribute("reserveModelList", reserveModelList);
 		ReserveReferForm reserveReferForm = new ReserveReferForm();
 		reserveReferForm.setPlanList(Arrays.asList(Plan.values()));
-		reserveReferForm.setNumberOfGuestList(getNumberOfGuestList(Guest.MAXIMUM_APPROVE_GUEST_NUMBER));
+		reserveReferForm.setNumberOfGuestList(Guests.getMaxNumberOfGuestList());
 		model.addAttribute("reserveReferForm", reserveReferForm);
 		return "/reservemgmt/refer";
-	}
-
-	private List<Integer> getNumberOfGuestList(int maximumApproveGuestNumber) {
-		List<Integer> numberOfGuestList = new ArrayList<>();
-		for (int i = 1; i <= maximumApproveGuestNumber; i++) {
-			numberOfGuestList.add(i);
-		}
-		return numberOfGuestList;
 	}
 }
