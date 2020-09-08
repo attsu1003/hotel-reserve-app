@@ -1,16 +1,19 @@
 package com.example.demo.domain.member;
 
 public class Member {
-	String memberId;
-	String memberName;
-	String password;
+	MemberId memberId;
+	Password password;
+
+	public Member(MemberId memberId, Password password) {
+		this.memberId = memberId;
+		this.password = password;
+	}
+
 	public String getMemberId() {
-		return memberId;
+		return memberId.getMemberId();
 	}
-	public String getMemberName() {
-		return memberName;
-	}
+
 	public String getPassword() {
-		return password;
-	}	
+		return password.getPassword();
+	}
 }

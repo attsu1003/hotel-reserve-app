@@ -9,10 +9,13 @@ import com.example.demo.application.command.CreateMemberCommand;
 import com.example.demo.application.command.DeleteMemberCommand;
 import com.example.demo.application.command.SetPasswordCommand;
 import com.example.demo.domain.member.CurrentPasswordException;
+import com.example.demo.domain.member.Member;
 import com.example.demo.domain.member.MemberAlreadyExistException;
+import com.example.demo.domain.member.MemberId;
 import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.member.MemberRepository;
 import com.example.demo.domain.member.MemberService;
+import com.example.demo.domain.member.Password;
 import com.example.demo.domain.member.PasswordNotMatchException;
 import com.example.demo.domain.member.WrongPasswordException;
 import com.example.demo.domain.model.MemberModel;
@@ -29,18 +32,17 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 	@Autowired
 	MemberService memberService;
 
-	//@Transactional
 	@Override
 	public void execute(CreateMemberCommand createMemberCommand) throws MemberAlreadyExistException {
 		if (isMemberExists(createMemberCommand.getId())) {
 			throw new MemberAlreadyExistException("ユーザ名\"" + createMemberCommand.getId() + "\"のユーザは既に登録されています。",
 					"userId");
 		}
-		memberRepository.createMember(
-				new MemberModel(createMemberCommand.getId(), this.hashingPassword(createMemberCommand.getPassword())));
+		Member member = new Member(new MemberId(createMemberCommand.getId()),
+				new Password(createMemberCommand.getPassword(), passwordEncoder));
+		memberRepository.createMember(member);
 	}
 
-	//@Transactional
 	@Override
 	public void execute(DeleteMemberCommand deleteMemberCommand)
 			throws MemberNotFoundException, WrongPasswordException {
@@ -56,7 +58,6 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 				new MemberModel(deleteMemberCommand.getId(), this.hashingPassword(deleteMemberCommand.getPassword())));
 	}
 
-	//@Transactional
 	@Override
 	public void execute(SetPasswordCommand setPasswordCommand)
 			throws PasswordNotMatchException, CurrentPasswordException, MemberNotFoundException {
@@ -76,7 +77,6 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 				setPasswordCommand.getMailAddress());
 	}
 
-	//@Transactional
 	@Override
 	public void execute(ChangePasswordCommand changePasswordCommand)
 			throws PasswordNotMatchException, MemberNotFoundException {

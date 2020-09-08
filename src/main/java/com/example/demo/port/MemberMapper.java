@@ -6,13 +6,14 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.example.demo.domain.member.Member;
 import com.example.demo.domain.model.MemberModel;
 
 @Mapper
 public interface MemberMapper {
 
-	@Insert("INSERT INTO member (id, password) VALUES (#{id}, #{password})")
-	void insert(MemberModel memberModel);
+	@Insert("INSERT INTO member (id, password) VALUES (#{memberId}, #{password})")
+	void insert(Member member);
 
 	@Select("SELECT id, password FROM member WHERE id = #{id}")
 	MemberModel select(String id);

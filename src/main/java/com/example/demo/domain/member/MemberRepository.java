@@ -16,8 +16,8 @@ public class MemberRepository {
 		return memberMapper.select(id);
 	}
 
-	public void createMember(MemberModel memberModel) {
-		memberMapper.insert(memberModel);
+	public void createMember(Member member) {
+		memberMapper.insert(member);
 	}
 	
 	public void deleteMember(MemberModel memberModel) {
