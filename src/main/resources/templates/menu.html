@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="/common/css/menu.css" th:href="@{/common/css/menu.css}" />
 <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/common/css/common.css" th:href="@{/common/css/common.css}" th:maxlength="10"/>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="webjars/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -75,6 +74,146 @@
 	      <!-- / カルーセル外枠 -->
 	    </div>
 	  </div>
+	  
+	  <!-- コンテンツ03 -->
+	  <div class="py-4">
+	    <section id="menu">
+	      <div class="container">
+	        <h3 class="mb-3">料金表</h3>
+	        <p>カフェ Mr. M COFFEEのメニューです。掲載していない季節限定メニューはMr. M COFFEEの
+	          <a href="#">ブログ</a>にて紹介しています。</p>
+	        <!-- タブ型ナビゲーション -->
+	        <div class="nav nav-tabs" id="tab-menus" role="tablist">
+	          <!-- タブ01 -->
+	          <a class="nav-item nav-link active" id="tab-menu01" data-toggle="tab" href="#panel-menu01" role="tab" aria-controls="panel-menu01" aria-selected="true">コーヒー</a>
+	          <!-- タブ02 -->
+	          <a class="nav-item nav-link" id="tab-menu02" data-toggle="tab" href="#panel-menu02" role="tab" aria-controls="panel-menu02" aria-selected="false">モーニング</a>
+	          <!-- タブ03 -->
+	          <a class="nav-item nav-link" id="tab-menu03" data-toggle="tab" href="#panel-menu03" role="tab" aria-controls="panel-menu03" aria-selected="false">ランチ</a>
+	          <!-- タブ04 -->
+	          <a class="nav-item nav-link" id="tab-menu04" data-toggle="tab" href="#panel-menu04" role="tab" aria-controls="panel-menu04" aria-selected="false">ケーキ</a>
+	        </div>
+	        <!-- /タブ型ナビゲーション -->
+	        <!-- パネル -->
+	        <div class="tab-content" id="panel-menus">
+	          <!-- パネル01 -->
+	          <div class="tab-pane fade show active border border-top-0" id="panel-menu01" role="tabpanel" aria-labelledby="tab-menu01">
+	            <div class="row p-3">
+	              <div class="col-md-7 order-md-2">
+	                <h4>COFFEE</h4>
+	                <table class="table table-striped">
+	                  <tbody>
+	                    <tr>
+	                      <th>大人</th>
+	                      <td>7000円（税別)/1泊</td>
+	                    </tr>
+	                    <tr>
+	                      <th>子供</th>
+	                      <td>5000円（税別)/1泊</td>
+	                    </tr>
+	                  </tbody>
+	                </table>
+	              </div>
+	              <div class="col-md-5">
+	                <img src="img/coffee.jpg" alt="コーヒー" class="img-fluid"> </div>
+	            </div>
+	          </div>
+	          <!-- パネル02 -->
+	          <div class="tab-pane fade border border-top-0" id="panel-menu02" role="tabpanel" aria-labelledby="tab-menu02">
+	            <div class="row p-3">
+	              <div class="col-md-7 order-md-2">
+	                <h4>MORNNING</h4>
+	                <table class="table table-striped">
+	                  <tbody>
+	                    <tr>
+	                      <th>トーストセット</th>
+	                      <td>450円（税別）</td>
+	                    </tr>
+	                    <tr>
+	                      <th>トーストゆで卵セット</th>
+	                      <td>500円（税別）</td>
+	                    </tr>
+	                    <tr>
+	                      <th>フレンチトーストセット</th>
+	                      <td>600円（税別）</td>
+	                    </tr>
+	                    <tr>
+	                      <th>野菜たっぷりスープセット</th>
+	                      <td>650円（税別）</td>
+	                    </tr>
+	                  </tbody>
+	                </table>
+	              </div>
+	              <div class="col-md-5">
+	                <img src="img/morning.jpg" alt="モーニング" class="img-fluid"> </div>
+	            </div>
+	          </div>
+	          <!-- パネル03 -->
+	          <div class="tab-pane fade border border-top-0" id="panel-menu03" role="tabpanel" aria-labelledby="tab-menu03">
+	            <div class="row p-3">
+	              <div class="col-md-7 order-md-2">
+	                <h4>LUNCH</h4>
+	                <table class="table table-striped">
+	                  <tbody>
+	                    <tr>
+	                      <th>ワンプレートランチ</th>
+	                      <td>1,000円（税別）</td>
+	                    </tr>
+	                    <tr>
+	                      <th>Mixサンド</th>
+	                      <td>650円（税別）</td>
+	                    </tr>
+	                    <tr>
+	                      <th>ハンバーグサンド</th>
+	                      <td>750円（税別）</td>
+	                    </tr>
+	                    <tr>
+	                      <th>野菜たっぷりスープ</th>
+	                      <td>650円（税別）</td>
+	                    </tr>
+	                  </tbody>
+	                </table>
+	              </div>
+	              <div class="col-md-5">
+	                <img src="img/lunch.jpg" alt="ランチ" class="img-fluid"> </div>
+	            </div>
+	          </div>
+	          <!-- パネル04 -->
+	          <div class="tab-pane fade border border-top-0" id="panel-menu04" role="tabpanel" aria-labelledby="tab-menu04">
+	            <div class="row p-3">
+	              <div class="col-md-7 order-md-2">
+	                <h4>CAKE</h4>
+	                <table class="table table-striped">
+	                  <tbody>
+	                    <tr>
+	                      <th>シフォンケーキ</th>
+	                      <td>400円（税別）</td>
+	                    </tr>
+	                    <tr>
+	                      <th>チーズケーキ</th>
+	                      <td>350円（税別）</td>
+	                    </tr>
+	                    <tr>
+	                      <th>本日のケーキ</th>
+	                      <td>400円（税別）～</td>
+	                    </tr>
+	                    <tr>
+	                      <th>季節のパウンドケーキ</th>
+	                      <td>400円（税別）～</td>
+	                    </tr>
+	                  </tbody>
+	                </table>
+	              </div>
+	              <div class="col-md-5">
+	                <img src="img/cake.jpg" alt="ケーキ" class="img-fluid"> </div>
+	            </div>
+	          </div>
+	        </div>
+	        <!-- /パネル -->
+	      </div>
+	    </section>
+	  </div>
+  <!-- /コンテンツ03 -->
 	 </main>
 	 <footer th:replace="common/footer :: footer_fragment"></footer>
 </body>
