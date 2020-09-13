@@ -2,6 +2,8 @@ package com.example.demo.domain.reserve;
 
 import java.util.Date;
 
+import com.example.demo.domain.reserve.calculation.TotalHotelFee;
+
 public class Reserve {
 	private ReserveId reserveId;
 	private Plan plan;
@@ -55,7 +57,7 @@ public class Reserve {
 	}
 
 	public int getTotalHotelFee() {
-		return totalHotelFee.getTotalFeeAmount().value;
+		return totalHotelFee.getTotalFeeAmount().getAmountValue();
 	}
 
 	public String getMemberId() {

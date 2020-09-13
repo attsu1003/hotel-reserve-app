@@ -77,13 +77,25 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-3">
-                            <label for="inputNumberSelect" class="col-form-label">
-                                宿泊人数 <span class="badge badge-warning">必須</span>
+                            <label for="numberOfAdultGuest" class="col-form-label">
+                                宿泊人数(大人) <span class="badge badge-warning">必須</span>
                             </label>
                         </div>
                         <div class="col-md-3">
-                            <select class="custom-select" id="numberOfGuest" name="numberOfGuest">
-                            	<option th:each="numberOfGuest : ${reserveConfirmForm.numberOfGuestList}" th:value="${numberOfGuest}" th:text="${numberOfGuest}">選択してください</option>
+                            <select class="custom-select" id="numberOfAdultGuest" name="numberOfAdultGuest">
+                            	<option th:each="numberOfAdultGuest : ${reserveConfirmForm.numberOfAdultGuestList}" th:value="${numberOfAdultGuest}" th:text="${numberOfAdultGuest}">選択してください</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label for="numberOfChildrenGuest" class="col-form-label">
+                                宿泊人数(子供) <span class="badge badge-warning">必須</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="custom-select" id="numberOfChildrenGuest" name="numberOfChildrenGuest">
+                            	<option th:each="numberOfChildrenGuest : ${reserveConfirmForm.numberOfChildrenGuestList}" th:value="${numberOfChildrenGuest}" th:text="${numberOfChildrenGuest}">選択してください</option>
                             </select>
                         </div>
                     </div>

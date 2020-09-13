@@ -29,7 +29,7 @@ public class ReserveReferController extends AbstractController {
 		model.addAttribute("reserveModelList", reserveModelList);
 		ReserveReferForm reserveReferForm = new ReserveReferForm();
 		reserveReferForm.setPlanList(Arrays.asList(Plan.values()));
-		reserveReferForm.setNumberOfGuestList(Guests.getMaxNumberOfGuestList());
+		reserveReferForm.setNumberOfAdultGuestList(Guests.getMaxNumberOfGuestList());
 		model.addAttribute("reserveReferForm", reserveReferForm);
 		return "/reservemgmt/refer";
 	}

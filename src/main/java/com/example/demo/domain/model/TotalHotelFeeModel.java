@@ -1,6 +1,6 @@
 package com.example.demo.domain.model;
 
-import com.example.demo.domain.reserve.TotalHotelFee;
+import com.example.demo.domain.reserve.calculation.TotalHotelFee;
 
 public class TotalHotelFeeModel {
 

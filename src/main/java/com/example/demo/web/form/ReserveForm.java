@@ -14,7 +14,9 @@ public class ReserveForm {
 
 	private String memberid;
 
-	private int numberOfGuest;
+	private int numberOfAdultGuest;
+
+	private int numberOfChildrenGuest;
 
 	private int totalHotelFee;
 
@@ -50,12 +52,20 @@ public class ReserveForm {
 		this.memberid = memberid;
 	}
 
-	public int getNumberOfGuest() {
-		return numberOfGuest;
+	public int getNumberOfAdultGuest() {
+		return numberOfAdultGuest;
 	}
 
-	public void setNumberOfGuest(int numberOfGuest) {
-		this.numberOfGuest = numberOfGuest;
+	public void setNumberOfAdultGuest(int numberOfAdultGuest) {
+		this.numberOfAdultGuest = numberOfAdultGuest;
+	}
+
+	public int getNumberOfChildrenGuest() {
+		return numberOfChildrenGuest;
+	}
+
+	public void setNumberOfChildrenGuest(int numberOfChildrenGuest) {
+		this.numberOfChildrenGuest = numberOfChildrenGuest;
 	}
 
 	public int getTotalHotelFee() {

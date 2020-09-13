@@ -28,7 +28,7 @@ public class ReserveConfirmController extends AbstractController {
 	public String reserve(@ModelAttribute ReserveForm reserveForm, BindingResult bindingResult, Model model,
 			SessionStatus sessionStatus) {
 		ReserveCommand reserveCommand = new ReserveCommand(reserveForm.getPlan(), reserveForm.getCheckInDay(),
-				reserveForm.getCheckOutDay(), reserveForm.getNumberOfGuest(), reserveForm.getTotalHotelFee(),
+				reserveForm.getCheckOutDay(), reserveForm.getNumberOfAdultGuest(), reserveForm.getTotalHotelFee(),
 				SecurityContextHolder.getContext().getAuthentication().getName());
 		try {
 			applicationCommandBus.dispatch(reserveCommand);

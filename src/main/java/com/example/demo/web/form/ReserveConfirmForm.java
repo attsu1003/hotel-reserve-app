@@ -16,29 +16,47 @@ public class ReserveConfirmForm {
 	private Date checkOutDay;
 
 	private String memberid;
-	
-	private List<Integer> numberOfGuestList;
-	
+
+	private List<Integer> numberOfAdultGuestList;
+
+	private List<Integer> numberOfChildrenGuestList;
+
 	private Plan plan;
-	
-	private int numberOfGuest;
-	
-	
 
-	public List<Integer> getNumberOfGuestList() {
-		return numberOfGuestList;
+	private int numberOfAdultGuest;
+	
+	private int numberOfChildrenGuest;
+
+	public List<Integer> getNumberOfAdultGuestList() {
+		return numberOfAdultGuestList;
 	}
 
-	public void setNumberOfGuestList(List<Integer> numberOfGuestList) {
-		this.numberOfGuestList = numberOfGuestList;
+	public void setNumberOfAdultGuestList(List<Integer> numberOfAdultGuestList) {
+		this.numberOfAdultGuestList = numberOfAdultGuestList;
 	}
 
-	public int getNumberOfGuest() {
-		return numberOfGuest;
+	public List<Integer> getNumberOfChildrenGuestList() {
+		return numberOfChildrenGuestList;
 	}
 
-	public void setNumberOfGuest(int numberOfGuest) {
-		this.numberOfGuest = numberOfGuest;
+	public void setNumberOfChildrenGuestList(List<Integer> numberOfChildrenGuestList) {
+		this.numberOfChildrenGuestList = numberOfChildrenGuestList;
+	}
+
+	public int getNumberOfAdultGuest() {
+		return numberOfAdultGuest;
+	}
+
+	public void setNumberOfAdultGuest(int numberOfAdultGuest) {
+		this.numberOfAdultGuest = numberOfAdultGuest;
+	}
+	
+	public int getNumberOfChildrenGuest() {
+		return numberOfChildrenGuest;
+	}
+
+	public void setNumberOfChildrenGuest(int numberOfChildrenGuest) {
+		this.numberOfChildrenGuest = numberOfChildrenGuest;
 	}
 
 	public Plan getPlan() {

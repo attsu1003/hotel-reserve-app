@@ -51,7 +51,8 @@ public class ReserveController extends AbstractController {
 	public String reserve(Model model) {
 		ReserveConfirmForm reserveConfirmForm = new ReserveConfirmForm();
 		reserveConfirmForm.setPlanList(Arrays.asList(Plan.values()));
-		reserveConfirmForm.setNumberOfGuestList(Guests.getMaxNumberOfGuestList());
+		reserveConfirmForm.setNumberOfAdultGuestList(Guests.getMaxNumberOfGuestList());
+		reserveConfirmForm.setNumberOfChildrenGuestList(Guests.getMaxNumberOfGuestList());
 		model.addAttribute("reserveConfirmForm", reserveConfirmForm);
 		return "/reservemgmt/reserve";
 	}
@@ -77,7 +78,8 @@ public class ReserveController extends AbstractController {
 		TotalHotelFeeModel totalHotelFeeModel = CalculationTotalHotelFeeApplicationQueryService
 				.calculationTotalHotelFee(
 						DateUtil.diffDate(reserveConfirmForm.getCheckInDay(), reserveConfirmForm.getCheckOutDay()),
-						reserveConfirmForm.getNumberOfGuest(), reserveConfirmForm.getPlan());
+						reserveConfirmForm.getNumberOfAdultGuest(), reserveConfirmForm.getNumberOfChildrenGuest(),
+						reserveConfirmForm.getPlan());
 
 		// 予約フォームの作成
 		ReserveForm reserveForm = new ReserveForm();
@@ -85,7 +87,8 @@ public class ReserveController extends AbstractController {
 		reserveForm.setCheckInDay(reserveConfirmForm.getCheckInDay());
 		reserveForm.setCheckOutDay(reserveConfirmForm.getCheckOutDay());
 		reserveForm.setMemberid(SecurityContextHolder.getContext().getAuthentication().getName());
-		reserveForm.setNumberOfGuest(reserveConfirmForm.getNumberOfGuest());
+		reserveForm.setNumberOfAdultGuest(reserveConfirmForm.getNumberOfAdultGuest());
+		reserveForm.setNumberOfChildrenGuest(reserveConfirmForm.getNumberOfChildrenGuest());
 		reserveForm.setTotalHotelFee(totalHotelFeeModel.getAmount());
 		model.addAttribute("reserveForm", reserveForm);
 		return "/reservemgmt/confirm";
@@ -97,10 +100,12 @@ public class ReserveController extends AbstractController {
 		TotalHotelFeeModel totalHotelFeeModel = CalculationTotalHotelFeeApplicationQueryService
 				.calculationTotalHotelFee(
 						DateUtil.diffDate(reserveReferForm.getCheckInDay(), reserveReferForm.getCheckOutDay()),
-						reserveReferForm.getNumberOfGuest(), reserveReferForm.getPlan());
+						reserveReferForm.getNumberOfAdultGuest(), reserveReferForm.getNumberOfChildrenGuest(),
+						reserveReferForm.getPlan());
 		UpdateReserveCommand updateReserveCommand = new UpdateReserveCommand(reserveReferForm.getId(),
 				reserveReferForm.getPlan(), reserveReferForm.getCheckInDay(), reserveReferForm.getCheckOutDay(),
-				reserveReferForm.getNumberOfGuest(), totalHotelFeeModel.getAmount(), reserveReferForm.getMemberid());
+				reserveReferForm.getNumberOfAdultGuest(), totalHotelFeeModel.getAmount(),
+				reserveReferForm.getMemberid());
 		try {
 			applicationCommandBus.dispatch(updateReserveCommand);
 		} catch (Exception e) {
@@ -118,7 +123,7 @@ public class ReserveController extends AbstractController {
 		completeUpdateReserveForm.setCheckInDay(reserveReferForm.getCheckInDay());
 		completeUpdateReserveForm.setCheckOutDay(reserveReferForm.getCheckOutDay());
 		completeUpdateReserveForm.setMemberid(SecurityContextHolder.getContext().getAuthentication().getName());
-		completeUpdateReserveForm.setNumberOfGuest(reserveReferForm.getNumberOfGuest());
+		completeUpdateReserveForm.setNumberOfGuest(reserveReferForm.getNumberOfAdultGuest());
 		completeUpdateReserveForm.setTotalHotelFee(totalHotelFeeModel.getAmount());
 		model.addAttribute("completeUpdateReserveForm", completeUpdateReserveForm);
 		return "/reservemgmt/completeUpdateReserve";
