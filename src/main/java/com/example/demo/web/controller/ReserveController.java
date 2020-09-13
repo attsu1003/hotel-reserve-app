@@ -104,8 +104,8 @@ public class ReserveController extends AbstractController {
 						reserveReferForm.getPlan());
 		UpdateReserveCommand updateReserveCommand = new UpdateReserveCommand(reserveReferForm.getId(),
 				reserveReferForm.getPlan(), reserveReferForm.getCheckInDay(), reserveReferForm.getCheckOutDay(),
-				reserveReferForm.getNumberOfAdultGuest(), totalHotelFeeModel.getAmount(),
-				reserveReferForm.getMemberid());
+				reserveReferForm.getNumberOfAdultGuest(), reserveReferForm.getNumberOfChildrenGuest(),
+				totalHotelFeeModel.getAmount(), reserveReferForm.getMemberid());
 		try {
 			applicationCommandBus.dispatch(updateReserveCommand);
 		} catch (Exception e) {

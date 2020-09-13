@@ -21,9 +21,8 @@ public interface ReserveMapper {
 	@Select("SELECT COUNT(ID) FROM RESERVE WHERE CHECKINDATE <= #{date} AND CHECKOUTDATE > #{date}")
 	int count(Date date);
 
-	@Insert("INSERT INTO RESERVE VALUES(#{id}, #{plan}, #{checkindate}, #{checkoutdate}, #{numberofguest}, #{totalhotelfee}, #{memberid})")
-	void insert(String id, String plan, Date checkindate, Date checkoutdate, int numberofguest, int totalhotelfee,
-			String memberid);
+	@Insert("INSERT INTO RESERVE (id, plan, checkindate, checkoutdate, numberofadultguest, numberofchildrenguest, totalhotelfee, memberid) VALUES(#{reserveId}, #{plan}, #{checkInDay}, #{checkOutDay}, #{numberOfAdultGuest}, #{numberOfChildrenGuest}, #{totalHotelFee}, #{memberId})")
+	void insert(Reserve reserve);
 
 	@Select("SELECT * FROM RESERVE WHERE ID = #{reserveId}")
 	ReserveModel selectByReserveId(String reserveId);

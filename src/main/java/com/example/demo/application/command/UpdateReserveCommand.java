@@ -10,7 +10,8 @@ public class UpdateReserveCommand implements Command {
 	private Plan plan;
 	private Date checkInDay;
 	private Date checkOutDay;
-	private int numberOfGuest;
+	private int numberOfAdultGuest;
+	private int numberOfChildrenGuest;
 	private int totalHotelFee;
 	private String memberId;
 
@@ -19,14 +20,15 @@ public class UpdateReserveCommand implements Command {
 		this.reserveId = reserveId;
 	}
 
-	public UpdateReserveCommand(String reserveId, Plan plan, Date checkInDay, Date checkOutDay, int numberOfGuest,
-			int totalHotelFee, String memberId) {
+	public UpdateReserveCommand(String reserveId, Plan plan, Date checkInDay, Date checkOutDay, int numberOfAdultGuest,
+			int numberOfChildrenGuest, int totalHotelFee, String memberId) {
 		super();
 		this.reserveId = reserveId;
 		this.plan = plan;
 		this.checkInDay = checkInDay;
 		this.checkOutDay = checkOutDay;
-		this.numberOfGuest = numberOfGuest;
+		this.numberOfAdultGuest = numberOfAdultGuest;
+		this.numberOfChildrenGuest = numberOfChildrenGuest;
 		this.totalHotelFee = totalHotelFee;
 		this.memberId = memberId;
 	}
@@ -47,8 +49,12 @@ public class UpdateReserveCommand implements Command {
 		return checkOutDay;
 	}
 
-	public int getNumberOfGuest() {
-		return numberOfGuest;
+	public int getNumberOfAdultGuest() {
+		return numberOfAdultGuest;
+	}
+
+	public int getNumberOfChildrenGuest() {
+		return numberOfChildrenGuest;
 	}
 
 	public int getTotalHotelFee() {
@@ -58,5 +64,4 @@ public class UpdateReserveCommand implements Command {
 	public String getMemberId() {
 		return memberId;
 	}
-
 }

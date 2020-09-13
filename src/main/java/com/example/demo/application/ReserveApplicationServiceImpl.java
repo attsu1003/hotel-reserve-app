@@ -36,12 +36,12 @@ public class ReserveApplicationServiceImpl implements ReserveApplicationService 
 			throw new NoVacancyRoomException("空き部屋がありません。別のチェックイン日、チェックアウト日を入力してください。");
 		}
 		Reserve reserve = new Reserve(reserveCommand.getPlan(), reserveCommand.getCheckInDay(),
-				reserveCommand.getCheckOutDay(), reserveCommand.getNumberOfGuest(),
+				reserveCommand.getCheckOutDay(), reserveCommand.getNumberOfAdultGuest(),
+				reserveCommand.getNumberOfChildrenGuest(),
 				new TotalHotelFee(new Amount(reserveCommand.getTotalHotelFee())), reserveCommand.getMemberId());
 		reserveRepository.reserve(reserve);
 	}
 
-	//@Transactional
 	@Override
 	public void execute(UpdateReserveCommand updateReserveCommand)
 			throws NoVacancyRoomException, UpdateFailedException {
@@ -52,7 +52,8 @@ public class ReserveApplicationServiceImpl implements ReserveApplicationService 
 		// todo reserveエンティティを変化させるように修正
 		Reserve reserve = new Reserve(new ReserveId(updateReserveCommand.getReserveId()),
 				updateReserveCommand.getPlan(), updateReserveCommand.getCheckInDay(),
-				updateReserveCommand.getCheckOutDay(), updateReserveCommand.getNumberOfGuest(),
+				updateReserveCommand.getCheckOutDay(), updateReserveCommand.getNumberOfAdultGuest(),
+				updateReserveCommand.getNumberOfChildrenGuest(),
 				new TotalHotelFee(new Amount(updateReserveCommand.getTotalHotelFee())),
 				updateReserveCommand.getMemberId());
 		if (!reserveRepository.updateReserve(reserve)) {
@@ -60,7 +61,6 @@ public class ReserveApplicationServiceImpl implements ReserveApplicationService 
 		}
 	}
 
-	//@Transactional
 	@Override
 	public void execute(DeleteCommand deleteCommand) throws DeleteFailedException {
 		if (!reserveRepository.deleteReserve(deleteCommand.getReserveId())) {
