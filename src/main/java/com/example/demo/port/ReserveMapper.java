@@ -30,10 +30,9 @@ public interface ReserveMapper {
 	@Select("SELECT * FROM RESERVE WHERE MEMBERID = #{memberId}")
 	List<ReserveModel> select(String memberId);
 
-	@Update("UPDATE RESERVE SET plan = #{plan}, CHECKINDATE = #{checkInDay}, CHECKOUTDATE = #{checkOutDay}, NUMBEROFGUEST = #{numberOfGuest}, TOTALHOTELFEE = #{totalHotelFee} WHERE id = #{reserveId}")
+	@Update("UPDATE RESERVE SET plan = #{plan}, CHECKINDATE = #{checkInDay}, CHECKOUTDATE = #{checkOutDay}, NUMBEROFADULTGUEST = #{numberOfAdultGuest}, NUMBEROFCHILDRENGUEST = #{numberOfChildrenGuest}, TOTALHOTELFEE = #{totalHotelFee} WHERE id = #{reserveId}")
 	boolean update(Reserve reserve);
 
 	@Delete("DELETE FROM RESERVE WHERE ID = #{id}")
 	boolean delete(String id);
-
 }

@@ -8,7 +8,8 @@ public class ReserveModel {
 	private String plan;
 	private Date checkindate;
 	private Date checkoutdate;
-	private int numberOfGuest;
+	private int numberOfAdultGuest;
+	private int numberOfChildrenGuest;
 	private int totalHotelFee;
 	private String memberid;
 
@@ -16,14 +17,15 @@ public class ReserveModel {
 		super();
 	}
 
-	public ReserveModel(String id, String plan, Date checkindate, Date checkoutdate, int numberOfGuest,
-			int totalHotelFee, String memberid) {
+	public ReserveModel(String id, String plan, Date checkindate, Date checkoutdate, int numberOfAdultGuest,
+			int numberOfChildrenGuest, int totalHotelFee, String memberid) {
 		super();
 		this.id = id;
 		this.plan = plan;
 		this.checkindate = checkindate;
 		this.checkoutdate = checkoutdate;
-		this.numberOfGuest = numberOfGuest;
+		this.numberOfAdultGuest = numberOfAdultGuest;
+		this.numberOfChildrenGuest = numberOfChildrenGuest;
 		this.totalHotelFee = totalHotelFee;
 		this.memberid = memberid;
 	}
@@ -44,8 +46,12 @@ public class ReserveModel {
 		return checkoutdate;
 	}
 
-	public int getNumberOfGuest() {
-		return numberOfGuest;
+	public int getNumberOfAdultGuest() {
+		return numberOfAdultGuest;
+	}
+
+	public int getNumberOfChildrenGuest() {
+		return numberOfChildrenGuest;
 	}
 
 	public int getTotalHotelFee() {

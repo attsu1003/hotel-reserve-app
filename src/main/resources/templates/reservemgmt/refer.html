@@ -35,7 +35,8 @@
 							<th>宿泊プラン</th>
 							<th>チェックイン日</th>
 							<th>チェックアウト日</th>
-							<th>宿泊人数</th>
+							<th>宿泊人数(大人)</th>
+							<th>宿泊人数(子供)</th>
 							<th>合計料金(税込み)</th>
 							<th>ユーザID</th>
 							<th>変更</th>
@@ -47,7 +48,8 @@
 							<td class="center" th:text="*{plan}"></td>
 							<td class="center" th:text="${#dates.format(reserveModel.checkindate, 'yyyy-MM-dd')}"></td>
 							<td class="center" th:text="${#dates.format(reserveModel.checkoutdate, 'yyyy-MM-dd')}"></td>
-							<td class="center" th:text="*{numberOfGuest}+'人'"></td>
+							<td class="center" th:text="*{numberOfAdultGuest}+'人'"></td>
+							<td class="center" th:text="*{numberOfChildrenGuest}+'人'"></td>
 							<td class="center" th:text="*{totalHotelFee} + '円'"></td>
 							<td class="center" th:text="*{memberid}"></td>
 							<td class="center">
@@ -110,13 +112,25 @@
 													</div>
 													<div class="form-group">
 														<div class="col-md-3">
-															<label for="inputNumberSelect" class="col-form-label">
-																宿泊人数 <span class="badge badge-warning">必須</span>
+															<label for="numberOfAdultGuest" class="col-form-label">
+																宿泊人数(大人) <span class="badge badge-warning">必須</span>
 															</label>
 														</div>
 														<div class="col-md-3">
-															<select class="custom-select" id="numberOfGuest" name="numberOfGuest">
-																<option th:each="numberOfGuest : ${reserveReferForm.numberOfGuestList}" th:value="${numberOfGuest}" th:text="${numberOfGuest}">選択してください</option>
+															<select class="custom-select" id="numberOfAdultGuest" name="numberOfAdultGuest">
+																<option th:each="numberOfAdultGuest : ${reserveReferForm.numberOfAdultGuestList}" th:value="${numberOfAdultGuest}" th:text="${numberOfAdultGuest}">選択してください</option>
+															</select>
+														</div>
+													</div>
+													<div class="form-group">
+														<div class="col-md-3">
+															<label for="numberOfChildrenGuest" class="col-form-label">
+																宿泊人数(子供) <span class="badge badge-warning">必須</span>
+															</label>
+														</div>
+														<div class="col-md-3">
+															<select class="custom-select" id="numberOfChildrenGuest" name="numberOfChildrenGuest">
+																<option th:each="numberOfChildrenGuest : ${reserveReferForm.numberOfChildrenGuestList}" th:value="${numberOfChildrenGuest}" th:text="${numberOfChildrenGuest}">選択してください</option>
 															</select>
 														</div>
 													</div>
