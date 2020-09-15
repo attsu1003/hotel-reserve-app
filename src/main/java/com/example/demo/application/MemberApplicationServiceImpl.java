@@ -12,6 +12,7 @@ import com.example.demo.domain.member.CurrentPasswordException;
 import com.example.demo.domain.member.Member;
 import com.example.demo.domain.member.MemberAlreadyExistException;
 import com.example.demo.domain.member.MemberId;
+import com.example.demo.domain.member.MemberIdFormInvalidException;
 import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.member.MemberRepository;
 import com.example.demo.domain.member.MemberService;
@@ -33,7 +34,7 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 	MemberService memberService;
 
 	@Override
-	public void execute(CreateMemberCommand createMemberCommand) throws MemberAlreadyExistException {
+	public void execute(CreateMemberCommand createMemberCommand) throws MemberAlreadyExistException, MemberIdFormInvalidException {
 		if (isMemberExists(createMemberCommand.getId())) {
 			throw new MemberAlreadyExistException("ユーザ名\"" + createMemberCommand.getId() + "\"のユーザは既に登録されています。",
 					"userId");

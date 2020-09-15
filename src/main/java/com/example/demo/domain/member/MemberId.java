@@ -7,11 +7,12 @@ public class MemberId {
 
 	private String value;
 
-	public MemberId(String value) {
+	public MemberId(String value) throws MemberIdFormInvalidException {
 		if (!CommonUtils.checkRegexp(value, Regexp.MATCH_MAILADDRESS)) {
-			System.out.println("error");
+			throw new MemberIdFormInvalidException("メンバーIDがメールアドレス形式となっていません。");
 		}
 		this.value = value;
+		
 	}
 
 	public String getMemberId() {

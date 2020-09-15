@@ -16,6 +16,7 @@ import com.example.demo.application.ApplicationCommandBus;
 import com.example.demo.application.command.CreateMemberCommand;
 import com.example.demo.application.command.DeleteMemberCommand;
 import com.example.demo.domain.member.MemberAlreadyExistException;
+import com.example.demo.domain.member.MemberIdFormInvalidException;
 import com.example.demo.domain.member.MemberNotFoundException;
 import com.example.demo.domain.member.WrongPasswordException;
 import com.example.demo.domain.model.LoginModel;
@@ -46,8 +47,11 @@ public class MemberController extends AbstractController {
 		} catch (Exception e) {
 			if (e.getCause() instanceof MemberAlreadyExistException) {
 				addErrorMessage("MSGE1001");
-				return "/usermgmt/createMember";
 			}
+			if (e.getCause() instanceof MemberIdFormInvalidException) {
+				addErrorMessage("MSGE1013");
+			}
+			return "/usermgmt/createMember";
 		}
 		addMessage("MSGM1001");
 		return "/usermgmt/createMember";
