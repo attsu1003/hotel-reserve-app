@@ -47,5 +47,4 @@ public class RequestRePasswordController extends AbstractController {
 		request.getSession().setAttribute("mailAddress", requestRePasswordForm.getMailAddress());
 		return "/reqmail/requestRePasswordComplete";
 	}
-
 }

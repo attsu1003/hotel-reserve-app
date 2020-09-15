@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>welcome</title>
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+<link rel="stylesheet" href="/common/css/menu.css" th:href="@{/common/css/menu.css}" />
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">  
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="webjars/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script>
+
+</script>
+
+</head>
+<body class="contents">
+	<header th:replace="common/header :: header_fragment"></header>
+	<main>
+	<!-- メインビジュアル -->
+	  <div class="py-4">
+	    <div class="container">
+	      <!-- カルーセル外枠 -->
+	      <div id="main_visual" class="carousel slide" data-ride="carousel">
+	        <!-- インジケーター -->
+	        <ol class="carousel-indicators">
+	          <li data-target="#main_visual" data-slide-to="0" class="active"></li>
+	          <li data-target="#main_visual" data-slide-to="1"></li>
+	          <li data-target="#main_visual" data-slide-to="2"></li>
+	        </ol>
+	        <!-- / インジケーター -->
+	        <!-- カルーセル内枠 -->
+	        <div class="carousel-inner">
+	          <!-- スライド01 -->
+	          <div class="carousel-item active">
+	            <img class="img-fluid" th:src="@{common/image/slide_01.jpg}" alt="コーヒー写真">
+	            <div class="carousel-caption d-none d-md-block">
+	              <h2>Mr. M COFFEEのこだわり</h2>
+	              <p>店主が世界中のコーヒー豆を厳選し、コーヒー豆の種類にあわせ、心を込めて焙煎、抽出しております。</p>
+	            </div>
+	          </div>
+	          <!-- / スライド01 -->
+	          <!-- スライド02 -->
+	          <div class="carousel-item">
+	            <img class="img-fluid" th:src="@{common/image/slide_02.jpg}" alt="ランチ写真">
+	            <div class="carousel-caption d-none d-md-block">
+	              <h2>Mr. M COFFEEのメニュー</h2>
+	              <p>コーヒーはもちろん、モーニングやワンプレートランチ、季節のスイーツなどもご好評いただいております</p>
+	            </div>
+	          </div>
+	          <!-- / スライド02 -->
+	          <!-- スライド03 -->
+	          <div class="carousel-item">
+	            <img class="img-fluid" th:src="@{common/image/slide_03.jpg}" alt="店内写真">
+	            <div class="carousel-caption d-none d-md-block">
+	              <h2>Mr. M COFFEEの空間</h2>
+	              <p>座り心地の良いソファと丁度良い高さのテーブル。くつろぎの空間を満喫してください。</p>
+	            </div>
+	          </div>
+	          <!-- / スライド03 -->
+	        </div>
+	        <!-- / カルーセル内枠 -->
+	        <!-- コントローラー -->
+	        <a class="carousel-control-prev" href="#main_visual" role="button" data-slide="prev">
+	          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	          <span class="sr-only">前に戻る</span>
+	        </a>
+	        <a class="carousel-control-next" href="#main_visual" role="button" data-slide="next">
+	          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	          <span class="sr-only">次に進む</span>
+	        </a>
+	        <!-- / コントローラー -->
+	      </div>
+	      <!-- / カルーセル外枠 -->
+	    </div>
+	  </div>
+	  
+	  <!-- コンテンツ03 -->
+	  <div class="py-4">
+	    <section id="menu">
+	      <div class="container">
+	        <h3 class="mb-3">料金表</h3>
+	        <p>カフェ Mr. M COFFEEのメニューです。掲載していない季節限定メニューはMr. M COFFEEの
+	          <a href="#">ブログ</a>にて紹介しています。</p>
+	        <!-- タブ型ナビゲーション -->
+	        <div class="nav nav-tabs" id="tab-menus" role="tablist">
+	          <!-- タブ01 -->
+	          <a class="nav-item nav-link active" id="tab-menu01" data-toggle="tab" href="#panel-menu01" role="tab" aria-controls="panel-menu01" aria-selected="true">コーヒー</a>
+	          <!-- タブ02 -->
+	          <a class="nav-item nav-link" id="tab-menu02" data-toggle="tab" href="#panel-menu02" role="tab" aria-controls="panel-menu02" aria-selected="false">モーニング</a>
+	        </div>
+	        <!-- /タブ型ナビゲーション -->
+	        <!-- パネル -->
+	        <div class="tab-content" id="panel-menus">
+	          <!-- パネル01 -->
+	          <div class="tab-pane fade show active border border-top-0" id="panel-menu01" role="tabpanel" aria-labelledby="tab-menu01">
+	            <div class="row p-3">
+	              <div class="col-md-7 order-md-2">
+	                <h4>COFFEE</h4>
+	                <table class="table table-striped">
+	                  <tbody>
+	                    <tr>
+	                      <th>大人</th>
+	                      <td>7000円（税別)/1泊</td>
+	                    </tr>
+	                    <tr>
+	                      <th>子供</th>
+	                      <td>5000円（税別)/1泊</td>
+	                    </tr>
+	                  </tbody>
+	                </table>
+	              </div>
+	              <div class="col-md-5">
+	                <img th:src="@{common/image/slide_03.jpg}" alt="モーニング" class="img-fluid"> </div>
+	            </div>
+	          </div>
+	          <!-- パネル02 -->
+	          <div class="tab-pane fade border border-top-0" id="panel-menu02" role="tabpanel" aria-labelledby="tab-menu02">
+	            <div class="row p-3">
+	              <div class="col-md-7 order-md-2">
+	                <h4>MORNNING</h4>
+	                <table class="table table-striped">
+	                  <tbody>
+	                    <tr>
+	                      <th>トーストセット</th>
+	                      <td>450円（税別）</td>
+	                    </tr>
+	                    <tr>
+	                      <th>トーストゆで卵セット</th>
+	                      <td>500円（税別）</td>
+	                    </tr>
+	                    <tr>
+	                      <th>フレンチトーストセット</th>
+	                      <td>600円（税別）</td>
+	                    </tr>
+	                    <tr>
+	                      <th>野菜たっぷりスープセット</th>
+	                      <td>650円（税別）</td>
+	                    </tr>
+	                  </tbody>
+	                </table>
+	              </div>
+	              <div class="col-md-5">
+	                <img th:src="@{common/image/slide_03.jpg}" alt="モーニング" class="img-fluid"> </div>
+	            </div>
+	          </div>
+	        </div>
+	        <!-- /パネル -->
+	      </div>
+	    </section>
+	  </div>
+  <!-- /コンテンツ03 -->
+	 </main>
+	 <footer th:replace="common/footer :: footer_fragment"></footer>
+</body>
+</html>

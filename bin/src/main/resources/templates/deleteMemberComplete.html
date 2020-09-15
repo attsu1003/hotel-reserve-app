@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body class="contents">
+	<header th:replace="common/header :: header_fragment"></header>
+	<main>
+		<div class="py-3">
+			<div class="container">
+				<h3 class="mb-3">退会完了</h3>
+				<p>ご利用ありがとうございました。またのご利用をお待ちしております。</p>
+			</div>
+			<a th:href="@{/login/}" class="btn btn-primary btn-back">ログイン画面へ</a>
+		</div>
+	</main>
+	<footer th:replace="common/footer :: footer_fragment"></footer>
+</body>
+</html>

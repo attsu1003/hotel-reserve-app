@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" href="/common/css/common.css" th:href="@{/common/css/common.css}" th:maxlength="10" />
+	<title>Insert title here</title>
+
+	<style type="text/css">
+		#calendar {
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+		section {
+			margin: 10px;
+		}
+
+		h1 {
+			font-size: 18px;
+		}
+
+		table {
+			border-spacing: 0;
+			border-collapse: collapse;
+		}
+
+		td {
+			border: 1px solid #ddd;
+			padding: 5px;
+			text-align: center;
+		}
+
+		td:first-child {
+			color: red;
+		}
+
+		td:last-child {
+			color: royalblue;
+		}
+
+		td.is-disabled {
+			color: #ccc;
+		}
+
+		td.is-today {
+			background-color: #ffa500;
+		}
+	</style>
+</head>
+
+<body class="contents">
+	<header th:replace="common/header :: header_fragment"></header>
+	<main>
+		<div class="py-3">
+			<div class="container">
+				<h3 class="mb-3">空き状況照会フォーム</h3>
+				<p>○・・・空室あり  △・・・空室わずか  ×・・・空室なし</p>
+				<form method="post">
+					<input type="hidden" id="hiddenYear" name="year" value="">
+					<input type="hidden" id="hiddenMonth" name="month" value="">
+					<input type="submit" id="prev" class="btn btn-primary btn-back" value=前の月 data-action="referVacancyNextDate">
+					<input type="submit" id="next" class="btn btn-primary btn-back" value=次の月 data-action="/referVacancyNextDate">
+				</form>
+	<div id="calendar"></div>
+	<a th:href="@{/reserve/}" class="btn btn-primary btn-back">予約へ</a>
+	<a th:href="@{/menu}" class="btn btn-primary btn-back">戻る</a>
+			</div>
+		</div>
+	</main>
+	<footer th:replace="common/footer :: footer_fragment"></footer>	
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	
+	<script type="text/javascript" th:inline="javascript">
+	
+	$("#prev").click(function(){
+		month--
+		if (month < 1) {
+			year--
+			month = 12
+		}
+		$("#hiddenYear").val(year);
+		$("#hiddenMonth").val(month);
+		$(this).parents('form').attr({ "method" : "get",
+			"action" : $(this).data('action') });
+	});
+	
+	$("#next").click(function(){
+		month++
+		if (month > 12) {
+			year++
+			month = 1
+		}
+		$("#hiddenYear").val(year);
+		$("#hiddenMonth").val(month);
+		$(this).parents('form').attr({ "method" : "get",
+			"action" : $(this).data('action') });
+	});
+	
+	function moveCalendar(e) {
+		document.querySelector('#calendar').innerHTML = ''
+
+		if (e.target.id === 'prev') {
+			month--
+
+			if (month < 1) {
+				year--
+				month = 12
+			}
+		}
+
+		if (e.target.id === 'next') {
+			month++
+
+			if (month > 12) {
+				year++
+				month = 1
+			}
+		}
+
+		showCalendar(year, month)
+	}
+
+		const weeks = ['日', '月', '火', '水', '木', '金', '土']
+		const date = new Date()
+		var year = /*[[${year}]]*/
+		var month = /*[[${month}]]*/ 
+
+		function showCalendar(year, month) {
+			const calendarHtml = createCalendar(year, month)
+			const sec = document.createElement('section')
+			sec.innerHTML = calendarHtml
+			document.querySelector('#calendar').appendChild(sec)
+
+			if (month >= 12) {
+				year++
+				month = 1
+			}
+		}
+
+		function createCalendar(year, month) {
+			const startDate = new Date(year, month - 1, 1) // 月の最初の日を取得
+			const endDate = new Date(year, month, 0) // 月の最後の日を取得
+			const endDayCount = endDate.getDate() // 月の末日
+			const lastMonthEndDate = new Date(year, month - 1, 0) // 前月の最後の日の情報
+			const lastMonthendDayCount = lastMonthEndDate.getDate() // 前月の末日
+			const startDay = startDate.getDay() // 月の最初の日の曜日を取得
+			let dayCount = 1 // 日にちのカウント
+			let roomStatementCount = 0
+	        let calendarHtml = '' // HTMLを組み立てる変数
+	        var monthDays = /*[[${monthDays}]]*/
+	        var roomStatements = /*[[${roomStatements}]]*/
+	        
+			calendarHtml += '<h1>' + year + '/' + month + '</h1>'
+      		calendarHtml += '<table>'
+
+      		// 曜日の行を作成
+			for (let i = 0; i < weeks.length; i++) {
+				calendarHtml += '<td>' + weeks[i] + '</td>'
+			}
+
+			for (let w = 0; w < 6; w++) {
+				calendarHtml += '<tr>'
+
+				for (let d = 0; d < 7; d++) {
+					if (w == 0 && d < startDay) {
+						// 1行目で1日の曜日の前
+						let num = lastMonthendDayCount - startDay + d + 1
+						calendarHtml += '<td class="is-disabled">' + num + '</td>'
+					} else if (dayCount > endDayCount) {
+						// 末尾の日数を超えた
+						let num = dayCount - endDayCount
+						calendarHtml += '<td class="is-disabled">' + num + '</td>'
+						dayCount++
+						roomStatementCount++
+					} else {
+						var todayYMFlag = date.getFullYear() === year && date.getMonth() + 1 === month ? true : false; // 本日の年と月が表示されるカレンダーと同じか判定
+						var addClass = todayYMFlag && dayCount === date.getDate() ? 'is-today' : '';
+						calendarHtml += `<td class=${addClass}><font size="-1">${dayCount}<br></font><div>${roomStatements[roomStatementCount]}<div></td>`
+						roomStatementCount++
+						dayCount++
+					}
+				}
+				calendarHtml += '</tr>'
+			}
+			calendarHtml += '</table>'
+
+			return calendarHtml
+		}
+
+		showCalendar(year, month)
+	</script>
+</body>
+
+</html>

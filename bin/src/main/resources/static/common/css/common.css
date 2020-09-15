@@ -1,0 +1,83 @@
+
+@charset "UTF-8";
+/* datepicker */
+.datepicker {
+	font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	line-height:1.6;
+	color:#555;
+}
+
+.common-center{
+	text-align: center;
+}
+
+.common-margin{
+	margin: 1em 0;
+}
+
+.common-control-label{
+	padding-top: 7px;
+	margin-bottom: 0;
+}
+
+.common-required{
+	color: red;
+}
+
+.search-condition-line{
+	margin: 0.8em 0;
+	padding: 0 2em;
+}
+
+.errorMessage{
+    color: #FF0000;
+}
+.fieldError{
+    background-color: #FFCCFF;
+}
+
+.has-success .control-label{
+	color: #00FF00;
+	font-size: large;
+	font-weight: bold;
+}
+
+.has-error .control-label{
+	color: #d72132;
+	font-size: large;
+	font-weight: bold;
+}
+
+.common-block{
+	display: block;
+}
+
+.dropdown:hover > .dropdown-menu{
+  display: block;
+}
+
+.gnav {
+  flex-direction: column;
+}
+
+.has-success .form-control {
+	border-color: #a944442;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	background-color: yellow;
+}
+
+.has-error .form-control {
+	border-color: #a944442;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	background-color: yellow;
+}
+
+/*footer下部に余白ができないよう設定 */
+html,  body { margin: 0; width: 100%; height: 100%; }
+.contents { position: relative; width: 100%; height: auto !important; height: 100%; min-height: 100%; }
+header { width: 100%; height: 60px; position: fixed; }
+main { padding-top: 60px; height: 200px; }
+footer { width: 100%; height: 60px; position: absolute; bottom: 0; }
+

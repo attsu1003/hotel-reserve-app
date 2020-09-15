@@ -1,0 +1,62 @@
+create database hotelreservedb;
+
+show databases;
+
+use hotelreservedb;
+
+create table member (
+ id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+ name varchar(30) not null,
+ password VARCHAR(64) not null
+);
+
+create table member (
+ name varchar(30) NOT NULL PRIMARY KEY,
+ password VARCHAR(64) NOT NULL
+);
+
+insert into member values (1, "attsuyagimpul@gmail.com", "$2a$08$nzdN3R/bQzlH5cM/kqhk2uGDLUwL7qcHBYLiFCsk3YkwUqkKMWRja");
+create table hotelreservedb.ROOM (
+	id char(3)		not null,
+	constraint pk_reserve primary key (id)
+);
+
+commit;
+
+
+
+create table reserve (
+    id varchar(32) PRIMARY KEY,
+    plan varchar(10) not null,
+    checkindate date not null,
+    checkoutdate date not null,
+    numberofguest int not null,
+    totalhotelfee int not null,
+    memberid varchar(30) not null,
+    foreign key (memberid) references MEMBER (id)
+);  
+
+commit;
+
+insert into RESERVE values('12121212','2020/06/15','2020/06/18', '1234567' );
+
+insert into ROOM values ('101');
+insert into ROOM values ('102');
+insert into ROOM values ('103');
+insert into ROOM values ('104');
+insert into ROOM values ('105');
+insert into ROOM values ('106');
+insert into ROOM values ('107');
+insert into ROOM values ('108');
+insert into ROOM values ('109');
+insert into ROOM values ('110');
+insert into ROOM values ('111');
+insert into ROOM values ('112');
+insert into ROOM values ('113');
+insert into ROOM values ('114');
+insert into ROOM values ('115');
+insert into ROOM values ('116');
+insert into ROOM values ('117');
+insert into ROOM values ('118');
+insert into ROOM values ('119');
+insert into ROOM values ('120');

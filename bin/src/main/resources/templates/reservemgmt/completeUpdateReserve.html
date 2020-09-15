@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="/common/css/menu.css" th:href="@{/common/css/menu.css}" />
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/common/css/common.css" th:href="@{/common/css/common.css}" th:maxlength="10" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="webjars/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body class="contents">
+	<header th:replace="common/header :: header_fragment"></header>
+	<main>
+		<div class="py-3">
+			<div class="container">
+				<h3 class="mb-3">予約変更完了フォーム</h3>
+				<p>選択した予約の内容を以下の通り変更しました。</p>
+				<div class="py-3">
+					<div class="container">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-3">宿泊プラン</div>
+								<div class="col-md-9">
+									<span th:text="${completeUpdateReserveForm.plan.planName}"></span>
+								</div>
+							</div>
+						</div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-3">チェックイン日</div>
+								<div class="col-md-9">
+									<span th:text="${#dates.format(completeUpdateReserveForm.checkInDay, 'yyyy-MM-dd')}"></span>
+								</div>
+							</div>
+						</div>
+			            <div class="container">
+							<div class="row">
+								<div class="col-md-3">チェックアウト日</div>
+								<div class="col-md-9">
+									<span th:text="${#dates.format(completeUpdateReserveForm.checkOutDay, 'yyyy-MM-dd')}"></span>
+								</div>
+							</div>
+						</div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-3">宿泊人数</div>
+								<div class="col-md-9">
+									<span th:text="${completeUpdateReserveForm.numberOfGuest}"></span>
+								</div>
+							</div>
+						</div>
+						<div class="border-bottom" style="padding:10px;"></div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-3">合計料金</div>
+								<div class="col-md-9">
+									<span th:text="${completeUpdateReserveForm.totalHotelFee}"></span>
+								</div>
+							</div>
+						</div>    
+					</div>
+				</div>
+				<a th:href="@{/menu}" class="btn btn-primary btn-back">メニューへ</a>
+			</div>
+		</div>
+	</main>
+	<footer th:replace="common/footer :: footer_fragment"></footer>
+</body>
+</html>

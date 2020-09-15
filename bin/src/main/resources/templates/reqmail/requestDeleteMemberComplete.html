@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/common/css/common.css" th:href="@{/common/css/common.css}" th:maxlength="10"/>
+<title>Insert title here</title>
+</head>
+<body class="contents">
+	<header th:replace="common/header :: header_fragment"></header>
+	<main>
+		<div class="py-3">
+			<div class="container">
+				<h3 class="mb-3">退会依頼メール送信完了</h3>
+				<p>退会依頼メールの送信が完了しました。</p>
+				<p>メールの案内に従って、退会処理を行ってください。</p>
+			</div>
+			<a th:href="@{/menu}" class="btn btn-primary btn-back">ログイン画面へ</a>
+		</div>
+	</main>
+	<footer th:replace="common/footer :: footer_fragment"></footer>
+</body>
+</html>

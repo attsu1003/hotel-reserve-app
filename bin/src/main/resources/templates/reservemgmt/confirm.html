@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" href="/common/css/menu.css" th:href="@{/common/css/menu.css}" />
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="/common/css/common.css" th:href="@{/common/css/common.css}" th:maxlength="10" />
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="webjars/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+</head>
+
+<body class="contents">
+	<header th:replace="common/header :: header_fragment"></header>
+	<main>
+		<div class="py-3">
+			<div class="container">
+				<h3 class="mb-3">予約確認フォーム</h3>
+				<p>予約内容を確認してください。</p>
+				<div th:if="${hotelReserveMessages} != null">
+					<div th:each="message : ${hotelReserveMessages.messages}"
+						th:class="${message.type == 'info'} ? 'column-line has-success' : 'column-line has-error'">
+						<label th:text="${message.value}" class="control-label common-block"></label>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3">宿泊プラン</div>
+						<div class="col-md-9">
+							<span th:text="${reserveForm.plan.planName}"></span>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3">チェックイン日</div>
+						<div class="col-md-9">
+							<span th:text="${#dates.format(reserveForm.checkInDay, 'yyyy-MM-dd')}"></span>
+						</div>
+					</div>
+				</div>
+	            <div class="container">
+					<div class="row">
+						<div class="col-md-3">チェックアウト日</div>
+						<div class="col-md-9">
+							<span th:text="${#dates.format(reserveForm.checkOutDay, 'yyyy-MM-dd')}"></span>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3">宿泊人数(大人)</div>
+						<div class="col-md-9">
+							<span th:text="${reserveForm.numberOfAdultGuest}"></span>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3">宿泊人数(子供)</div>
+						<div class="col-md-9">
+							<span th:text="${reserveForm.numberOfChildrenGuest}"></span>
+						</div>
+					</div>
+				</div>
+				<div class="border-bottom" style="padding:10px;"></div>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3">合計料金</div>
+						<div class="col-md-9">
+							<span th:text="${reserveForm.totalHotelFee}"></span>
+						</div>
+					</div>
+				</div>
+				<form th:action="@{/reserveConfirm}" th:object="${reserveForm}" method="post">
+	                    <button type="submit" class="btn btn-primary">予約</button>
+						<a th:href="@{/menu}" class="btn btn-primary btn-back">戻る</a>
+				</form>      
+			</div>
+		</div>
+	 </main>
+	 <footer th:replace="common/footer :: footer_fragment"></footer>
+	<form method="post">
+	</form>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script type="text/javascript" th:inline="javascript">
+
+		$("#back").click(function () {
+			$(this).parents('form').attr({
+				"method": "get",
+				"action": $(this).data('action')
+			});
+		});
+
+		function setActionPath(element, path) {
+			$(this).parents('form').attr("action", path);
+		}
+	</script>
+</body>
+</html>

@@ -20,10 +20,6 @@ public class MenuController {
 		if(bindingResult.hasErrors()) {
 			return "login";
 		}
-//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//		String name = auth.getName();// get logged in username
-//		model.addAttribute("message", "メニュー画面");
-//		model.addAttribute("username", name);
 		System.out.println("through menu");
 		return "menu";
 	}

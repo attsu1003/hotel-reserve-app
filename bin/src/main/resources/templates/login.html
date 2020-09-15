@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+<link rel="stylesheet" href="/common/css/login.css" th:href="@{/common/css/login.css}" >
+
+<title>welcome</title>
+
+</head>
+<body id="login-background">
+	<div class="login-wrapper">
+		<div class="common-center">
+			
+			
+			<div class="row">
+			
+				<form th:action="@{/authenticate}" method="POST" th:object="${loginModel}">
+					<div class="login-input-box">
+						<h3>ログインフォーム</h3>
+						<div th:if="${param.error}" class="errorMessage">
+        					<p>ユーザー名またはパスワードが誤っています。</p>
+    					</div>
+						<div>
+							<div class="row">
+								<div class="col-md-5 col-md-offset-1"><span>ユーザ名(メールアドレス)</span></div>
+								<div class="col-md-7"><input type="email" class="form-control" th:field="*{username}" placeholder="メールアドレスを入力"></div>	
+							</div>					
+						</div>
+						<div>
+							<div class="row">
+								<div class="col-md-5 col-md-offset-1"><span>パスワード</span></div>
+								<div class="col-md-7">
+									<div th:class="${#fields.hasErrors('password')} ?  'col-md-7 has-error' : 'col-md-7'"></div>
+							 		<input type="password" class="form-control" th:field="*{password}" placeholder="パスワードを入力"> 		
+						 		</div>
+							</div>					
+							<div class="row">
+								<div class="col-md-4"></div>
+							</div>
+						</div>
+						<button type="submit" class="btn btn-primary">送信</button><br>
+						<a href="/requestCreateMember">利用者登録がまだの方はこちら</a><br>
+						<a href="/requestRePassword">パスワードを忘れた方はこちら</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<!-- 追加CSS -->
+<link rel="stylesheet" href="css/custom.css">
+<title>Contact｜カフェ Mr. M COFFEE（ミスターエムコーヒー）</title>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="/common/css/menu.css" th:href="@{/common/css/menu.css}" />
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/common/css/common.css" th:href="@{/common/css/common.css}" th:maxlength="10" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="webjars/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+</head>
+<body class="contents">
+	<header th:replace="common/header :: header_fragment"></header>
+	<!-- メイン -->
+	<main>
+	  <div class="container">
+	    <h2>Contact</h2>
+	    <p>お問合せは、こちらのフォームをご利用ください。</p>
+	  </div>
+	  <!-- お問合せフォーム -->
+	  <div class="py-3">
+	    <div class="container">
+	      <h3 class="mb-3">お問合せフォーム</h3>
+	      <!-- フォーム -->
+	      <form th:action="@{/contact}" th:object="${requestContactForm}" method="post">
+	        <!-- お名前 -->
+	        <div class="form-group row">
+	          <label for="name" class="col-md-3 col-form-label">
+	            お名前 <span class="badge badge-warning">必須</span>
+	          </label>
+	          <div class="col-md-9">
+	            <input type="text" class="form-control" id="name" th:field="*{name}" required>
+	          </div>
+	        </div>
+	        <!-- メールアドレス -->
+	        <div class="form-group row">
+	          <label for="email" class="col-md-3 col-form-label">
+	            メールアドレス <span class="badge badge-warning">必須</span>
+	          </label>
+	          <div class="col-md-9">
+	            <input type="email" class="form-control" id="email" th:field="*{mailAddress}" required placeholder="メールアドレスを入力">
+	          </div>
+	        </div>
+	        <!-- 種類 -->
+	        <div class="form-group row">
+	          <label for="category" class="col-md-3 col-form-label">
+	            お問合せ種類 <span class="badge badge-warning">必須</span>
+	          </label>
+	          <div class="col-md-9">
+	            <select class="form-control" id="category" name="category" th:field="*{category}">
+	              <option value="ご予約について">ご予約について</option>
+	              <option value="空き状況について">空き状況について</option>
+	              <option value="その他のお問合せ">その他のお問合せ</option>
+	            </select>
+	          </div>
+	        </div>
+	        <!-- 内容 -->
+	        <div class="form-group row">
+	          <label for="message" class="col-md-3 col-form-label">
+	           お問合せ内容 <span class="badge badge-warning">必須</span>
+	          </label>
+	          <div class="col-md-9">
+	            <textarea class="form-control" id="message" rows="8" name="message" th:field="*{contents}"></textarea>
+	          </div>
+	        </div>
+	        <!-- 確認ボタン -->
+	        <div class="form-group row justify-content-end">
+	          <div class="col-md-9">
+	            <input type="submit" class="btn btn-primary" value="確認する"/>
+	          </div>
+	        </div>
+	      </form>
+	      <!-- /フォーム -->
+	    </div>
+	  </div>
+	  <!-- / お問合せフォーム -->
+	</main>
+	<!-- /メイン -->
+	<footer th:replace="common/footer :: footer_fragment"></footer>
+
+<script src="js/jquery-3.3.1.slim.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
